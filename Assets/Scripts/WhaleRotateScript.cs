@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class WhaleRotateScript : MonoBehaviour
 {
+    #region Singleton
     public static WhaleRotateScript instance;
     private void Awake()
     {
-        instance = this;
+        if (instance != null)
+        {
+            Debug.LogError("More than one Whale Exists!");
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
     }
+    #endregion Singleton
 
+    public bool inRange = false;
     [Header("Setup Fields")]
     public GameObject lure;
     public RodRotationScript rod;
