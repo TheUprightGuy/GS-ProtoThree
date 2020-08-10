@@ -7,6 +7,7 @@ public class WhaleRotateScript : MonoBehaviour
     [Header("Setup Fields")]
     public GameObject lure;
     public RodRotationScript rod;
+    public GameObject body;
     #region Local Variables
     public float rotationSpeed = 0.5f;
     // Cache Variables
@@ -17,14 +18,17 @@ public class WhaleRotateScript : MonoBehaviour
     Vector3 forward = new Vector3(0, 0, 1);
     // Update Rot Countdown
     float countDown = 0.0f;
+    float currentSpeed = 0.0f;
     #endregion Local Variables
 
-
+    public float debug;
+    Vector3 roll = new Vector3(0, 0, 1);
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(forward * rod.speed * Time.deltaTime);
+        currentSpeed = Mathf.Lerp(currentSpeed, rod.speed, Time.deltaTime / 10);
+        transform.Translate(forward * currentSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed);
 
         if (countDown <= 0.0f)
@@ -33,6 +37,18 @@ public class WhaleRotateScript : MonoBehaviour
             countDown = .5f;
         }
         countDown -= Time.deltaTime;
+        
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            if (body.transform.localEulerAngles.z + Time.deltaTime * debug < 10 || body.transform.localEulerAngles.z + Time.deltaTime * debug >= 350)
+            body.transform.eulerAngles += roll * Time.deltaTime * debug;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            if (body.transform.localEulerAngles.z - Time.deltaTime * debug > 350 || body.transform.localEulerAngles.z - Time.deltaTime * debug <= 10)
+                body.transform.eulerAngles -= roll * Time.deltaTime * debug;
+        }
     }
 
     public void UpdateRot()

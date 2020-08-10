@@ -14,6 +14,7 @@ public class RodRotationScript : MonoBehaviour
     float zRot = 0.0f;
     float xRot = 0.0f;
     public float speed = 0.0f;
+    public float debug = 0.0f;
 
     // Update is called once per frame
     void Update()
@@ -29,7 +30,7 @@ public class RodRotationScript : MonoBehaviour
             else
             {
                 zRot -= Time.deltaTime * rotSpeed;
-                transform.RotateAroundLocal((Vector3.up), -Time.deltaTime);
+                transform.localEulerAngles -= new Vector3(0, Time.deltaTime * debug, 0);
             }
         }
         else if (Input.GetKey(KeyCode.D))
@@ -41,7 +42,7 @@ public class RodRotationScript : MonoBehaviour
             else
             {
                 zRot += Time.deltaTime * rotSpeed;
-                transform.RotateAroundLocal((Vector3.up), Time.deltaTime);
+                transform.localEulerAngles += new Vector3(0, Time.deltaTime * debug, 0);
             }
         }
         
@@ -54,8 +55,7 @@ public class RodRotationScript : MonoBehaviour
             else
             {
                 xRot -= Time.deltaTime * rotSpeed;
-                transform.RotateAroundLocal((Vector3.right), -Time.deltaTime);
-                lure.transform.Translate(new Vector3(0, 0, 1) * Time.deltaTime, Space.World);
+                transform.localEulerAngles -= new Vector3(Time.deltaTime * debug, 0, 0);
             }
         }
         else if (Input.GetKey(KeyCode.S))
@@ -67,8 +67,7 @@ public class RodRotationScript : MonoBehaviour
             else
             {
                 xRot += Time.deltaTime * rotSpeed;
-                transform.RotateAroundLocal((Vector3.right), Time.deltaTime);
-                lure.transform.Translate(new Vector3(0, 0, -1) * Time.deltaTime, Space.World);
+                transform.localEulerAngles += new Vector3(Time.deltaTime * debug, 0, 0);
             }
         }
     }

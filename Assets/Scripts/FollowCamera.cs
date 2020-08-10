@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    public Transform target;
-    public Vector3 target_Offset;
-    private void Start()
+    public GameObject target;
+    public float speed = 5;
+
+    Vector3 offset;
+
+    void Start()
     {
-        target_Offset = transform.position - target.position;
+        offset = target.transform.position - transform.position;
     }
-    void Update()
+
+    void LateUpdate()
     {
-        if (target)
-        {
-            transform.position = Vector3.Lerp(transform.position, target.position + target_Offset, Time.deltaTime);
-        }
+        // Look
+        var newRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, speed * Time.deltaTime);
+
+        // Move
+        Vector3 newPosition = target.transform.position - target.transform.forward * offset.z - target.transform.up * offset.y;
+        transform.position = Vector3.Slerp(transform.position, newPosition, Time.deltaTime * speed);
     }
 }
