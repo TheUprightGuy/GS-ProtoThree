@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class WhaleRotateScript : MonoBehaviour
 {
+    public static WhaleRotateScript instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     [Header("Setup Fields")]
     public GameObject lure;
     public RodRotationScript rod;
@@ -18,7 +24,7 @@ public class WhaleRotateScript : MonoBehaviour
     Vector3 forward = new Vector3(0, 0, 1);
     // Update Rot Countdown
     float countDown = 0.0f;
-    float currentSpeed = 0.0f;
+    public float currentSpeed = 0.0f;
     #endregion Local Variables
 
     public float debug;
