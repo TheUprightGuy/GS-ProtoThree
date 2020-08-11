@@ -9,7 +9,8 @@ public class RodRotationScript : MonoBehaviour
     public float speedLimit = 0.4f;
     [Header("Setup Fields")]
     public GameObject lure;
-    [HideInInspector] public float rotSpeed = 1.0f;
+    //[HideInInspector]
+    public float rotSpeed = 1.0f;
     // Local Vars
     float zRot = 0.0f;
     float xRot = 0.0f;
