@@ -51,7 +51,8 @@ public class WhaleMovementScript : MonoBehaviour
     #region Setup
     private void Start()
     {
-        whaleInfo = CallbackHandler.instance.whaleInfo;    
+        whaleInfo = CallbackHandler.instance.whaleInfo;
+        whaleInfo.whale = this.gameObject;
     }
     #endregion Setup
 
