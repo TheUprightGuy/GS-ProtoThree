@@ -22553,18 +22553,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c01c09d59d14d44cb07059095036bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whaleBody: {fileID: 1960292637833913237}
-  originalPos: {fileID: 1033858002}
-  playerCamPos: {fileID: 1960292638643322581}
-  originalRot: {x: 0, y: 0, z: 0, w: 0}
-  target: {fileID: 0}
-  zoomIn: 0
-  zoomOut: 0
-  speed: 5
-  rotating: 0
-  currentDistance: 16
-  minDistance: 0.6
-  maxDistance: 40
+  target: {fileID: 1960292637833913243}
+  distance: 2
+  xSpeed: 2
+  ySpeed: 1
+  yMinLimit: -60
+  yMaxLimit: 60
+  distanceMin: 10
+  distanceMax: 10
 --- !u!1 &1960292638876270512
 GameObject:
   m_ObjectHideFlags: 0
