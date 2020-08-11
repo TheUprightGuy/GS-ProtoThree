@@ -15,10 +15,10 @@ public class ParticleSpeedScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float alpha = WhaleMovementScript.instance.currentSpeed / 100;
+        float alpha = WhaleMovementScript.instance.currentSpeed / 200;
         //Debug.Log(alpha);
         ps.startColor = new Color(ps.startColor.r, ps.startColor.g, ps.startColor.b, alpha);
-        ps.startLifetime = alpha * 100;
+        ps.startLifetime = alpha * 200;
 
     }
 }
