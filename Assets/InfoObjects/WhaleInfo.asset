@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leashed: 0
   whale: {fileID: 0}
-  target: {fileID: 0}
+  currentThought: 3
+  hunger: 78.27258
+  hungerModifier: 1.25
+  weight: 0

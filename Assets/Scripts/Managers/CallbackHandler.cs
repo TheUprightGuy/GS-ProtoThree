@@ -29,12 +29,26 @@ public class CallbackHandler : MonoBehaviour
         whaleInfo.ResetOnPlay();
     }
 
+    private void Update()
+    {
+        whaleInfo.UpdateHunger(Time.deltaTime/2);
+    }
+
     public event Action<bool> landingTooltip;
     public void LandingTooltip(bool _toggle)
     {
         if (landingTooltip != null)
         {
             landingTooltip(_toggle);
+        }
+    }
+
+    public event Action<GameObject> setQuestObjective;
+    public void SetQuestObjective(GameObject _target)
+    {
+        if (setQuestObjective != null)
+        {
+            setQuestObjective(_target);
         }
     }
 }

@@ -14,6 +14,18 @@ public class CompassScript : MonoBehaviour
     public Transform pin;
     public Transform target;
 
+    #region Callbacks
+    private void Start()
+    {
+        CallbackHandler.instance.setQuestObjective += SetQuestTracker;
+    }
+
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.setQuestObjective -= SetQuestTracker;
+    }
+    #endregion Callbacks
+
     private void Update()
     {
         UpdateTarget();
@@ -26,5 +38,10 @@ public class CompassScript : MonoBehaviour
 
         Vector3 dir = target.position - transform.position;
         pin.transform.rotation = Quaternion.LookRotation(dir);
+    }
+
+    public void SetQuestTracker(GameObject _target)
+    {
+        target = _target.transform;
     }
 }

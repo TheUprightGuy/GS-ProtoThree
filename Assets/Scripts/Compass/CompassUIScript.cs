@@ -11,7 +11,19 @@ public class CompassUIScript : MonoBehaviour
     public RectTransform northLayer;
     public RectTransform targetLayer;
     public Transform target;
-    
+
+    #region Callbacks
+    private void Start()
+    {
+        CallbackHandler.instance.setQuestObjective += SetQuestTracker;
+    }
+
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.setQuestObjective -= SetQuestTracker;
+    }
+    #endregion Callbacks
+
     private void Update()
     {   
         UpdateUI();      
@@ -29,5 +41,10 @@ public class CompassUIScript : MonoBehaviour
         targetDirection.x = 0;
         targetDirection.y = 0;
         targetLayer.localRotation = targetDirection;
+    }
+
+    public void SetQuestTracker(GameObject _target)
+    {
+        target = _target.transform;
     }
 }

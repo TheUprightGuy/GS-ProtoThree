@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class ResourceDisplayScript : MonoBehaviour
 {
+    #region Singleton
+    public static ResourceDisplayScript instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogError("More than one ResourceDisplay exists!");
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion Singleton
+
     // temp
     int supplies;
     int suppliesMax;
@@ -32,14 +48,6 @@ public class ResourceDisplayScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             AddProvisions(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            SpendSupplies(1);
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            SpendProvisions(1);
         }
     }
 
