@@ -113,7 +113,7 @@ public class WhaleMovementScript : MonoBehaviour
     {
         if (other.CompareTag("Birds"))
         {
-            ThoughtsScript.instance.SatisfyThought(Thought.Food);
+            whaleInfo.FeedWhale();
         }
     }
 }
