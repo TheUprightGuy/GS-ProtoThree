@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 7761969125969172175}
   - component: {fileID: 7761969125969172168}
   - component: {fileID: 7761969125969172169}
+  - component: {fileID: 555818032462460568}
   m_Layer: 0
   m_Name: ObjectiveIsland
   m_TagString: Untagged
@@ -204,6 +205,19 @@ MonoBehaviour:
   playerSpawn: {fileID: 0}
   maxDistance: 250
   minDistance: 75
+--- !u!114 &555818032462460568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7761969125969172170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a3eaeaef5e6f44ea7a9b4e9179c244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whaleInfo: {fileID: 11400000, guid: 10640c6c4ae509e4fa017b4504ae6780, type: 2}
 --- !u!1 &7761969127132841262
 GameObject:
   m_ObjectHideFlags: 0

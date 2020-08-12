@@ -59,7 +59,7 @@ namespace Audio
                 AddAudioSourceToDictionary(audioSource);
             }
 
-            _soundsUnrestricted = new List<string> {"ui"};
+            _soundsUnrestricted = new List<string> {};
             
             if (!randomlyCycleMusic) return;
             _audioSource.loop = false;
@@ -176,7 +176,18 @@ namespace Audio
         {
             masterVolume = _slider.value / 10f;
             _musicSource.volume = _musicDefaultVolume * masterVolume;
-            PlaySound("ui");
+            PlaySound("crackle");
+            foreach (var layer in ambientLayers)
+            {
+                layer.GetComponent<AmbientLayer>().soundInfo.Reset(masterVolume);
+            }
+
+            foreach (var sound in soundDictionary)
+            {
+                var curSoundInfo = sound.Value;
+                var curAs = curSoundInfo.AudioSource;
+                if (curAs.isPlaying) curAs.volume = curSoundInfo.VolumeDefault * masterVolume;
+            }
         }
     
 

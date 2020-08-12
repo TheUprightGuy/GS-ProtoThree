@@ -8,4 +8,5 @@ public class GameState : ScriptableObject
 {
     public bool inMenu;
     public bool gamePaused;
+    public bool inCinematic = false;
 }

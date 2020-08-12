@@ -4,10 +4,42 @@ using UnityEngine;
 
 public class EstablishingCamController : MonoBehaviour
 {
+    public GameObject menuVCam;
+    public GameObject menuToEstablishingBlendList;
+    public GameObject establishingShotBlendList;
     // Start is called before the first frame update
     void Start()
     {
-        EventHandler.instance.startEstablishingShot += () => transform.GetChild(0).gameObject.SetActive(true);
-        EventHandler.instance.play += () => transform.GetChild(0).gameObject.SetActive(false);
+        EventHandler.instance.menuClosed += OnMenuClosed;
+        EventHandler.instance.startEstablishingShot += OnStartEstablishingShot;
+        EventHandler.instance.endEstablishingShot += OnEndEstablishingShot;
+        EventHandler.instance.menuOpened += OnMenuOpened;
+    }
+
+    private void OnMenuClosed()
+    {
+        menuToEstablishingBlendList.SetActive(true);
+        EventHandler.instance.gameState.inCinematic = true;
+    }
+    
+    private void OnMenuOpened()
+    {
+        menuToEstablishingBlendList.SetActive(false);
+        establishingShotBlendList.SetActive(false);
+        menuVCam.SetActive(true);
+    }
+    
+    private void OnStartEstablishingShot()
+    {
+        establishingShotBlendList.SetActive(true);
+        menuVCam.SetActive(false);
+        menuToEstablishingBlendList.SetActive(false);
+        EventHandler.instance.gameState.inCinematic = true;
+    }
+    
+    private void OnEndEstablishingShot()
+    {
+        establishingShotBlendList.SetActive(false);
+        EventHandler.instance.gameState.inCinematic = false;
     }
 }

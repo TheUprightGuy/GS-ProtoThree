@@ -27,22 +27,25 @@ public class EventHandler : MonoBehaviour
     
     public GameState gameState;
     public float establishingShotDuration;
+    public float menuToEstablishingDuration;
+    public Action menuClosed;
     public Action startEstablishingShot;
-    public Action play;
+    public Action endEstablishingShot;
+    public Action menuOpened;
     public GameObject stageEndCanvas;
 
     private void OnAwake()
     {
         gameState.inMenu = true;
         gameState.gamePaused = true;
+        gameState.inCinematic = false;
     }
 
     private void Update()
     {
-        //Temp remove when menu's complete
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Escape) && !gameState.inCinematic)
         {
-            OnPlayPressed();
+            menuOpened?.Invoke();
         }
     }
 
@@ -50,6 +53,13 @@ public class EventHandler : MonoBehaviour
     {
         Debug.Log("Starting shot");
         gameState.inMenu = false;
+        StartCoroutine(MenuToEstablishingShot());
+        menuClosed?.Invoke();
+    }
+    
+    private IEnumerator MenuToEstablishingShot()
+    {
+        yield return new WaitForSeconds(menuToEstablishingDuration);
         StartCoroutine(WaitForEstablishingShot());
         startEstablishingShot?.Invoke();
     }
@@ -58,7 +68,7 @@ public class EventHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(establishingShotDuration);
         gameState.gamePaused = false;
-        play?.Invoke();
+        endEstablishingShot?.Invoke();
     }
 
     public void OnEndTriggered()
