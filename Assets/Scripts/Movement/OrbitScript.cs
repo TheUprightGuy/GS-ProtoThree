@@ -14,6 +14,11 @@ public class OrbitScript : MonoBehaviour
     [HideInInspector] public float initialSlerp = 0.0f;
     WhaleInfo whaleInfo;
 
+
+    public float radius = 2.0f;
+    public float radiusSpeed = 0.5f;
+    public float rotationSpeed = 80.0f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,6 +46,11 @@ public class OrbitScript : MonoBehaviour
             {
                 transform.rotation = Quaternion.LookRotation(path);
             }
+
+            /*transform.RotateAround(leashObject.transform.position, axis, rotationSpeed * Time.deltaTime);
+            var desiredPosition = (transform.position - leashObject.transform.position).normalized * radius + leashObject.transform.position;
+            transform.position = Vector3.MoveTowards(transform.position, desiredPosition, Time.deltaTime * radiusSpeed);*/
+            //transform.rotation = Quaternion.LookRotation(desiredPosition);
         }
     }
 

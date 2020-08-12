@@ -43,6 +43,16 @@ public class CallbackHandler : MonoBehaviour
         }
     }
 
+    public event Action<bool> toggleShop;
+    public void ToggleShop(bool _toggle)
+    {
+        if (toggleShop != null)
+        {
+            toggleShop(_toggle);
+        }
+    }
+
+
     public event Action<GameObject> setQuestObjective;
     public void SetQuestObjective(GameObject _target)
     {

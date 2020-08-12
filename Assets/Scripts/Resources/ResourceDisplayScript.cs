@@ -21,11 +21,11 @@ public class ResourceDisplayScript : MonoBehaviour
     #endregion Singleton
 
     // temp
-    int supplies;
-    int suppliesMax;
+    [HideInInspector] public int supplies;
+    [HideInInspector] public int suppliesMax;
     float suppliesPercentage;
-    int provisions;
-    int provisionsMax;
+    [HideInInspector] public int provisions;
+    [HideInInspector] public int provisionsMax;
     float provisionsPercentage;
 
     public List<GameObject> supplyObjs;
