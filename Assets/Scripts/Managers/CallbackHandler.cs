@@ -28,6 +28,11 @@ public class CallbackHandler : MonoBehaviour
         whaleInfo.ResetOnPlay();
     }
 
+    private void Update()
+    {
+        whaleInfo.UpdateHunger(Time.deltaTime/2);
+    }
+
     public event Action<bool> landingTooltip;
     public void LandingTooltip(bool _toggle)
     {

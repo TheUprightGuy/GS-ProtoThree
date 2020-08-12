@@ -94,7 +94,7 @@ public class WhaleMovementScript : MonoBehaviour
     {
         if (!whaleInfo.leashed)
         {
-            rb.MovePosition(transform.position + transform.forward * currentSpeed * Time.deltaTime);
+            rb.MovePosition(transform.position + transform.forward * currentSpeed * whaleInfo.hungerModifier * Time.deltaTime);
         }
     }
 
@@ -113,8 +113,7 @@ public class WhaleMovementScript : MonoBehaviour
     {
         if (other.CompareTag("Birds"))
         {
-            // IF WE WANT BIRD EATING HERE
-            Debug.Log("CHOMP");
+            ThoughtsScript.instance.SatisfyThought(Thought.Food);
         }
     }
 }
