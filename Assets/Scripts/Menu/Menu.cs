@@ -17,9 +17,9 @@ namespace Menu
 
         public void OnPlayPressed()
         {
+            EventHandler.instance.OnPlayPressed();
             AudioManager.instance.PlaySound("crackle");
             AudioManager.instance.StopSound("loopingCampFire");
-            _gameState.inMenu = false;
         }
     }
 }

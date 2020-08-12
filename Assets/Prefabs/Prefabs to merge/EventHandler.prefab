@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: dd23a39c12561f34687d053dbc16841e, type: 2}
+  establishingShotDuration: 18
+  stageEndCanvas: {fileID: 0}

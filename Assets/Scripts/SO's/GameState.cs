@@ -7,4 +7,5 @@ using UnityEngine;
 public class GameState : ScriptableObject
 {
     public bool inMenu;
+    public bool gamePaused;
 }
