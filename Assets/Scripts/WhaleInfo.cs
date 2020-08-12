@@ -20,10 +20,4 @@ public class WhaleInfo : ScriptableObject
     {
         leashed = _toggle;
     }
-
-    public void GetAngle()
-    {
-        Vector3 dir = whale.transform.position - target.transform.position;
-
-    }
 }

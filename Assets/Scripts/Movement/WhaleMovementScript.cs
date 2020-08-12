@@ -27,7 +27,7 @@ public class WhaleMovementScript : MonoBehaviour
     public GameObject body;
     private Rigidbody rb;
     [HideInInspector] public OrbitScript orbit;
-    WhaleInfo whaleInfo;
+    public WhaleInfo whaleInfo;
     [Header("Upgrade Fields")]
     public float turnSpeed = 20;
     public float moveSpeed = 1;
@@ -106,6 +106,15 @@ public class WhaleMovementScript : MonoBehaviour
             myPos = new Vector3(transform.position.x, 0, transform.position.z);
             _direction = (lurePos - myPos).normalized;
             _lookRotation = Quaternion.LookRotation(_direction);
+        }
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (other.CompareTag("Birds"))
+        {
+            // IF WE WANT BIRD EATING HERE
+            Debug.Log("CHOMP");
         }
     }
 }
