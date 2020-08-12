@@ -104,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 726737636749380461}
   - component: {fileID: 726737636749380460}
+  - component: {fileID: 685287301}
   m_Layer: 0
   m_Name: Noise Density
   m_TagString: Untagged
@@ -150,6 +151,21 @@ MonoBehaviour:
   hardFloorHeight: 5
   hardFloorWeight: 1
   shaderParams: {x: 1, y: 0, z: 0, w: 0}
+--- !u!114 &685287301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726737636749380459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef1ea11f31861c4cb2795e0b11eb07b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GradCount: 3
+  maxSize: 6
+  minSize: 3
 --- !u!1 &726737636761502975
 GameObject:
   m_ObjectHideFlags: 0

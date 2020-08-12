@@ -62,5 +62,7 @@ public class Chunk : MonoBehaviour {
         }
 
         meshRenderer.material = mat;
+
+        transform.localScale = new Vector3(1, -1, 1);
     }
 }
