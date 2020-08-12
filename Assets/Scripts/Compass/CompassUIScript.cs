@@ -11,7 +11,7 @@ public class CompassUIScript : MonoBehaviour
     public RectTransform northLayer;
     public RectTransform targetLayer;
     public Transform target;
-
+    
     private void Update()
     {   
         UpdateUI();      

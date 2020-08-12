@@ -59,6 +59,7 @@ public class WhaleMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(EventHandler.instance.gameState.gamePaused) return;
         currentSpeed = Mathf.Lerp(currentSpeed, rod.speed * moveSpeed, Time.deltaTime * accelSpeed);
 
         if (countDown <= 0.0f)

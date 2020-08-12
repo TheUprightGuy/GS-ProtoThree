@@ -51,7 +51,7 @@ MonoBehaviour:
   masterVolume: 1
   randomlyCycleMusic: 1
   playAmbientSounds: 1
-  ambientSoundTimer: 15
+  ambientSoundTimer: 30
   audioSources:
   - {fileID: 5009061559020794629}
   - {fileID: 4675055221845101396}

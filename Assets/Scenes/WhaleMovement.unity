@@ -5623,6 +5623,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 555818032462460568, guid: 48b12416ca6f85848b7e06b694581bd9,
+        type: 3}
+      propertyPath: whaleInfo
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7761969125969172169, guid: 48b12416ca6f85848b7e06b694581bd9,
         type: 3}
       propertyPath: playerSpawn
@@ -17164,7 +17169,6 @@ GameObject:
   - component: {fileID: 1960292637638951986}
   - component: {fileID: 1960292637638951983}
   - component: {fileID: 1960292637638951982}
-  - component: {fileID: 1960292637638951988}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -17273,18 +17277,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1960292637638951988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960292637638951981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a9f65f546216a245bf1c53e3be4c849, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1960292637783069502
 GameObject:
   m_ObjectHideFlags: 0

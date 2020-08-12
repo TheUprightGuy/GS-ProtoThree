@@ -17,13 +17,14 @@ public class CallbackHandler : MonoBehaviour
         else
         {
             instance = this;
+            OnAwake();
         }
     }
     #endregion Singleton
 
     public WhaleInfo whaleInfo;
 
-    private void Start()
+    private void OnAwake()
     {
         whaleInfo.ResetOnPlay();
     }
