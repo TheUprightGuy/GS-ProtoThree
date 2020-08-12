@@ -32,6 +32,8 @@ public class UIScalePingPong : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(Camera.main.transform.position, Vector3.up);    
+
         if (showMe)
         {
             ShowMe();
@@ -65,7 +67,7 @@ public class UIScalePingPong : MonoBehaviour
     public void ShowMe()
     {
         scalar += Time.deltaTime * 4;
-        scale.localScale = new Vector3(scalar, scalar, 1.0f);
+        scale.localScale = new Vector3(-scalar, scalar, 1.0f);
         if (scalar >= maxScalar + 2.5f)
         {
             scalar = maxScalar + 2.5f;
@@ -78,11 +80,11 @@ public class UIScalePingPong : MonoBehaviour
     public void HideMe()
     {
         scalar -= Time.deltaTime * 4;
-        scale.localScale = new Vector3(scalar, scalar, 1.0f);
+        scale.localScale = new Vector3(-scalar, scalar, 1.0f);
         if (scalar <= 0)
         {
             scalar = 0;
-            scale.localScale = new Vector3(scalar, scalar, 1.0f);
+            scale.localScale = new Vector3(-scalar, scalar, 1.0f);
             hideMe = false;
             ready = false;
         }
@@ -93,7 +95,7 @@ public class UIScalePingPong : MonoBehaviour
         scalar = Mathf.PingPong(timer / 2, maxScalar) + 2.5f;
         timer += Time.deltaTime;
 
-        scale.localScale = new Vector3(scalar, scalar, 1.0f);
+        scale.localScale = new Vector3(-scalar, scalar, 1.0f);
 
         upTime -= Time.deltaTime;
         if (upTime <= 0.0f)

@@ -70,6 +70,7 @@ public class WhaleInfo : ScriptableObject
         whale = null;
         target = null;
         hunger = 69.0f; // LMAO
+        weight = 0.0f;
         currentThought = Thought.None;
     }
 
