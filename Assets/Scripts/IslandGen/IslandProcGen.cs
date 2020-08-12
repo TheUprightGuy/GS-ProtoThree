@@ -4,11 +4,7 @@ using UnityEngine;
 
 
 
-public struct Gradient
-{
-    public Vector2 Position;
-    public float size;
-}
+
 [ExecuteAlways]
 public class IslandProcGen : MonoBehaviour
 {
@@ -30,7 +26,7 @@ public class IslandProcGen : MonoBehaviour
     Vector3 axisB;
 
 
-    public List<Gradient> PeakLists = new List<Gradient>();
+    public List<GradientMask> PeakLists = new List<GradientMask>();
 
 
     private SimplexNoiseGenerator noiseGenerator;
@@ -62,7 +58,7 @@ public class IslandProcGen : MonoBehaviour
         float noise = noiseGenerator.coherentNoise(_x, 1, _y, octaves, multiplier, amplitude, lacunarity, persistence);
 
 
-        Gradient testGrad = new Gradient();
+        GradientMask testGrad = new GradientMask();
         testGrad.size = 1.0f;
         testGrad.Position = new Vector2(0.0f, 0.0f);
 
