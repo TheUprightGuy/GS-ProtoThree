@@ -24,7 +24,7 @@ public class IslandTrigger : MonoBehaviour
         if (player)
         {
             player.inRange = false;
-            player.orbit.leashObject = null;
+            //player.orbit.leashObject = null;
 
             CallbackHandler.instance.LandingTooltip(false);
         }
