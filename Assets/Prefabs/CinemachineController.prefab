@@ -549,7 +549,7 @@ MonoBehaviour:
   - {fileID: 254854893838063598}
   m_Instructions:
   - m_VirtualCamera: {fileID: 254854892246605141}
-    m_Hold: 3
+    m_Hold: 0
     m_Blend:
       m_Style: 0
       m_Time: 0
