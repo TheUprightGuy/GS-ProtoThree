@@ -7,7 +7,6 @@ public class WhaleInfo : ScriptableObject
 {
     public bool leashed = false;
     public GameObject whale;
-    public GameObject target;
 
     public Thought currentThought;
 
@@ -68,7 +67,6 @@ public class WhaleInfo : ScriptableObject
     {
         leashed = false;
         whale = null;
-        target = null;
         hunger = 69.0f; // LMAO
         weight = 0.0f;
         currentThought = Thought.None;

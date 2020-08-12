@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ca59709b7ec2641b75f8e80d59f9bc, type: 3}
   m_Name: WhaleInfo
   m_EditorClassIdentifier: 
-  leashed: 1
+  leashed: 0
+  whale: {fileID: 0}
+  currentThought: 3
+  hunger: 78.27258
+  hungerModifier: 1.25
+  weight: 0

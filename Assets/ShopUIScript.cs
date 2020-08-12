@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CompassTarget : MonoBehaviour
+public class ShopUIScript : MonoBehaviour
 {
-    WhaleInfo whaleInfo;
     // Start is called before the first frame update
     void Start()
     {
-        whaleInfo = CallbackHandler.instance.whaleInfo;
-        whaleInfo.target = this.gameObject;
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

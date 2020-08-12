@@ -41,4 +41,13 @@ public class CallbackHandler : MonoBehaviour
             landingTooltip(_toggle);
         }
     }
+
+    public event Action<GameObject> setQuestObjective;
+    public void SetQuestObjective(GameObject _target)
+    {
+        if (setQuestObjective != null)
+        {
+            setQuestObjective(_target);
+        }
+    }
 }
