@@ -124,7 +124,7 @@ public class FollowCamera : MonoBehaviour
                 // Clamp Y Rotation
                 y = ClampAngle(y, yMinLimit, yMaxLimit);
                 // Set Camera Rotation
-                Quaternion rotation = Quaternion.Euler(y, x, 0);
+                Quaternion rotation = Quaternion.Euler(y, x, currentCam.eulerAngles.z);
 
                 // Calc pos w/ new currentDistance
                 Vector3 position = target.position - (rotation * Vector3.forward * distance);
