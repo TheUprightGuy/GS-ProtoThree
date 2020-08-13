@@ -31,7 +31,7 @@ public class OrbitScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (whaleInfo.leashed)
+        if (whaleInfo.leashed && leashObject)
         {
             objToIsland = leashObject.transform.position - transform.position;
             path = Vector3.Normalize(Vector3.Cross(objToIsland, axis));
@@ -56,9 +56,13 @@ public class OrbitScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (whaleInfo.leashed)
+        if (whaleInfo.leashed && leashObject)
         {
             rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
+        }
+        if (!leashObject)
+        {
+            whaleInfo.leashed = false;
         }
     }
 }

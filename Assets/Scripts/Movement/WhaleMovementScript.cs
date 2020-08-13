@@ -58,7 +58,6 @@ public class WhaleMovementScript : MonoBehaviour
     #endregion Setup
 
     public Vector3 desiredRoll;
-    public Vector3 accumulatedRoll = Vector3.zero;
     public float myRoll = 0.0f;
 
     // Update is called once per frame
@@ -102,8 +101,15 @@ public class WhaleMovementScript : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            whaleInfo.ToggleLeashed(!whaleInfo.leashed);
-            orbit.initialSlerp = 2.1f;
+            if (inRange)
+            {
+                whaleInfo.ToggleLeashed(!whaleInfo.leashed);
+                orbit.initialSlerp = 2.1f;
+            }
+            else
+            {
+                whaleInfo.ToggleLeashed(false);
+            }
         }
     }
 
