@@ -47,6 +47,10 @@ public class WhaleMovementScript : MonoBehaviour
     // Update Rot Countdown
     float countDown = 0.0f;
     public float currentSpeed = 0.0f;
+    public float islandMod = 0.0f;
+    public float distance;
+    public float maxDistance;
+    public float angle;
     #endregion Local Variables
     #region Setup
     private void Start()
@@ -117,7 +121,32 @@ public class WhaleMovementScript : MonoBehaviour
     {
         if (!whaleInfo.leashed)
         {
-            rb.MovePosition(transform.position + transform.forward * currentSpeed * whaleInfo.hungerModifier * Time.deltaTime);
+            rb.MovePosition(transform.position + transform.forward * currentSpeed * islandMod * whaleInfo.hungerModifier * Time.deltaTime);
+        }
+
+        if (inRange)
+        {
+            // Direction from pos to island
+            Vector3 dir = (orbit.leashObject.transform.position - transform.position);
+            angle = Vector3.Angle(dir, transform.forward);
+            if (angle < 45.0f)
+            {
+                distance = Vector3.Distance(transform.position, orbit.leashObject.transform.position);
+                float perc = distance / (maxDistance / 1.5f);
+                islandMod = perc - 1;
+            }
+            else
+            {
+                islandMod = (angle - 45) / 45;
+                if (islandMod > 1.0f)
+                {
+                    islandMod = 1.0f;
+                }
+            }
+        }
+        else
+        {
+            islandMod = 1.0f;
         }
     }
 
