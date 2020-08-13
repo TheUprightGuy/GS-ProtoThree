@@ -103,7 +103,7 @@ public class WhaleMovementScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             whaleInfo.ToggleLeashed(!whaleInfo.leashed);
-            orbit.initialSlerp = 1.7f;
+            orbit.initialSlerp = 2.1f;
         }
     }
 

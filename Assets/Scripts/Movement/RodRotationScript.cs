@@ -20,6 +20,7 @@ public class RodRotationScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (EventHandler.instance.gameState.gamePaused) return;
         speed = -xRot / speedLimit + 1.5f;
 
         if (Input.GetKey(KeyCode.A))

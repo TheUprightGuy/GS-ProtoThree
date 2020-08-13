@@ -44,7 +44,7 @@ public class OrbitScript : MonoBehaviour
             }
             else
             {
-                transform.rotation = Quaternion.LookRotation(path);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(path), Time.deltaTime * 5);
             }
 
             /*transform.RotateAround(leashObject.transform.position, axis, rotationSpeed * Time.deltaTime);
