@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class FollowCamera : MonoBehaviour
 {
@@ -77,15 +78,22 @@ public class FollowCamera : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                timer = 1.5f;
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    Debug.Log("Clicked on the UI");
+                }
+                else
+                {
+                    timer = 1.5f;
 
-                transform.RotateAround(target.position,
-                                                Vector3.up,
-                                                Input.GetAxis("Mouse X") * xSpeed);
+                    transform.RotateAround(target.position,
+                                                    Vector3.up,
+                                                    Input.GetAxis("Mouse X") * xSpeed);
 
-                transform.RotateAround(target.position,
-                                                transform.right,
-                                                -Input.GetAxis("Mouse Y") * ySpeed);
+                    transform.RotateAround(target.position,
+                                                    transform.right,
+                                                    -Input.GetAxis("Mouse Y") * ySpeed);
+                }
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward

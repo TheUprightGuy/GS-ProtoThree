@@ -83,7 +83,11 @@ public class WhaleMovementScript : MonoBehaviour
             }
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed));
         }
-
+        else
+        {
+            if (body.transform.localEulerAngles.z - Time.deltaTime * turnSpeed > 350 || body.transform.localEulerAngles.z - Time.deltaTime * turnSpeed <= 10)
+                body.transform.eulerAngles -= roll * Time.deltaTime * turnSpeed;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             whaleInfo.ToggleLeashed(!whaleInfo.leashed);

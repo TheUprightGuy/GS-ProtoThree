@@ -47,11 +47,11 @@ public class ShopUIScript : MonoBehaviour
     public void ShowMe()
     {
         scalar += Time.deltaTime * 4;
-        scale.localScale = new Vector3(-scalar, scalar, 1.0f);
+        scale.localScale = new Vector3(scalar, scalar, 1.0f);
         if (scalar >= 1.0f)
         {
             scalar = 1.0f;
-            scale.localScale = new Vector3(-scalar, scalar, 1.0f);
+            scale.localScale = new Vector3(scalar, scalar, 1.0f);
             ready = true;
         }
     }
@@ -59,11 +59,11 @@ public class ShopUIScript : MonoBehaviour
     public void HideMe()
     {
         scalar -= Time.deltaTime * 4;
-        scale.localScale = new Vector3(-scalar, scalar, 1.0f);
+        scale.localScale = new Vector3(scalar, scalar, 1.0f);
         if (scalar <= 0.0f)
         {
             scalar = 0.0f;
-            scale.localScale = new Vector3(-scalar, scalar, 1.0f);
+            scale.localScale = new Vector3(scalar, scalar, 1.0f);
             ready = true;
         }
     }
