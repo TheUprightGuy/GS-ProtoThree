@@ -53,8 +53,13 @@ public class WhaleMovementScript : MonoBehaviour
     {
         whaleInfo = CallbackHandler.instance.whaleInfo;
         whaleInfo.whale = this.gameObject;
+        desiredRoll = body.transform.eulerAngles;
     }
     #endregion Setup
+
+    public Vector3 desiredRoll;
+    public Vector3 accumulatedRoll = Vector3.zero;
+    public float myRoll = 0.0f;
 
     // Update is called once per frame
     void Update()
@@ -73,15 +78,22 @@ public class WhaleMovementScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A))
             {
-                if (body.transform.localEulerAngles.z + Time.deltaTime * turnSpeed < 10 || body.transform.localEulerAngles.z + Time.deltaTime * turnSpeed >= 350)
-                    body.transform.eulerAngles += roll * Time.deltaTime * turnSpeed;
+                if (myRoll + Time.deltaTime * turnSpeed < 10)
+                {
+                    myRoll += Time.deltaTime * turnSpeed;
+                }
             }
             if (Input.GetKey(KeyCode.D))
             {
-                if (body.transform.localEulerAngles.z - Time.deltaTime * turnSpeed > 350 || body.transform.localEulerAngles.z - Time.deltaTime * turnSpeed <= 10)
-                    body.transform.eulerAngles -= roll * Time.deltaTime * turnSpeed;
+                if (myRoll - Time.deltaTime * turnSpeed > -10)
+                {
+                    myRoll -= Time.deltaTime * turnSpeed;
+                }
             }
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed));
+
+            desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
+            body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
         }
         else
         {
