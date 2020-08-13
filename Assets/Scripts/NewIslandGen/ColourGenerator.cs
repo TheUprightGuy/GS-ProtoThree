@@ -21,14 +21,15 @@ public class ColourGenerator : MonoBehaviour {
         Init ();
         UpdateTexture ();
 
-        MeshGenerator m = FindObjectOfType<MeshGenerator> ();
-
-        float boundsY = m.boundsSize * m.numChunks.y;
+        MeshRenderer m = GetComponent<MeshRenderer> ();
+        MeshFilter mf = GetComponent<MeshFilter>();
+        float boundsY = mf.sharedMesh.bounds.size.y * transform.position.y;
 
         mat.SetFloat ("boundsY", boundsY);
         mat.SetFloat ("normalOffsetWeight", normalOffsetWeight);
-
+        mat.SetVector("pos", transform.position);
         mat.SetTexture ("ramp", texture);
+        m.sharedMaterial = mat;
     }
 
     void UpdateTexture () {
