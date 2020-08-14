@@ -8,9 +8,17 @@ public class SkyboxBlender : MonoBehaviour
     public float count;
     public float blendSpeed = 1.0f;
 
+    public Color color1;
+    public Color color2;
+    public Color color;
+
+    public Light light;
+
     void Start()
     {
         material.SetFloat("_Blend", 0f);
+        color1 = material.GetColor("_Tint1");
+        color2 = material.GetColor("_Tint2");
     }
 
     void Update()
@@ -19,6 +27,8 @@ public class SkyboxBlender : MonoBehaviour
 
         blend = Mathf.PingPong(count, 1.0f);
         material.SetFloat("_Blend", blend);
+        color = Color.Lerp(color1, color2, blend);
+        light.color = color;
     }
 }
 

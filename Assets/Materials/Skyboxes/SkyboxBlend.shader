@@ -13,7 +13,7 @@
 		Tags { "Queue" = "Background" }
 		Cull Off
 		Fog { Mode Off }
-		Lighting Off
+		Lighting On
 		Color[_Tint]
 		Pass {
 			SetTexture[_Skybox1] { combine texture }

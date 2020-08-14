@@ -56,11 +56,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Skybox1:
-        m_Texture: {fileID: 8900000, guid: 2a802f96d8b69c54f875c6774ded8bee, type: 3}
+        m_Texture: {fileID: 8900000, guid: ccb68ade68522574e998af2b16029bdb, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Skybox2:
-        m_Texture: {fileID: 8900000, guid: 090a15be680b75d4a8c7328f0eb4ef44, type: 3}
+        m_Texture: {fileID: 8900000, guid: 60f6bf6320289a6498f82530c1fcfd51, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2:
@@ -68,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Blend: 0.5901835
+    - _Blend: 0.9840888
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -88,6 +88,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Tint: {r: 0, g: 0, b: 0, a: 0.4745098}
-    - _Tint1: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 0.5}
-    - _Tint2: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0.5}
+    - _Tint: {r: 1, g: 1, b: 1, a: 0.4745098}
+    - _Tint1: {r: 1, g: 0.872586, b: 0.8066038, a: 0.15686275}
+    - _Tint2: {r: 0.8824085, g: 0.8160377, b: 1, a: 0.14117648}
