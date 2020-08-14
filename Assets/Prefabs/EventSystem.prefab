@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4965585545307325908}
   - component: {fileID: 4965585545307325909}
   - component: {fileID: 4965585545307325914}
+  - component: {fileID: 1099517591274941011}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -66,3 +67,16 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+--- !u!114 &1099517591274941011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4965585545307325915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d57ae39b9fd64e44ca8f2f6541cc98be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whaleInfo: {fileID: 11400000, guid: 10640c6c4ae509e4fa017b4504ae6780, type: 2}
