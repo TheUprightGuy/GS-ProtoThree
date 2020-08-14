@@ -35,7 +35,7 @@ public class CompassScript : MonoBehaviour
     {
         northDirection.y = player.eulerAngles.y;
         compass.localEulerAngles = northDirection;
-
+        if (target == null) return;
         Vector3 dir = target.position - transform.position;
         pin.transform.rotation = Quaternion.LookRotation(dir);
     }
