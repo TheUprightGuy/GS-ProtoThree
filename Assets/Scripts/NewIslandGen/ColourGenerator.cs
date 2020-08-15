@@ -17,7 +17,7 @@ public class ColourGenerator : MonoBehaviour {
         }
     }
 
-    void Update () {
+    void OnValidate () {
         Init ();
         UpdateTexture ();
 
