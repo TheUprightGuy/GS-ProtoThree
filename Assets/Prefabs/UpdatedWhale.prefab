@@ -4544,7 +4544,7 @@ MonoBehaviour:
   body: {fileID: 8323822555882968382}
   orbit: {fileID: 0}
   whaleInfo: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 6001074814157010875}
   turnSpeed: 10
   moveSpeed: 1
   accelSpeed: 1
