@@ -4,23 +4,16 @@ using UnityEngine;
 
 public class OrbitScript : MonoBehaviour
 {
-    [Header("Debug Fields")]
-    public GameObject leashObject;
-    Vector3 axis = new Vector3(0,1,0);
     Vector3 objToIsland;
     Vector3 path;
     Quaternion lookRot;
     Rigidbody rb;
-    [HideInInspector] public float initialSlerp = 0.0f;
     WhaleInfo whaleInfo;
+    [HideInInspector] public GameObject leashObject;
+    [HideInInspector] public float initialSlerp = 0.0f;
+    [HideInInspector] public int orbitDirection = 1;
 
-
-    public float radius = 2.0f;
-    public float radiusSpeed = 0.5f;
-    public float rotationSpeed = 80.0f;
-
-    public int orbitDirection = 1;
-
+    #region Setup
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,6 +22,7 @@ public class OrbitScript : MonoBehaviour
     {
         whaleInfo = CallbackHandler.instance.whaleInfo;
     }
+    #endregion Setup
 
     public void SetOrbitDirection()
     {
@@ -36,7 +30,6 @@ public class OrbitScript : MonoBehaviour
         // Direction from pos to island
         Vector3 dir = (leashObject.transform.position - transform.position);
         Vector3 path = Vector3.Normalize(Vector3.Cross(dir, Vector3.up));
-        //path = new Vector3(path.x, 0, path.z);
 
         if (Vector3.Dot(transform.forward, path) >= 0.0f)
         {
@@ -56,7 +49,7 @@ public class OrbitScript : MonoBehaviour
         if (whaleInfo.leashed && leashObject)
         {
             objToIsland = leashObject.transform.position - transform.position;
-            path = Vector3.Normalize(Vector3.Cross(objToIsland, axis));
+            path = Vector3.Normalize(Vector3.Cross(objToIsland, Vector3.up));
             path = new Vector3(path.x * orbitDirection, 0, path.z * orbitDirection);
 
             if (initialSlerp > 0)
@@ -68,11 +61,6 @@ public class OrbitScript : MonoBehaviour
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(path), Time.deltaTime * 5);
             }
-
-            /*transform.RotateAround(leashObject.transform.position, axis, rotationSpeed * Time.deltaTime);
-            var desiredPosition = (transform.position - leashObject.transform.position).normalized * radius + leashObject.transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, desiredPosition, Time.deltaTime * radiusSpeed);*/
-            //transform.rotation = Quaternion.LookRotation(desiredPosition);
         }
     }
 

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class CompassUIScript : MonoBehaviour
 {
-    public Vector3 northDirection;
+    [Header("Required Fields")]
     public Transform player;
-    public Quaternion targetDirection;
-
     public RectTransform northLayer;
     public RectTransform targetLayer;
-    public Transform target;
+    // Local Variables
+    Vector3 northDirection;
+    Quaternion targetDirection;
+    [HideInInspector] public Transform target;
 
     #region Callbacks
     private void Start()

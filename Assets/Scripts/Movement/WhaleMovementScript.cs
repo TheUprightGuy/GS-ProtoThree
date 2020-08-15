@@ -27,31 +27,32 @@ public class WhaleMovementScript : MonoBehaviour
     public GameObject body;
     private Rigidbody rb;
     [HideInInspector] public OrbitScript orbit;
-    public WhaleInfo whaleInfo;
+    [HideInInspector] public WhaleInfo whaleInfo;
     public Animator animator;
     [Header("Upgrade Fields")]
-    public float turnSpeed = 20;
     public float moveSpeed = 1;
     public float accelSpeed = 1;
-    [Header("Debug Fields")]
-    public bool inRange = false;
-    
-    [Header("Local Variables")]
+    [HideInInspector] public float rollSpeed = 20;
+    [HideInInspector] public bool inRange = false;
+
     #region Local Variables
-    public float rotationSpeed = 0.5f;
+    [Header("Local Variables")]
+    public float rotationSpeed = 0.2f;
     // Cache Variables
     Vector3 lurePos;
     Vector3 myPos;
     Vector3 _direction;
     Quaternion _lookRotation;
-    Vector3 roll = new Vector3(0, 0, 1);
     // Update Rot Countdown
     float countDown = 0.0f;
-    public float currentSpeed = 0.0f;
-    public float islandMod = 0.0f;
-    public float distance;
-    public float maxDistance;
-    public float angle;
+    [HideInInspector] public float currentSpeed = 0.0f;
+    float islandMod = 0.0f;
+    float distance;
+    [HideInInspector] public float maxDistance;
+    float angle;
+    Vector3 desiredRoll;
+    float myRoll = 0.0f;
+    float movement = 0.0f;
     #endregion Local Variables
     #region Setup
     private void Start()
@@ -67,11 +68,6 @@ public class WhaleMovementScript : MonoBehaviour
         CallbackHandler.instance.orbit -= Orbit;
     }
     #endregion Setup
-
-    public Vector3 desiredRoll;
-    public float myRoll = 0.0f;
-    public float movement = 0.0f;
-
 
     // Update is called once per frame
     void Update()
@@ -93,16 +89,16 @@ public class WhaleMovementScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A))
             {
-                if (myRoll + Time.deltaTime * turnSpeed < 10)
+                if (myRoll + Time.deltaTime * rollSpeed < 10)
                 {
-                    myRoll += Time.deltaTime * turnSpeed;
+                    myRoll += Time.deltaTime * rollSpeed;
                 }
             }
             if (Input.GetKey(KeyCode.D))
             {
-                if (myRoll - Time.deltaTime * turnSpeed > -10)
+                if (myRoll - Time.deltaTime * rollSpeed > -10)
                 {
-                    myRoll -= Time.deltaTime * turnSpeed;
+                    myRoll -= Time.deltaTime * rollSpeed;
                 }
             }
             rb.MoveRotation(Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed));
@@ -120,16 +116,16 @@ public class WhaleMovementScript : MonoBehaviour
 
             if (orbit.orbitDirection == 1)
             {
-                if (myRoll - Time.deltaTime * turnSpeed > -10)
+                if (myRoll - Time.deltaTime * rollSpeed > -10)
                 {
-                    myRoll -= Time.deltaTime * turnSpeed;
+                    myRoll -= Time.deltaTime * rollSpeed;
                 }
             }
             else
             {
-                if (myRoll + Time.deltaTime * turnSpeed < 10)
+                if (myRoll + Time.deltaTime * rollSpeed < 10)
                 {
-                    myRoll += Time.deltaTime * turnSpeed;
+                    myRoll += Time.deltaTime * rollSpeed;
                 }
             }
             desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
