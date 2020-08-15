@@ -28,6 +28,7 @@ public class WhaleMovementScript : MonoBehaviour
     private Rigidbody rb;
     [HideInInspector] public OrbitScript orbit;
     public WhaleInfo whaleInfo;
+    public Animator animator;
     [Header("Upgrade Fields")]
     public float turnSpeed = 20;
     public float moveSpeed = 1;
@@ -69,10 +70,15 @@ public class WhaleMovementScript : MonoBehaviour
 
     public Vector3 desiredRoll;
     public float myRoll = 0.0f;
+    public float movement = 0.0f;
+
 
     // Update is called once per frame
     void Update()
     {
+        movement = (currentSpeed * islandMod) / 2.0f;
+        animator.SetFloat("Movement", movement);
+
         if(EventHandler.instance.gameState.gamePaused) return;
         currentSpeed = Mathf.Lerp(currentSpeed, rod.speed * moveSpeed, Time.deltaTime * accelSpeed);
 

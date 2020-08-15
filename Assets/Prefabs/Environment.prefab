@@ -654,10 +654,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vertexCount: 40
-  lineWidth: 0.2
+  lineWidth: 0.3
   radius: 0
   lineRenderer: {fileID: 0}
-  material: {fileID: 0}
+  material: {fileID: 2100000, guid: ccdec2b323559c04d9454c4e9a079413, type: 2}
 --- !u!1 &812312641813982917
 GameObject:
   m_ObjectHideFlags: 0

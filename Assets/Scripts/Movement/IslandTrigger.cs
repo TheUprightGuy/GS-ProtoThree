@@ -21,6 +21,8 @@ public class IslandTrigger : MonoBehaviour
         {
             lineRenderer = gameObject.AddComponent(typeof(LineRenderer)) as LineRenderer;
             lineRenderer.material = material;
+            lineRenderer.positionCount = 0;
+            lineRenderer.loop = true;
         }
     }
 
