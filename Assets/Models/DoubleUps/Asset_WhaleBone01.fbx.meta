@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b7f8736b42100d74bb032614ba462d74
+guid: 492145b4f3dd5864c9b9e10c1a4acbf7
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
@@ -7,18 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: group1_polySurface1Mat
-    second: {fileID: 2100000, guid: 00a0595b3aa8c5b48ba83378a08c424c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: group1_polySurface7Mat
-    second: {fileID: 2100000, guid: 00a0595b3aa8c5b48ba83378a08c424c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: polySurface9_group1Mat
-    second: {fileID: 2100000, guid: 00a0595b3aa8c5b48ba83378a08c424c, type: 2}
+      name: lambert14
+    second: {fileID: 2100000, guid: deb89147fcb57d74998147fa9f8b1494, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
