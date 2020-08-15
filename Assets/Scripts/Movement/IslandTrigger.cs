@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IslandTrigger : MonoBehaviour
 {
+    public bool playerInRange = false;
     public int vertexCount = 40;
     public float lineWidth = 0.2f;
     public float radius;
@@ -41,6 +42,7 @@ public class IslandTrigger : MonoBehaviour
 
         if (player)
         {
+            playerInRange = true;
             player.inRange = true;
             player.maxDistance = GetComponent<SphereCollider>().bounds.extents.x;
             player.orbit.leashObject = this.gameObject;
@@ -65,6 +67,7 @@ public class IslandTrigger : MonoBehaviour
 
         if (player)
         {
+            playerInRange = false;
             player.inRange = false;
             //player.orbit.leashObject = null;
             //lineRenderer.positionCount = 0;
