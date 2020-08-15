@@ -89,6 +89,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419808252870086
 GameObject:
   m_ObjectHideFlags: 0
@@ -4934,6 +4940,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419809120330720
 GameObject:
   m_ObjectHideFlags: 0
@@ -4991,6 +5003,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419809141710488
 GameObject:
   m_ObjectHideFlags: 0
@@ -5048,6 +5066,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419809347401674
 GameObject:
   m_ObjectHideFlags: 0
@@ -5105,6 +5129,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 2100000, guid: ccdec2b323559c04d9454c4e9a079413, type: 2}
 --- !u!1 &4378419809353981360
 GameObject:
   m_ObjectHideFlags: 0
@@ -5205,6 +5235,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419809431609795
 GameObject:
   m_ObjectHideFlags: 0
@@ -5262,6 +5298,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419809599312704
 GameObject:
   m_ObjectHideFlags: 0
@@ -5319,6 +5361,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419809657841468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5376,6 +5424,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419809667848846
 GameObject:
   m_ObjectHideFlags: 0
@@ -5433,6 +5487,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419809681368011
 GameObject:
   m_ObjectHideFlags: 0
@@ -5490,6 +5550,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &4378419809738267357
 GameObject:
   m_ObjectHideFlags: 0
@@ -5547,6 +5613,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1001 &4378419807688160965
 PrefabInstance:
   m_ObjectHideFlags: 0
