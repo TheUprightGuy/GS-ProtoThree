@@ -19,6 +19,8 @@ public class OrbitScript : MonoBehaviour
     public float radiusSpeed = 0.5f;
     public float rotationSpeed = 80.0f;
 
+    public int orbitDirection = 1;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,14 +30,34 @@ public class OrbitScript : MonoBehaviour
         whaleInfo = CallbackHandler.instance.whaleInfo;
     }
 
+    public void SetOrbitDirection()
+    {
+        initialSlerp = 2.1f;
+        // Direction from pos to island
+        Vector3 dir = (leashObject.transform.position - transform.position);
+        Vector3 path = Vector3.Normalize(Vector3.Cross(dir, Vector3.up));
+        //path = new Vector3(path.x, 0, path.z);
+
+        if (Vector3.Dot(transform.forward, path) >= 0.0f)
+        {
+            orbitDirection = 1;
+        }
+        else
+        {
+            orbitDirection = -1;
+        }
+
+        leashObject.GetComponent<IslandTrigger>().ToggleLeashed(true);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (whaleInfo.leashed)
+        if (whaleInfo.leashed && leashObject)
         {
             objToIsland = leashObject.transform.position - transform.position;
             path = Vector3.Normalize(Vector3.Cross(objToIsland, axis));
-            path = new Vector3(path.x, 0, path.z);
+            path = new Vector3(path.x * orbitDirection, 0, path.z * orbitDirection);
 
             if (initialSlerp > 0)
             {
@@ -44,7 +66,7 @@ public class OrbitScript : MonoBehaviour
             }
             else
             {
-                transform.rotation = Quaternion.LookRotation(path);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(path), Time.deltaTime * 5);
             }
 
             /*transform.RotateAround(leashObject.transform.position, axis, rotationSpeed * Time.deltaTime);
@@ -56,9 +78,13 @@ public class OrbitScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (whaleInfo.leashed)
+        if (whaleInfo.leashed && leashObject)
         {
             rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
+        }
+        if (!leashObject)
+        {
+            whaleInfo.leashed = false;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class FollowCamera : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class FollowCamera : MonoBehaviour
 
     bool zoomIn = false;
     bool zoomOut = false;
+    bool rotating = false;
 
     float timer = 0.0f;
     float lerpTimer = 0.0f;
@@ -75,8 +77,26 @@ public class FollowCamera : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    Debug.Log("Clicked on the UI");
+                    rotating = false;
+                }
+                else
+                {
+                    rotating = true;
+                }
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                rotating = false;
+            }
+
+            if (Input.GetMouseButton(0) && rotating)
+            {  
                 timer = 1.5f;
 
                 transform.RotateAround(target.position,
@@ -85,7 +105,7 @@ public class FollowCamera : MonoBehaviour
 
                 transform.RotateAround(target.position,
                                                 transform.right,
-                                                -Input.GetAxis("Mouse Y") * ySpeed);
+                                                -Input.GetAxis("Mouse Y") * ySpeed);       
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
@@ -101,7 +121,6 @@ public class FollowCamera : MonoBehaviour
 
             if (timer <= 0.0f)
             {
-
                 float targetRotationAngle = currentCam.eulerAngles.y;
                 float currentRotationAngle = transform.eulerAngles.y;
                 x = Mathf.LerpAngle(currentRotationAngle, targetRotationAngle, 5 * Time.deltaTime);
@@ -116,7 +135,7 @@ public class FollowCamera : MonoBehaviour
                 // Clamp Y Rotation
                 y = ClampAngle(y, yMinLimit, yMaxLimit);
                 // Set Camera Rotation
-                Quaternion rotation = Quaternion.Euler(y, x, 0);
+                Quaternion rotation = Quaternion.Euler(y, x, currentCam.eulerAngles.z);
 
                 // Calc pos w/ new currentDistance
                 Vector3 position = target.position - (rotation * Vector3.forward * distance);
