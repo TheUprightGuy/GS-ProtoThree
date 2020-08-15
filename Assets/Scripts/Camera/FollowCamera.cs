@@ -27,6 +27,7 @@ public class FollowCamera : MonoBehaviour
 
     bool zoomIn = false;
     bool zoomOut = false;
+    bool rotating = false;
 
     float timer = 0.0f;
     float lerpTimer = 0.0f;
@@ -76,24 +77,35 @@ public class FollowCamera : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 if (EventSystem.current.IsPointerOverGameObject())
                 {
                     Debug.Log("Clicked on the UI");
+                    rotating = false;
                 }
                 else
                 {
-                    timer = 1.5f;
-
-                    transform.RotateAround(target.position,
-                                                    Vector3.up,
-                                                    Input.GetAxis("Mouse X") * xSpeed);
-
-                    transform.RotateAround(target.position,
-                                                    transform.right,
-                                                    -Input.GetAxis("Mouse Y") * ySpeed);
+                    rotating = true;
                 }
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                rotating = false;
+            }
+
+            if (Input.GetMouseButton(0) && rotating)
+            {  
+                timer = 1.5f;
+
+                transform.RotateAround(target.position,
+                                                Vector3.up,
+                                                Input.GetAxis("Mouse X") * xSpeed);
+
+                transform.RotateAround(target.position,
+                                                transform.right,
+                                                -Input.GetAxis("Mouse Y") * ySpeed);       
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
@@ -109,7 +121,6 @@ public class FollowCamera : MonoBehaviour
 
             if (timer <= 0.0f)
             {
-
                 float targetRotationAngle = currentCam.eulerAngles.y;
                 float currentRotationAngle = transform.eulerAngles.y;
                 x = Mathf.LerpAngle(currentRotationAngle, targetRotationAngle, 5 * Time.deltaTime);

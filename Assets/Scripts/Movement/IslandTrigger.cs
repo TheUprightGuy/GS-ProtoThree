@@ -9,6 +9,7 @@ public class IslandTrigger : MonoBehaviour
     public float radius;
 
     public LineRenderer lineRenderer;
+    public Material material;
     private Color lerpColor;
     private bool lerp;
     private float lerpTimer;
@@ -16,6 +17,11 @@ public class IslandTrigger : MonoBehaviour
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        if (!lineRenderer)
+        {
+            lineRenderer = gameObject.AddComponent(typeof(LineRenderer)) as LineRenderer;
+            lineRenderer.material = material;
+        }
     }
 
     private void Update()
@@ -67,27 +73,33 @@ public class IslandTrigger : MonoBehaviour
 
     public void SetupCircle(float _radius, float _y)
     {
-        radius = _radius;
-        lineRenderer.widthMultiplier = lineWidth;
-
-        float deltaTheta = (2f * Mathf.PI) / vertexCount;
-        float theta = 0f;
-
-        lineRenderer.positionCount = vertexCount;
-        for (int i = 0; i < lineRenderer.positionCount; i++)
+        if (lineRenderer)
         {
-            Vector3 pos = new Vector3(transform.position.x + radius * Mathf.Cos(theta), _y, transform.position.z + radius * Mathf.Sin(theta));
-            lineRenderer.SetPosition(i, pos);
-            theta += deltaTheta;
+            radius = _radius;
+            lineRenderer.widthMultiplier = lineWidth;
+
+            float deltaTheta = (2f * Mathf.PI) / vertexCount;
+            float theta = 0f;
+
+            lineRenderer.positionCount = vertexCount;
+            for (int i = 0; i < lineRenderer.positionCount; i++)
+            {
+                Vector3 pos = new Vector3(transform.position.x + radius * Mathf.Cos(theta), _y, transform.position.z + radius * Mathf.Sin(theta));
+                lineRenderer.SetPosition(i, pos);
+                theta += deltaTheta;
+            }
         }
     }
 
     public void BlendLineColor()
     {
-        lineRenderer.material.color = Color.Lerp(lineRenderer.material.color, lerpColor, Time.deltaTime);
-        if (lerpTimer <= 0)
+        if (lineRenderer)
         {
-            lerp = false;
+            lineRenderer.material.color = Color.Lerp(lineRenderer.material.color, lerpColor, Time.deltaTime);
+            if (lerpTimer <= 0)
+            {
+                lerp = false;
+            }
         }
     }
 

@@ -653,6 +653,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &812312641813982917
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +716,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 2100000, guid: ccdec2b323559c04d9454c4e9a079413, type: 2}
 --- !u!114 &812312641813982915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,6 +943,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e32b90c31a8864478262b0c36918699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vertexCount: 40
+  lineWidth: 0.2
+  radius: 0
+  lineRenderer: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &812312642708475357
 GameObject:
   m_ObjectHideFlags: 0
