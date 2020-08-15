@@ -19,6 +19,8 @@ public class OrbitScript : MonoBehaviour
     public float radiusSpeed = 0.5f;
     public float rotationSpeed = 80.0f;
 
+    public int orbitDirection = 1;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,7 +37,7 @@ public class OrbitScript : MonoBehaviour
         {
             objToIsland = leashObject.transform.position - transform.position;
             path = Vector3.Normalize(Vector3.Cross(objToIsland, axis));
-            path = new Vector3(path.x, 0, path.z);
+            path = new Vector3(path.x * orbitDirection, 0, path.z * orbitDirection);
 
             if (initialSlerp > 0)
             {

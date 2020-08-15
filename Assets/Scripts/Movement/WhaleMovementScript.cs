@@ -100,8 +100,22 @@ public class WhaleMovementScript : MonoBehaviour
         }
         else
         {
-            if (body.transform.localEulerAngles.z - Time.deltaTime * turnSpeed > 350 || body.transform.localEulerAngles.z - Time.deltaTime * turnSpeed <= 10)
-                body.transform.eulerAngles -= roll * Time.deltaTime * turnSpeed;
+            if (orbit.orbitDirection == 1)
+            {
+                if (myRoll - Time.deltaTime * turnSpeed > -10)
+                {
+                    myRoll -= Time.deltaTime * turnSpeed;
+                }
+            }
+            else
+            {
+                if (myRoll + Time.deltaTime * turnSpeed < 10)
+                {
+                    myRoll += Time.deltaTime * turnSpeed;
+                }
+            }
+            desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
+            body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -109,6 +123,19 @@ public class WhaleMovementScript : MonoBehaviour
             {
                 whaleInfo.ToggleLeashed(!whaleInfo.leashed);
                 orbit.initialSlerp = 2.1f;
+                // Direction from pos to island
+                Vector3 dir = (orbit.leashObject.transform.position - transform.position);
+                Vector3 path = Vector3.Normalize(Vector3.Cross(dir, Vector3.up));
+                //path = new Vector3(path.x, 0, path.z);
+                
+                if (Vector3.Dot(transform.forward, path) >= 0.0f)
+                {
+                    orbit.orbitDirection = 1;
+                }
+                else
+                {
+                    orbit.orbitDirection = -1;
+                }
             }
             else
             {
