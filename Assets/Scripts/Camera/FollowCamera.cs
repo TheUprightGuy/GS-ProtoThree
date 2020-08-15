@@ -78,12 +78,11 @@ public class FollowCamera : MonoBehaviour
                 transform.RotateAround(target.position, Vector3.up, Input.GetAxis("Mouse X") * xSpeed);
                 transform.RotateAround(target.position, transform.right, -Input.GetAxis("Mouse Y") * ySpeed);       
             }
-
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f){
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f && !EventHandler.instance.gameState.gamePaused){
                 zoomIn = true;
                 zoomOut = false;
             }
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f){
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f && !EventHandler.instance.gameState.gamePaused){
                 zoomOut = true;
                 zoomIn = false;
             }

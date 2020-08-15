@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Audio;
 using UnityEngine;
 
 public class EventHandler : MonoBehaviour
@@ -45,6 +46,8 @@ public class EventHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !gameState.inCinematic)
         {
+            gameState.inMenu = true;
+            gameState.gamePaused = true;
             menuOpened?.Invoke();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,14 @@ public class EstablishingCamController : MonoBehaviour
         EventHandler.instance.startEstablishingShot += OnStartEstablishingShot;
         EventHandler.instance.endEstablishingShot += OnEndEstablishingShot;
         EventHandler.instance.menuOpened += OnMenuOpened;
+    }
+
+    private void OnDestroy()
+    {
+        EventHandler.instance.menuClosed -= OnMenuClosed;
+        EventHandler.instance.startEstablishingShot -= OnStartEstablishingShot;
+        EventHandler.instance.endEstablishingShot -= OnEndEstablishingShot;
+        EventHandler.instance.menuOpened -= OnMenuOpened;
     }
 
     private void OnMenuClosed()
@@ -41,5 +50,6 @@ public class EstablishingCamController : MonoBehaviour
     {
         establishingShotBlendList.SetActive(false);
         EventHandler.instance.gameState.inCinematic = false;
+        Destroy(gameObject);
     }
 }

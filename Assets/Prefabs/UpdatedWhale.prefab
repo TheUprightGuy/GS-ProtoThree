@@ -6575,8 +6575,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8323822556045924042}
-  m_LocalRotation: {x: 0.18978702, y: -0.000000016893654, z: 0.0000000032655467, w: 0.9818253}
-  m_LocalPosition: {x: 0, y: 5, z: -12.450001}
+  m_LocalRotation: {x: 0.16422154, y: 0.4994935, z: -0.09706794, w: 0.8450535}
+  m_LocalPosition: {x: -1.1775346, y: 2.358, z: 1.0200005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8323822555882968383}
@@ -6646,17 +6646,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 7543656128377098943}
-  currentCam: {fileID: 0}
   playerCam: {fileID: 8323822556204996631}
   whaleCam: {fileID: 8323822556431542960}
   whale: {fileID: 7543656128377098943}
-  distance: 2
-  xSpeed: 10
-  ySpeed: 2
-  yMinLimit: -60
-  yMaxLimit: 60
-  distanceMin: 0.5
-  distanceMax: 13
 --- !u!114 &8323822556045924052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7097,9 +7089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d59a7b9599ed74e8f761231a627c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showMe: 0
-  ready: 0
-  scalar: 0
   scale: {fileID: 8323822555090369601}
 --- !u!1 &8323822556359194100
 GameObject:

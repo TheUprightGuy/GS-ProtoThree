@@ -166,6 +166,7 @@ public class WhaleMovementScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(EventHandler.instance.gameState.gamePaused) return;
         if (!whaleInfo.leashed)
         {
             rb.MovePosition(transform.position + transform.forward * currentSpeed * islandMod * whaleInfo.hungerModifier * Time.deltaTime);

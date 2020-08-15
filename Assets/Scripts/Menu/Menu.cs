@@ -1,5 +1,7 @@
 ﻿using Audio;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Menu
 {
@@ -7,20 +9,32 @@ namespace Menu
     {
         private GameState _gameState;
         public GameObject menuCanvas;
+        public GameObject playButton;
         // Start is called before the first frame update
         void Start()
         {
             _gameState = EventHandler.instance.gameState;
             //On start menu will always be open except for testing
             _gameState.inMenu = true;
-            AudioManager.instance.PlaySound("loopingCampFire");
             EventHandler.instance.menuOpened += () => menuCanvas.SetActive(true);
         }
 
         public void OnPlayPressed()
         {
             EventHandler.instance.OnPlayPressed();
-            AudioManager.instance.StopSound("loopingCampFire");
+            PlayUISound();
+            playButton.GetComponent<TextMeshProUGUI>().text = "RESUME";
+            playButton.GetComponent<Button>().onClick.RemoveListener(OnPlayPressed);
+            playButton.GetComponent<Button>().onClick.AddListener(OnResumePressed);
+            playButton.name = "RESUME";
+            menuCanvas.SetActive(false);
+        }
+
+        private void OnResumePressed()
+        {
+            PlayUISound();
+            EventHandler.instance.gameState.gamePaused = false;
+            EventHandler.instance.gameState.inMenu = false;
         }
 
         public void OnQuitPressed()
