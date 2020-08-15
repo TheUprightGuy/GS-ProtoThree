@@ -5,44 +5,33 @@ using UnityEngine.EventSystems;
 
 public class FollowCamera : MonoBehaviour
 {
+    Transform currentCam;
+    [Header("Required Fields")]
     public Transform target;
-    public Transform currentCam;
-
     public Transform playerCam;
     public Transform whaleCam;
     public Transform whale;
 
-    public float distance = 5.0f;
-    public float xSpeed = 120.0f;
-    public float ySpeed = 120.0f;
-
-    public float yMinLimit = -20f;
-    public float yMaxLimit = 80f;
-
-    public float distanceMin = .5f;
-    public float distanceMax = 13f;
-
-    float x = 0.0f;
-    float y = 0.0f;
-
-    bool zoomIn = false;
-    bool zoomOut = false;
+    #region LocalVariables
+    float distance = 2.0f;
+    float xSpeed = 10.0f, ySpeed = 2.0f;
+    float yMinLimit = -60.0f, yMaxLimit = 60.0f;
+    float distanceMin = 0.5f, distanceMax = 13.0f;
+    float x = 0.0f, y = 0.0f;
+    bool zoomIn = false, zoomOut = false;
     bool rotating = false;
-
-    float timer = 0.0f;
-    float lerpTimer = 0.0f;
-
-    // Use this for initialization
+    float timer = 0.0f, lerpTimer = 0.0f;
+    #endregion LocalVariables
+    #region Setup
     void Start()
     {
         Vector3 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;
-
         distance = distanceMax;
-
         currentCam = whaleCam;
     }
+    #endregion Setup
 
     void LateUpdate()
     {
@@ -77,44 +66,24 @@ public class FollowCamera : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (EventSystem.current.IsPointerOverGameObject())
-                {
-                    Debug.Log("Clicked on the UI");
-                    rotating = false;
-                }
-                else
-                {
-                    rotating = true;
-                }
-            }
+            if (Input.GetMouseButtonDown(0)){
+                rotating = (EventSystem.current.IsPointerOverGameObject()) ? false : true;}
 
-            if (Input.GetMouseButtonUp(0))
-            {
-                rotating = false;
-            }
+            if (Input.GetMouseButtonUp(0)){
+                rotating = false;}
 
             if (Input.GetMouseButton(0) && rotating)
             {  
                 timer = 1.5f;
-
-                transform.RotateAround(target.position,
-                                                Vector3.up,
-                                                Input.GetAxis("Mouse X") * xSpeed);
-
-                transform.RotateAround(target.position,
-                                                transform.right,
-                                                -Input.GetAxis("Mouse Y") * ySpeed);       
+                transform.RotateAround(target.position, Vector3.up, Input.GetAxis("Mouse X") * xSpeed);
+                transform.RotateAround(target.position, transform.right, -Input.GetAxis("Mouse Y") * ySpeed);       
             }
 
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
-            {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f){
                 zoomIn = true;
                 zoomOut = false;
             }
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backward
-            {
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f){
                 zoomOut = true;
                 zoomIn = false;
             }
@@ -126,30 +95,19 @@ public class FollowCamera : MonoBehaviour
                 x = Mathf.LerpAngle(currentRotationAngle, targetRotationAngle, 5 * Time.deltaTime);
                 targetRotationAngle = currentCam.eulerAngles.x;
                 currentRotationAngle = transform.eulerAngles.x;
-                if (currentRotationAngle > 90)
-                {
-                    currentRotationAngle -= 360.0f;
-                }
+                if (currentRotationAngle > 90){ currentRotationAngle -= 360.0f;}
 
                 y = Mathf.LerpAngle(currentRotationAngle, targetRotationAngle, 5 * Time.deltaTime);
                 // Clamp Y Rotation
                 y = ClampAngle(y, yMinLimit, yMaxLimit);
                 // Set Camera Rotation
                 Quaternion rotation = Quaternion.Euler(y, x, currentCam.eulerAngles.z);
-
                 // Calc pos w/ new currentDistance
                 Vector3 position = target.position - (rotation * Vector3.forward * distance);
                 Vector3 adjust = Vector3.Lerp(transform.position, position, 5 * Time.deltaTime);
                 // Set Position & Rotation
                 transform.rotation = rotation;
-                if (lerpTimer > 0)
-                {
-                    transform.position = adjust;
-                }
-                else
-                {
-                    transform.position = position;
-                }
+                transform.position = (lerpTimer > 0) ? adjust : position;
             }
         }
 
@@ -157,10 +115,8 @@ public class FollowCamera : MonoBehaviour
 
     public static float ClampAngle(float angle, float min, float max)
     {
-        if (angle < -360F)
-            angle += 360F;
-        if (angle > 360F)
-            angle -= 360F;
+        if (angle < -360F) angle += 360F;
+        if (angle > 360F) angle -= 360F;
         return Mathf.Clamp(angle, min, max);
     }
 }

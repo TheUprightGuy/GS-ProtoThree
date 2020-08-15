@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class ShopUIScript : MonoBehaviour
 {
-    public bool showMe = false;
-    public bool ready = false;
-
-    public float scalar = 0.0f;
+    [Header("Required Fields")]
     public RectTransform scale;
+    // Local Variables
+    bool showMe = false;
+    bool ready = false;
+    float scalar = 0.0f;
 
     #region Callbacks
     private void Start()
