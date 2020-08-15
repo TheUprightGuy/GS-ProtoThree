@@ -52,13 +52,21 @@ public class CallbackHandler : MonoBehaviour
         }
     }
 
-
     public event Action<GameObject> setQuestObjective;
     public void SetQuestObjective(GameObject _target)
     {
         if (setQuestObjective != null)
         {
             setQuestObjective(_target);
+        }
+    }
+
+    public event Action<bool> orbit;
+    public void Orbit(bool _toggle)
+    {
+        if (orbit != null)
+        {
+            orbit(_toggle);
         }
     }
 }

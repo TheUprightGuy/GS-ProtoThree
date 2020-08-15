@@ -58,6 +58,12 @@ public class WhaleMovementScript : MonoBehaviour
         whaleInfo = CallbackHandler.instance.whaleInfo;
         whaleInfo.whale = this.gameObject;
         desiredRoll = body.transform.eulerAngles;
+        CallbackHandler.instance.orbit += Orbit;
+    }
+
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.orbit -= Orbit;
     }
     #endregion Setup
 
@@ -100,6 +106,12 @@ public class WhaleMovementScript : MonoBehaviour
         }
         else
         {
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+            {
+                Orbit(false);
+                return;
+            }
+
             if (orbit.orbitDirection == 1)
             {
                 if (myRoll - Time.deltaTime * turnSpeed > -10)
@@ -119,27 +131,33 @@ public class WhaleMovementScript : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (inRange)
+            Orbit(!whaleInfo.leashed);
+        }
+    }
+
+    public void Orbit(bool _toggle)
+    {
+        if (inRange)
+        {
+            whaleInfo.ToggleLeashed(_toggle);
+            if (whaleInfo.leashed)
             {
-                whaleInfo.ToggleLeashed(!whaleInfo.leashed);
-                orbit.initialSlerp = 2.1f;
-                // Direction from pos to island
-                Vector3 dir = (orbit.leashObject.transform.position - transform.position);
-                Vector3 path = Vector3.Normalize(Vector3.Cross(dir, Vector3.up));
-                //path = new Vector3(path.x, 0, path.z);
-                
-                if (Vector3.Dot(transform.forward, path) >= 0.0f)
-                {
-                    orbit.orbitDirection = 1;
-                }
-                else
-                {
-                    orbit.orbitDirection = -1;
-                }
+                orbit.SetOrbitDirection();
+                CallbackHandler.instance.LandingTooltip(false);
             }
             else
             {
-                whaleInfo.ToggleLeashed(false);
+                CallbackHandler.instance.LandingTooltip(true);
+                orbit.leashObject.GetComponent<IslandTrigger>().ToggleLeashed(false);
+            }
+        }
+        else
+        {
+            whaleInfo.ToggleLeashed(false);
+            if (orbit.leashObject)
+            {
+                orbit.leashObject.GetComponent<IslandTrigger>().lineRenderer.positionCount = 0;
+                orbit.leashObject.GetComponent<IslandTrigger>().ToggleLeashed(false);
             }
         }
     }
