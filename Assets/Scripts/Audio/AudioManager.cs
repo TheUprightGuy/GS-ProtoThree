@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -32,14 +33,18 @@ namespace Audio
         #endregion
         [Header("Main Settings")]
         public float masterVolume = 1.0f;
-        public bool randomlyCycleMusic = false;
+        public bool randomlyCycleMusic;
         public bool playAmbientSounds = true;
-        public float ambientSoundTimer = 15f;
+        public float ambientSoundTimerMin = 30f;
+        public float ambientSoundTimerMax = 50f;
+        public float fadeDuration = 3f;
         
         [Header("Audio Sources Used To Create Sound Dictionary:")]
         public List<AudioSource> audioSources;
         public List<AudioClip> musicTracks;
         public List<GameObject> ambientLayers;
+
+        [Header("Audio Mixer")] public AudioMixer audioMixer;
 
         public Dictionary<string, SoundInfo> soundDictionary;
         private List<string> _soundsUnrestricted;    //Audio source will play this sound regardless of if it's already playing
@@ -49,7 +54,6 @@ namespace Audio
         private float _musicDefaultVolume;
         private AudioSource _audioSource;
         private int _currentTrackIndex;
-        private bool _layersFaded = false;
 
         private void OnAwake()
         {
@@ -65,7 +69,12 @@ namespace Audio
             _audioSource.loop = false;
             //Start recursive coroutine for changing the music
             StartCoroutine(PlayRandomMusicTracks());
-            StartCoroutine(PlayRandomAmbientTracks());
+            foreach (var layer in ambientLayers)
+            {
+                var ambientLayer = layer.GetComponent<AmbientLayer>();
+                var audioSource = layer.GetComponent<AudioSource>();
+                StartCoroutine(PlayRandomAmbientTracks(ambientLayer, audioSource));
+            }
         }
         
         private void InitialisePrivateVariables()
@@ -98,54 +107,29 @@ namespace Audio
             if(randomlyCycleMusic) StartCoroutine(PlayRandomMusicTracks());
         }
         
-        private IEnumerator PlayRandomAmbientTracks()
+        private IEnumerator PlayRandomAmbientTracks(AmbientLayer ambientLayer, AudioSource audioSource)
         {
-            _audioSource = gameObject.GetComponent<AudioSource>(); //Update cached audio source
-            Debug.Log("PLaying new ambient track");
-            //Fade out old ambient tracks
-            /*StartCoroutine(FadeAmbientTracks(true));
-            _layersFaded = false;
-            yield return new WaitUntil(()=>_layersFaded);*/
-            foreach (var layer in ambientLayers)
-            {
-                var audioSource = layer.GetComponent<AudioSource>();
-                audioSource.Stop();
-                audioSource.clip = layer.GetComponent<AmbientLayer>().RandomAudioClip();
-                audioSource.Play();
-            }
-            /*StartCoroutine(FadeAmbientTracks(false));
-            _layersFaded = false;*/
-            yield return new WaitForSeconds(ambientSoundTimer);
-            //yield return new WaitUntil(()=>_layersFaded);
-            if(playAmbientSounds) StartCoroutine(PlayRandomAmbientTracks());
+            yield return FadeAmbientTracks(ambientLayer.exposedParamName, 0f);
+            RandomiseAudioClip(ambientLayer, audioSource);
+            yield return FadeAmbientTracks(ambientLayer.exposedParamName, ambientLayer.soundInfo.VolumeDefault);
+            yield return new WaitForSeconds(Random.Range(ambientSoundTimerMin, ambientSoundTimerMax));
+            if(playAmbientSounds) StartCoroutine(PlayRandomAmbientTracks(ambientLayer, audioSource));
         }
 
-        /*private IEnumerator FadeAmbientTracks(bool shouldFadeOut)
+        private static void RandomiseAudioClip(AmbientLayer ambientLayer, AudioSource audioSource)
         {
-            _layersFaded = false;
-            while (!_layersFaded)
-            {
-                foreach (var audioSource in ambientLayers.Select(layer => layer.GetComponent<AudioSource>()))
-                {
-                    if (shouldFadeOut)
-                    {
-                        audioSource.volume *= 0.8f;
-                        if (audioSource.volume <= 0.1f)
-                        {
-                            _layersFaded = true;
-                        }
-                    }
-                    else
-                    {
-                        audioSource.volume /= 0.8f;
-                        if (!(audioSource.volume >= 1f)) continue;
-                        audioSource.volume = 1f;
-                        _layersFaded = true;
-                    }
-                }
-                yield return new WaitForSeconds(0.01f);
-            }
-        }*/
+            audioSource.Stop();
+            audioSource.clip = ambientLayer.RandomAudioClip();
+            audioSource.Play();
+        }
+
+        private object FadeAmbientTracks(string exposedParameter, float targetVolume)
+        {
+            //Fade ambient tracks to target volume
+            StartCoroutine(
+                FadeMixerGroup.StartFade(audioMixer, exposedParameter, fadeDuration, targetVolume));
+            return new WaitForSeconds(fadeDuration);
+        }
 
         public void PlaySound(string soundName)
         {

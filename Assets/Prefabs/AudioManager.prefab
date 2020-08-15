@@ -52,6 +52,7 @@ MonoBehaviour:
   randomlyCycleMusic: 1
   playAmbientSounds: 1
   ambientSoundTimer: 30
+  fadeDuration: 3
   audioSources:
   - {fileID: 5009061559020794629}
   - {fileID: 4675055221845101396}
@@ -62,6 +63,7 @@ MonoBehaviour:
   ambientLayers:
   - {fileID: 5102500168541330513}
   - {fileID: 4014376754064703141}
+  audioMixer: {fileID: 24100000, guid: dbf9485d6ef14a342bb868c49599feec, type: 2}
   volumeSlider: {fileID: 0}
 --- !u!82 &178910286826226476
 AudioSource:
@@ -206,6 +208,7 @@ MonoBehaviour:
   ambientSounds:
   - {fileID: 8300000, guid: ee9e2b3be19629f4c9f902a8e283fb70, type: 3}
   - {fileID: 8300000, guid: d251a91098c9abf49ac82b6b29d09177, type: 3}
+  exposedParamName: WindAmbientVolume
 --- !u!82 &1250978666410145903
 AudioSource:
   m_ObjectHideFlags: 0
@@ -215,7 +218,8 @@ AudioSource:
   m_GameObject: {fileID: 4014376754064703141}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1150006247599028980, guid: dbf9485d6ef14a342bb868c49599feec,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -352,6 +356,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0c83c9596d045094eace6ee84fd97cfc, type: 3}
   - {fileID: 8300000, guid: 39e2e2fbfe95ca34f9903933ef4b64f1, type: 3}
   - {fileID: 8300000, guid: 305fbc0553fc2004b8c8af4ec3b937e2, type: 3}
+  exposedParamName: WhaleAmbientVolume
 --- !u!82 &1940710869841862235
 AudioSource:
   m_ObjectHideFlags: 0
@@ -361,7 +366,8 @@ AudioSource:
   m_GameObject: {fileID: 5102500168541330513}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4442300236545808200, guid: dbf9485d6ef14a342bb868c49599feec,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
