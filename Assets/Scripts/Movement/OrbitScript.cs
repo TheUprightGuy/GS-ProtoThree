@@ -30,6 +30,26 @@ public class OrbitScript : MonoBehaviour
         whaleInfo = CallbackHandler.instance.whaleInfo;
     }
 
+    public void SetOrbitDirection()
+    {
+        initialSlerp = 2.1f;
+        // Direction from pos to island
+        Vector3 dir = (leashObject.transform.position - transform.position);
+        Vector3 path = Vector3.Normalize(Vector3.Cross(dir, Vector3.up));
+        //path = new Vector3(path.x, 0, path.z);
+
+        if (Vector3.Dot(transform.forward, path) >= 0.0f)
+        {
+            orbitDirection = 1;
+        }
+        else
+        {
+            orbitDirection = -1;
+        }
+
+        leashObject.GetComponent<IslandTrigger>().ToggleLeashed(true);
+    }
+
     // Update is called once per frame
     void Update()
     {

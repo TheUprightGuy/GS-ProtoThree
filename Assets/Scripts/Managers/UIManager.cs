@@ -89,4 +89,9 @@ public class UIManager : MonoBehaviour
 
         scale.localScale = new Vector3(scalar, scalar, 1.0f);
     }
+
+    public void Orbit()
+    {
+        CallbackHandler.instance.Orbit(true);
+    }
 }
