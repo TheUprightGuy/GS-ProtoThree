@@ -96,7 +96,6 @@ namespace Audio
         private IEnumerator PlayRandomMusicTracks()
         {
             _audioSource = gameObject.GetComponent<AudioSource>(); //Update cached audio source
-            Debug.Log("PLaying new track");
             //Stop old music track
             _audioSource.Stop();
             //Play music track

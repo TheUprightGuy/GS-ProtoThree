@@ -15,20 +15,22 @@ public class EstablishingCamController : MonoBehaviour
         EventHandler.instance.startEstablishingShot += OnStartEstablishingShot;
         EventHandler.instance.endEstablishingShot += OnEndEstablishingShot;
         EventHandler.instance.menuOpened += OnMenuOpened;
+        EventHandler.instance.resumePressed += OnResume;
     }
 
     private void OnDestroy()
     {
-        EventHandler.instance.menuClosed -= OnMenuClosed;
-        EventHandler.instance.startEstablishingShot -= OnStartEstablishingShot;
-        EventHandler.instance.endEstablishingShot -= OnEndEstablishingShot;
-        EventHandler.instance.menuOpened -= OnMenuOpened;
     }
 
     private void OnMenuClosed()
     {
         menuToEstablishingBlendList.SetActive(true);
         EventHandler.instance.gameState.inCinematic = true;
+    }
+
+    private void OnResume()
+    {
+        menuVCam.SetActive(false);
     }
     
     private void OnMenuOpened()
@@ -50,6 +52,9 @@ public class EstablishingCamController : MonoBehaviour
     {
         establishingShotBlendList.SetActive(false);
         EventHandler.instance.gameState.inCinematic = false;
-        Destroy(gameObject);
+        EventHandler.instance.menuOpened -= OnMenuOpened;
+        EventHandler.instance.menuClosed -= OnMenuClosed;
+        EventHandler.instance.startEstablishingShot -= OnStartEstablishingShot;
+        EventHandler.instance.endEstablishingShot -= OnEndEstablishingShot;
     }
 }
