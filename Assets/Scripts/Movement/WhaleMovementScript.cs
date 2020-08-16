@@ -123,6 +123,12 @@ public class WhaleMovementScript : MonoBehaviour
 
             desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
             body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
+
+            // Implement a better solution someday
+            if (!inRange)
+            {
+                CallbackHandler.instance.TurnOffOrbit();
+            }
         }
         else
         {
