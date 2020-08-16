@@ -73,6 +73,9 @@ public class WhaleMovementScript : MonoBehaviour
     void Update()
     {
         movement = (currentSpeed * islandMod) / 2.0f;
+        float f = body.transform.rotation.eulerAngles.z;
+        f = (f > 180) ? f - 360 : f;
+        animator.SetFloat("Turning", f / 10.0f);
         animator.SetFloat("Movement", movement);
 
         if(EventHandler.instance.gameState.gamePaused) return;
