@@ -92,13 +92,28 @@ public class WhaleMovementScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A))
             {
+                if (myRoll < 0)
+                {
+                    if (myRoll + Time.deltaTime * rollSpeed < 10)
+                    {
+                        myRoll += Time.deltaTime * rollSpeed;
+                    }
+                }
                 if (myRoll + Time.deltaTime * rollSpeed < 10)
                 {
                     myRoll += Time.deltaTime * rollSpeed;
                 }
+                
             }
             if (Input.GetKey(KeyCode.D))
             {
+                if (myRoll > 0)
+                {
+                    if (myRoll - Time.deltaTime * rollSpeed > -10)
+                    {
+                        myRoll -= Time.deltaTime * rollSpeed;
+                    }
+                }
                 if (myRoll - Time.deltaTime * rollSpeed > -10)
                 {
                     myRoll -= Time.deltaTime * rollSpeed;
