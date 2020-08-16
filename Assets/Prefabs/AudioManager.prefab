@@ -55,6 +55,7 @@ MonoBehaviour:
   fadeDuration: 3
   audioSources:
   - {fileID: 5009061559020794629}
+  - {fileID: 0}
   musicTracks:
   - {fileID: 8300000, guid: 8b7b3155983e42e47894fc9e9028c830, type: 3}
   - {fileID: 8300000, guid: c6c553a57461b7544a04da1e8a2b26c6, type: 3}
@@ -76,7 +77,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -221,7 +222,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -413,7 +414,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -540,7 +541,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.692
       inSlope: 0
       outSlope: 0
       tangentMode: 0

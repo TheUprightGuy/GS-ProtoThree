@@ -7,6 +7,8 @@ public class ShopUIScript : MonoBehaviour
 {
     [Header("Required Fields")]
     public RectTransform scale;
+
+    public GameObject LampBeam;
     // Local Variables
     bool showMe = false;
     bool ready = false;
@@ -83,6 +85,15 @@ public class ShopUIScript : MonoBehaviour
         if (ResourceDisplayScript.instance.SpendSupplies(3))
         {
             Debug.Log("Purchased a Saddle");
+        }
+    }
+
+    public void Lamp()
+    {
+        if (ResourceDisplayScript.instance.SpendSupplies(5))
+        {
+            Debug.Log("Purchased a Lamp");
+            LampBeam.SetActive(true);
         }
     }
 

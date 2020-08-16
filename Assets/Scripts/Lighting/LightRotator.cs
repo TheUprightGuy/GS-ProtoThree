@@ -7,7 +7,8 @@ public class LightRotator : MonoBehaviour
     public float rotSpeed;
     #region Singleton
     public static LightRotator instance;
-    [HideInInspector] public Light worldLight;
+    //[HideInInspector]
+    public Light worldLight;
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class LightRotator : MonoBehaviour
             instance = this;
         }
 
-        worldLight = GetComponent<Light>();
+        worldLight = GetComponentInChildren<Light>();
     }
     #endregion Singleton
 
@@ -29,6 +30,5 @@ public class LightRotator : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.up * Time.deltaTime * rotSpeed);
-        transform.Rotate(Vector3.right * Time.deltaTime * rotSpeed);
     }
 }

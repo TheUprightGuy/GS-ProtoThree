@@ -69,4 +69,13 @@ public class CallbackHandler : MonoBehaviour
             orbit(_toggle);
         }
     }
+
+    public event Action turnOffOrbit;
+    public void TurnOffOrbit()
+    {
+        if (turnOffOrbit != null)
+        {
+            turnOffOrbit();
+        }
+    }
 }
