@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class IslandTrigger : MonoBehaviour
 {
-    public bool playerInRange = false;
-    public int vertexCount = 40;
-    public float lineWidth = 0.2f;
-    public float radius;
 
-    public LineRenderer lineRenderer;
+    [Header("Setup Fields")]
+    public float lineWidth = 0.2f;
     public Material material;
+    // Local Variables
+    [HideInInspector] public LineRenderer lineRenderer;
+    [HideInInspector] public bool playerInRange = false;
+    [HideInInspector] public float radius;
+    int vertexCount = 40;
     private Color lerpColor;
     private bool lerp;
     private float lerpTimer;
 
+    #region Setup
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -26,6 +29,18 @@ public class IslandTrigger : MonoBehaviour
             lineRenderer.loop = true;
         }
     }
+    #endregion Setup
+    #region Callbacks
+    private void Start()
+    {
+        CallbackHandler.instance.turnOffOrbit += TurnOffOrbit;
+    }
+
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.turnOffOrbit -= TurnOffOrbit;
+    }
+    #endregion Callbacks
 
     private void Update()
     {
@@ -74,6 +89,12 @@ public class IslandTrigger : MonoBehaviour
             CallbackHandler.instance.LandingTooltip(false);
             //ToggleLeashed(false);
         }
+    }
+
+    public void TurnOffOrbit()
+    {
+        lineRenderer.positionCount = 0;
+        ToggleLeashed(false);
     }
 
     public void SetupCircle(float _radius, float _y)

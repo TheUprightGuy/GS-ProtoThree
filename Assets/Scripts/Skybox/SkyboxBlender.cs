@@ -16,7 +16,7 @@ public class SkyboxBlender : MonoBehaviour
 
     void Start()
     {
-        worldLight = LightRotator.instance.GetComponent<Light>();
+        worldLight = LightRotator.instance.worldLight;
         material.SetFloat("_Blend", 0f);
         color1 = material.GetColor("_Tint1");
         color2 = material.GetColor("_Tint2");

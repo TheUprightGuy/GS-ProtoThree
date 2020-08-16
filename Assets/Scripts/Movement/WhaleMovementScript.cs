@@ -73,6 +73,9 @@ public class WhaleMovementScript : MonoBehaviour
     void Update()
     {
         movement = (currentSpeed * islandMod) / 2.0f;
+        float f = body.transform.rotation.eulerAngles.z;
+        f = (f > 180) ? f - 360 : f;
+        animator.SetFloat("Turning", f / 10.0f);
         animator.SetFloat("Movement", movement);
 
         if(EventHandler.instance.gameState.gamePaused) return;
@@ -89,13 +92,28 @@ public class WhaleMovementScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A))
             {
+                if (myRoll < 0)
+                {
+                    if (myRoll + Time.deltaTime * rollSpeed < 10)
+                    {
+                        myRoll += Time.deltaTime * rollSpeed;
+                    }
+                }
                 if (myRoll + Time.deltaTime * rollSpeed < 10)
                 {
                     myRoll += Time.deltaTime * rollSpeed;
                 }
+                
             }
             if (Input.GetKey(KeyCode.D))
             {
+                if (myRoll > 0)
+                {
+                    if (myRoll - Time.deltaTime * rollSpeed > -10)
+                    {
+                        myRoll -= Time.deltaTime * rollSpeed;
+                    }
+                }
                 if (myRoll - Time.deltaTime * rollSpeed > -10)
                 {
                     myRoll -= Time.deltaTime * rollSpeed;
@@ -105,6 +123,12 @@ public class WhaleMovementScript : MonoBehaviour
 
             desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
             body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
+
+            // Implement a better solution someday
+            if (!inRange)
+            {
+                CallbackHandler.instance.TurnOffOrbit();
+            }
         }
         else
         {
