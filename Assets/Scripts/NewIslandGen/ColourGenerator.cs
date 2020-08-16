@@ -11,6 +11,10 @@ public class ColourGenerator : MonoBehaviour {
     Texture2D texture;
     const int textureResolution = 50;
 
+    private void Start()
+    {
+        UpdateColors();
+    }
     void Init () {
         if (texture == null || texture.width != textureResolution) {
             texture = new Texture2D (textureResolution, 1, TextureFormat.RGBA32, false);
@@ -18,20 +22,24 @@ public class ColourGenerator : MonoBehaviour {
     }
 
     void OnValidate () {
-        Init ();
-        UpdateTexture ();
+        UpdateColors();
+    }
 
-        MeshRenderer m = GetComponent<MeshRenderer> ();
+    void UpdateColors()
+    {
+        Init();
+        UpdateTexture();
+
+        MeshRenderer m = GetComponent<MeshRenderer>();
         MeshFilter mf = GetComponent<MeshFilter>();
         float boundsY = mf.sharedMesh.bounds.size.y * transform.position.y;
         mat = m.material;
-        mat.SetFloat ("boundsY", boundsY);
-        mat.SetFloat ("normalOffsetWeight", normalOffsetWeight);
+        mat.SetFloat("boundsY", boundsY);
+        mat.SetFloat("normalOffsetWeight", normalOffsetWeight);
         mat.SetVector("pos", transform.position);
-        mat.SetTexture ("ramp", texture);
+        mat.SetTexture("ramp", texture);
         m.sharedMaterial = mat;
     }
-
     void UpdateTexture () {
         if (gradient != null) {
             Color[] colours = new Color[texture.width];
