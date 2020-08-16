@@ -8741,12 +8741,12 @@ MonoBehaviour:
   body: {fileID: 8323822555882968382}
   orbit: {fileID: 0}
   whaleInfo: {fileID: 0}
-  animator: {fileID: 6001074814157010875}
-  moveSpeed: 1
+  animator: {fileID: 1894917167850420289}
+  moveSpeed: 1.25
   accelSpeed: 1
   rollSpeed: 20
   inRange: 0
-  rotationSpeed: 0.2
+  rotationSpeed: 0.3
   currentSpeed: 0
   maxDistance: 0
 --- !u!114 &8323822555209358624
