@@ -36,8 +36,10 @@ public class CompassScript : MonoBehaviour
         northDirection.y = player.eulerAngles.y;
         compass.localEulerAngles = northDirection;
         if (target == null) return;
-        Vector3 dir = target.position - player.transform.position;
-        pin.transform.rotation = Quaternion.LookRotation(dir);
+
+        Vector3 dir = new Vector3(target.position.x, 0, target.position.z) - new Vector3(player.position.x, 0, player.position.z);
+        float angle = Vector3.Angle(player.forward, dir);
+        pin.localRotation = Quaternion.Euler(new Vector3(0, -angle, 0));
     }
 
     public void SetQuestTracker(GameObject _target)
