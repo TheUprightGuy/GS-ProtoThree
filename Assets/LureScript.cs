@@ -30,6 +30,8 @@ public class LureScript : MonoBehaviour
     [Header("Speeds")]
     public float turnSpeed = 10.0f;
     public float forwardSpeed = 10.0f;
+    [Header("Control Point")]
+    public Transform controlPoint;
 
 
     // Update is called once per frame
@@ -45,6 +47,7 @@ public class LureScript : MonoBehaviour
             {
                 currentSide -= Time.deltaTime * turnSpeed;
                 transform.position -= transform.right * Time.deltaTime * turnSpeed;
+                controlPoint.position += transform.right * Time.deltaTime * turnSpeed * 0.5f;
             }
         }
         else if (Input.GetKey(KeyCode.D))
@@ -53,6 +56,7 @@ public class LureScript : MonoBehaviour
             {
                 currentSide += Time.deltaTime * turnSpeed;
                 transform.position += transform.right * Time.deltaTime * turnSpeed;
+                controlPoint.position -= transform.right * Time.deltaTime * turnSpeed * 0.5f;
             }
         }
 
@@ -62,6 +66,7 @@ public class LureScript : MonoBehaviour
             {
                 currentForward += Time.deltaTime * forwardSpeed;
                 transform.position += transform.forward * Time.deltaTime * forwardSpeed;
+                controlPoint.position += transform.forward * Time.deltaTime * forwardSpeed;
             }
         }
         else if (Input.GetKey(KeyCode.S))
@@ -70,6 +75,7 @@ public class LureScript : MonoBehaviour
             {
                 currentForward -= Time.deltaTime * forwardSpeed;
                 transform.position -= transform.forward * Time.deltaTime * forwardSpeed;
+                controlPoint.position -= transform.forward * Time.deltaTime * forwardSpeed;
             }
         }
     }
