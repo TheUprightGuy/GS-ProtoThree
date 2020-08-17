@@ -47,9 +47,10 @@ public class WhaleMovementScript : MonoBehaviour
     float countDown = 0.0f;
     //[HideInInspector]
     public float currentSpeed = 0.0f;
-    float islandMod = 0.0f;
-    float distance;
-    [HideInInspector] public float maxDistance;
+    public float islandMod = 0.0f;
+    public float distance;
+    //[HideInInspector]
+    public float maxDistance;
     float angle;
     Vector3 desiredRoll;
     float myRoll = 0.0f;
@@ -207,7 +208,7 @@ public class WhaleMovementScript : MonoBehaviour
             {
                 distance = Vector3.Distance(transform.position, orbit.leashObject.transform.position);
                 float perc = distance / (maxDistance / 1.5f);
-                islandMod = perc - 1;
+                islandMod = (perc - 1) * 2;
             }
             else
             {
