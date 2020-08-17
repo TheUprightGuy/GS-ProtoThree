@@ -7,6 +7,7 @@ public class ResourceCollector : MonoBehaviour
     WhaleInfo whaleInfo;
     ResourceDisplayScript rds;
     IslandTrigger trig;
+    private EstablishingCamController _establishingCamController;
     //public List<GameObject> supplyObjs;
     //public List<GameObject> provisionObjs;
     public GameObject SuppliesParent;
@@ -31,6 +32,7 @@ public class ResourceCollector : MonoBehaviour
         whaleInfo = CallbackHandler.instance.whaleInfo;
         rds = ResourceDisplayScript.instance;
         trig = GetComponent<IslandTrigger>();
+        _establishingCamController = EstablishingCamController.instance;
 
         suppliesStart =  SuppliesParent.transform.localPosition;
         suppliesMaxCount = SupplyCount;
@@ -46,6 +48,10 @@ public class ResourceCollector : MonoBehaviour
     {
         if (trig.playerInRange && whaleInfo.leashed && time <= 1.0f)
         {
+            //Highlight shop if it's undiscovered when first collecting resources
+            EventHandler.instance.HighlightObjective(0);
+            EventHandler.instance.gameState.objectivesHighlighted.Add(1);    //Don't need to highlight resources
+            
             time += Time.deltaTime / OverallCollectTime;
 
             if (SupplyCount > 0)
