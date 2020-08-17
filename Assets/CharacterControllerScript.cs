@@ -4,8 +4,24 @@ using UnityEngine;
 
 public class CharacterControllerScript : MonoBehaviour
 {
-    public bool moving, standing, sitting, steering;
-    public bool stand, sit, sitTransition, feed;
+    [Header("Movement Positions")]
+    public Transform targetPos;
+    public Transform campFirePos;
+    public Transform saddlePos;
+    public float moveSpeed;
+
+    [Header("Rod Positions")]
+    public Transform tuskPos;
+    public Transform handPos;
+    public GameObject rod;
+
+    [Header("Local Variables")]
+    public bool moving;
+    public bool standing;
+    public bool sitting;
+    public bool steering;
+    public float sitTransTimer = 30.0f;
+    public float steeringTimer;
     #region Setup
     Animator animator;
     private void Awake()
@@ -13,10 +29,139 @@ public class CharacterControllerScript : MonoBehaviour
         animator = GetComponent<Animator>();
     }
     #endregion Setup
+    #region Callbacks
+    private void Start()
+    {
+        CallbackHandler.instance.moveToSaddle += MoveToSaddle;
+        CallbackHandler.instance.moveToFire += MoveToFire;
+        SitDown();
+    }
+
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.moveToSaddle -= MoveToSaddle;
+        CallbackHandler.instance.moveToFire -= MoveToFire;
+    }
+    #endregion Callbacks
 
     private void Update()
     {
+        if (moving)
+        {
+            Quaternion desiredRot = Quaternion.LookRotation(targetPos.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5.0f);
+            transform.Translate((Vector3.forward) * Time.deltaTime * moveSpeed);
+            if (Vector3.Distance(transform.position, targetPos.position) < 0.2f)
+            {
+                ReachedDestination();
+            }
+        }
+        if (sitting)
+        {
+            sitTransTimer -= Time.deltaTime;
+            if (sitTransTimer <= 0)
+            {
+                sitTransTimer = 30.0f;
+                SwitchPose();
+            }
+            steeringTimer -= Time.deltaTime;
+            if (steeringTimer <= 0 && steering)
+            {
+                steering = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+            {
+                steering = true;
+                steeringTimer = 3.0f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                FeedWhale();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            WalkTo(campFirePos);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            WalkTo(saddlePos);
+        }
+
         UpdateAnimState();
+    }
+
+    public void MoveToSaddle()
+    {
+        WalkTo(saddlePos);
+    }
+    public void MoveToFire()
+    {
+        WalkTo(campFirePos);
+    }
+
+    public void SitDown()
+    {
+        if (!sitting)
+        {
+            animator.SetTrigger("SitDown");
+            animator.ResetTrigger("StandUp");
+        }
+        sitting = true;
+        standing = false;
+        UpdateAnimState();
+    }
+
+    public void StandUp()
+    {
+        if (!standing)
+        {
+            animator.SetTrigger("StandUp");
+            animator.ResetTrigger("SitDown");
+        }
+        standing = true;
+        sitting = false;
+        UpdateAnimState();
+    }
+
+    public void WalkTo(Transform _target)
+    {
+        StandUp();
+
+        if (_target == campFirePos)
+        {
+            rod.transform.parent = tuskPos;
+            rod.transform.localPosition = Vector3.zero;
+        }
+
+        targetPos = _target;
+        moving = true;
+    }
+
+    public void ReachedDestination()
+    {
+        if (targetPos == saddlePos)
+        {
+            rod.transform.parent = handPos;
+            rod.transform.localPosition = Vector3.zero;
+        }
+
+        SitDown();
+        moving = false;
+        targetPos = null;
+    }
+
+    public void SwitchPose()
+    {
+        animator.SetTrigger("SitTransition");
+    }
+
+    public void FeedWhale()
+    {
+        animator.SetTrigger("FeedWhale");
     }
 
     public void UpdateAnimState()
@@ -25,30 +170,5 @@ public class CharacterControllerScript : MonoBehaviour
         animator.SetBool("Standing", standing);
         animator.SetBool("Sitting", sitting);
         animator.SetBool("Steering", steering);
-
-        if (stand)
-        {
-            animator.SetTrigger("StandUp");
-            stand = false;
-            standing = true;
-            sitting = false;
-        }
-        if (sit)
-        {
-            animator.SetTrigger("SitDown");
-            sit = false;
-            sitting = true;
-            standing = false;
-        }
-        if (sitTransition)
-        {
-            animator.SetTrigger("SitTransition");
-            sitTransition = false;
-        }
-        if (feed)
-        {
-            animator.SetTrigger("FeedWhale");
-            feed = false;
-        }
     }
 }
