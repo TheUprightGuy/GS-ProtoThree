@@ -44,6 +44,16 @@ public class EstablishingCamController : MonoBehaviour
         EventHandler.instance.resumePressed += OnResume;
         EventHandler.instance.gameStart += OnGameStart;
     }
+    // Remember to add cleanup for callbacks
+    private void OnDestroy()
+    {
+        EventHandler.instance.menuClosed -= OnMenuClosed;
+        EventHandler.instance.startEstablishingShot -= OnStartEstablishingShot;
+        EventHandler.instance.endEstablishingShot -= OnEndEstablishingShot;
+        EventHandler.instance.menuOpened -= OnMenuOpened;
+        EventHandler.instance.resumePressed -= OnResume;
+        EventHandler.instance.gameStart -= OnGameStart;
+    }
 
     private void OnMenuClosed()
     {
