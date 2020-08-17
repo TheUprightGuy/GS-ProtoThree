@@ -49,7 +49,6 @@ public class EstablishingCamController : MonoBehaviour
     {
         menuVCam.SetActive(false);
         menuToGameViewBlendList.SetActive(true);
-        EventHandler.instance.gameState.inCinematic = true;
     }
 
     private void OnGameStart()
@@ -73,6 +72,9 @@ public class EstablishingCamController : MonoBehaviour
     
     private void OnStartEstablishingShot()
     {
+        //Set quest objective
+        CallbackHandler.instance.SetQuestObjective(objectivesSorted[currentObjectiveIndex].gameObject);
+        
         var lookAtObj = 
             establishingShotBlendList.GetComponent<CinemachineBlendListCamera>().ChildCameras[1];
         lookAtObj.Follow = whaleTransform;
