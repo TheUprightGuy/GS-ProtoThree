@@ -11,6 +11,7 @@ public class ShopTrigger : MonoBehaviour
         if (player)
         {
             CallbackHandler.instance.ToggleShop(true);
+            EventHandler.instance.HighlightObjective(1);
         }
     }
 
