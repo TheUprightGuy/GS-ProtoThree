@@ -38,12 +38,17 @@ public class ResourceCollector : MonoBehaviour
         provsStart = ProvisionsParent.transform.localPosition;
         provsMaxCount = ProvisionCount;
 
+        Vector3 newPos = transform.position;
+        newPos.y = WhaleMovementScript.instance.transform.position.y;
+        transform.position = newPos;
     }
 
     public float time = 0.0f;
     // Update is called once per frame
     void Update()
     {
+        
+
         if (trig.playerInRange && whaleInfo.leashed && time <= 1.0f)
         {
             time += Time.deltaTime / OverallCollectTime;
