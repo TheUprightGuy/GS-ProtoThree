@@ -31,7 +31,7 @@ public class CallbackHandler : MonoBehaviour
 
     private void Update()
     {
-        whaleInfo.UpdateHunger(Time.deltaTime/2);
+        whaleInfo.UpdateHunger(Time.deltaTime / 2);
     }
 
     public event Action<bool> landingTooltip;
@@ -76,6 +76,24 @@ public class CallbackHandler : MonoBehaviour
         if (turnOffOrbit != null)
         {
             turnOffOrbit();
+        }
+    }
+
+    public event Action moveToSaddle;
+    public void MoveToSaddle()
+    {
+        if (moveToSaddle != null)
+        {
+            moveToSaddle();
+        }
+    }
+
+    public event Action moveToFire;
+    public void MoveToFire()
+    {
+        if (moveToFire != null)
+        {
+            moveToFire();
         }
     }
 }

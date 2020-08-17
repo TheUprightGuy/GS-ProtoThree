@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Audio;
 using UnityEngine;
 
 public class EventHandler : MonoBehaviour
@@ -33,6 +34,7 @@ public class EventHandler : MonoBehaviour
     public Action endEstablishingShot;
     public Action menuOpened;
     public GameObject stageEndCanvas;
+    public Action resumePressed;
 
     private void OnAwake()
     {
@@ -45,6 +47,8 @@ public class EventHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !gameState.inCinematic)
         {
+            gameState.inMenu = true;
+            gameState.gamePaused = true;
             menuOpened?.Invoke();
         }
     }
@@ -67,6 +71,7 @@ public class EventHandler : MonoBehaviour
     private IEnumerator WaitForEstablishingShot()
     {
         yield return new WaitForSeconds(establishingShotDuration);
+        Debug.Log("EstablishingShotOver setting paused to false");
         gameState.gamePaused = false;
         endEstablishingShot?.Invoke();
     }

@@ -37,8 +37,8 @@ public class CompassScript : MonoBehaviour
         compass.localEulerAngles = northDirection;
         if (target == null) return;
 
-        Vector3 dir = new Vector3(target.position.x, 0, target.position.z) - new Vector3(player.position.x, 0, player.position.z);
-        float angle = Vector3.Angle(player.forward, dir);
+        Vector3 dir = new Vector3(player.position.x, 0, player.position.z) - new Vector3(target.position.x, 0, target.position.z);
+        float angle = Vector3.Angle(player.forward, dir) + Camera.main.transform.localRotation.eulerAngles.y;
         pin.localRotation = Quaternion.Euler(new Vector3(0, -angle, 0));
     }
 

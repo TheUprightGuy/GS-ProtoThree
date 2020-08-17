@@ -9,6 +9,7 @@ public class AmbientLayer : MonoBehaviour
 {
     public List<AudioClip> ambientSounds;
     public SoundInfo soundInfo;
+    public string exposedParamName;
 
     private void Awake()
     {

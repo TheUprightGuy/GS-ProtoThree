@@ -23,9 +23,9 @@ public class WhaleMovementScript : MonoBehaviour
     #endregion Singleton 
     [Header("Setup Fields")]
     public GameObject lure;
-    public RodRotationScript rod;
     public GameObject body;
     private Rigidbody rb;
+    [HideInInspector] public LureScript lureScript;
     [HideInInspector] public OrbitScript orbit;
     [HideInInspector] public WhaleInfo whaleInfo;
     public Animator animator;
@@ -45,10 +45,12 @@ public class WhaleMovementScript : MonoBehaviour
     Quaternion _lookRotation;
     // Update Rot Countdown
     float countDown = 0.0f;
-    [HideInInspector] public float currentSpeed = 0.0f;
-    float islandMod = 0.0f;
-    float distance;
-    [HideInInspector] public float maxDistance;
+    //[HideInInspector]
+    public float currentSpeed = 0.0f;
+    public float islandMod = 0.0f;
+    public float distance;
+    //[HideInInspector]
+    public float maxDistance;
     float angle;
     Vector3 desiredRoll;
     float myRoll = 0.0f;
@@ -61,6 +63,7 @@ public class WhaleMovementScript : MonoBehaviour
         whaleInfo.whale = this.gameObject;
         desiredRoll = body.transform.eulerAngles;
         CallbackHandler.instance.orbit += Orbit;
+        lureScript = LureScript.instance;
     }
 
     private void OnDestroy()
@@ -79,7 +82,7 @@ public class WhaleMovementScript : MonoBehaviour
         animator.SetFloat("Movement", movement);
 
         if(EventHandler.instance.gameState.gamePaused) return;
-        currentSpeed = Mathf.Lerp(currentSpeed, rod.speed * moveSpeed, Time.deltaTime * accelSpeed);
+        currentSpeed = Mathf.Lerp(currentSpeed, lureScript.speed * moveSpeed, Time.deltaTime * accelSpeed);
 
         if (countDown <= 0.0f)
         {
@@ -190,6 +193,7 @@ public class WhaleMovementScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(EventHandler.instance.gameState.gamePaused) return;
         if (!whaleInfo.leashed)
         {
             rb.MovePosition(transform.position + transform.forward * currentSpeed * islandMod * whaleInfo.hungerModifier * Time.deltaTime);
@@ -204,7 +208,7 @@ public class WhaleMovementScript : MonoBehaviour
             {
                 distance = Vector3.Distance(transform.position, orbit.leashObject.transform.position);
                 float perc = distance / (maxDistance / 1.5f);
-                islandMod = perc - 1;
+                islandMod = (perc - 1) * 2;
             }
             else
             {
