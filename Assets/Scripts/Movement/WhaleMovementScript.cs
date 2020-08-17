@@ -23,10 +23,9 @@ public class WhaleMovementScript : MonoBehaviour
     #endregion Singleton 
     [Header("Setup Fields")]
     public GameObject lure;
-    public RodRotationScript rod;
-    public LureScript lureScript;
     public GameObject body;
     private Rigidbody rb;
+    [HideInInspector] public LureScript lureScript;
     [HideInInspector] public OrbitScript orbit;
     [HideInInspector] public WhaleInfo whaleInfo;
     public Animator animator;
@@ -63,6 +62,7 @@ public class WhaleMovementScript : MonoBehaviour
         whaleInfo.whale = this.gameObject;
         desiredRoll = body.transform.eulerAngles;
         CallbackHandler.instance.orbit += Orbit;
+        lureScript = LureScript.instance;
     }
 
     private void OnDestroy()

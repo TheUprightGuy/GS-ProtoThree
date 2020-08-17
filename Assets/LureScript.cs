@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class LureScript : MonoBehaviour
 {
+    #region Singleton
+    public static LureScript instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.Log("More than one Lure Exists!");
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion Singleton
     [Header("Current Position")]
     public float currentSide;
     public float currentForward;
