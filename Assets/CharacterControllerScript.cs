@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class CharacterControllerScript : MonoBehaviour
 {
-    public Animator animator;
     public bool moving, standing, sitting, steering;
     public bool stand, sit, sitTransition, feed;
+    #region Setup
+    Animator animator;
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
+    #endregion Setup
 
     private void Update()
     {

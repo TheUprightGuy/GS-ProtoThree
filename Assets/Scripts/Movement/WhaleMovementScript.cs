@@ -24,6 +24,7 @@ public class WhaleMovementScript : MonoBehaviour
     [Header("Setup Fields")]
     public GameObject lure;
     public RodRotationScript rod;
+    public LureScript lureScript;
     public GameObject body;
     private Rigidbody rb;
     [HideInInspector] public OrbitScript orbit;
@@ -45,7 +46,8 @@ public class WhaleMovementScript : MonoBehaviour
     Quaternion _lookRotation;
     // Update Rot Countdown
     float countDown = 0.0f;
-    [HideInInspector] public float currentSpeed = 0.0f;
+    //[HideInInspector]
+    public float currentSpeed = 0.0f;
     float islandMod = 0.0f;
     float distance;
     [HideInInspector] public float maxDistance;
@@ -79,7 +81,7 @@ public class WhaleMovementScript : MonoBehaviour
         animator.SetFloat("Movement", movement);
 
         if(EventHandler.instance.gameState.gamePaused) return;
-        currentSpeed = Mathf.Lerp(currentSpeed, rod.speed * moveSpeed, Time.deltaTime * accelSpeed);
+        currentSpeed = Mathf.Lerp(currentSpeed, lureScript.speed * moveSpeed, Time.deltaTime * accelSpeed);
 
         if (countDown <= 0.0f)
         {
