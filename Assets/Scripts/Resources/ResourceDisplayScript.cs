@@ -28,6 +28,7 @@ public class ResourceDisplayScript : MonoBehaviour
     [HideInInspector] public int provisionsMax;
     float provisionsPercentage;
 
+    public ResourceFeedBack rfb;
     public List<GameObject> supplyObjs;
     public List<GameObject> provisionObjs;
 
@@ -96,6 +97,10 @@ public class ResourceDisplayScript : MonoBehaviour
         {
             supplies -= supplies % suppliesMax;
         }
+        else
+        {
+            rfb.SupplyPopUp("+" + _supplies.ToString());
+        }
         suppliesPercentage = (float)supplies / (float)suppliesMax;
         DisplaySupplies();
     }
@@ -106,6 +111,10 @@ public class ResourceDisplayScript : MonoBehaviour
         if (provisions > provisionsMax)
         {
             provisions -= provisions % provisionsMax;
+        }
+        else
+        {
+            rfb.ProvPopUp("+" + _provisions.ToString());
         }
         provisionsPercentage = (float)provisions / (float)provisionsMax;
         DisplayProvisions();
