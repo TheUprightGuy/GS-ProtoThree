@@ -29121,7 +29121,8 @@ MonoBehaviour:
   forwardLimit: 3
   turnSpeed: 10
   forwardSpeed: 10
-  controlPoint: {fileID: 0}
+  controlPoint: {fileID: 6931979786314206943}
+  bird: {fileID: 8323822555193687383}
 --- !u!1 &8323822555367042891
 GameObject:
   m_ObjectHideFlags: 0
@@ -30408,8 +30409,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8323822556045924042}
-  m_LocalRotation: {x: 0.194705, y: 0.66854495, z: -0.1879171, w: 0.6926939}
-  m_LocalPosition: {x: 33.364933, y: 8.262, z: -106.32912}
+  m_LocalRotation: {x: 0.18978703, y: 0.000000016893667, z: -0.0000000032655494, w: 0.9818253}
+  m_LocalPosition: {x: 34.332466, y: 11.041, z: -120.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 254157434}

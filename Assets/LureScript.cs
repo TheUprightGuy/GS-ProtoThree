@@ -32,6 +32,8 @@ public class LureScript : MonoBehaviour
     public float forwardSpeed = 10.0f;
     [Header("Control Point")]
     public Transform controlPoint;
+    [Header("Bird")]
+    public Transform bird;
 
 
     // Update is called once per frame
@@ -48,6 +50,7 @@ public class LureScript : MonoBehaviour
                 currentSide -= Time.deltaTime * turnSpeed;
                 transform.position -= transform.right * Time.deltaTime * turnSpeed;
                 controlPoint.position += transform.right * Time.deltaTime * turnSpeed * 0.5f;
+                bird.localEulerAngles -= Vector3.up * Time.deltaTime * 100.0f;
             }
         }
         else if (Input.GetKey(KeyCode.D))
@@ -57,6 +60,7 @@ public class LureScript : MonoBehaviour
                 currentSide += Time.deltaTime * turnSpeed;
                 transform.position += transform.right * Time.deltaTime * turnSpeed;
                 controlPoint.position -= transform.right * Time.deltaTime * turnSpeed * 0.5f;
+                bird.localEulerAngles += Vector3.up * Time.deltaTime * 100.0f;
             }
         }
 
