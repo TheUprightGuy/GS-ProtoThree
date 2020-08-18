@@ -5,6 +5,8 @@ using UnityEngine;
 public class IslandTrigger : MonoBehaviour
 {
 
+    static bool PopUpDone = false;
+
     [Header("Setup Fields")]
     public float lineWidth = 0.2f;
     public Material material;
@@ -57,6 +59,13 @@ public class IslandTrigger : MonoBehaviour
 
         if (player)
         {
+            if (!PopUpDone)
+            {
+                PopUpDone = true;
+                PopUpHandler.instance.QueuePopUp("Press Space to orbit the island", KeyCode.Space);
+                PopUpHandler.instance.QueuePopUp("Any resources found will be collected while orbiting an island", 7.0f);
+            }
+
             playerInRange = true;
             player.inRange = true;
             player.maxDistance = GetComponent<SphereCollider>().bounds.extents.x;

@@ -14,6 +14,7 @@ public class WhaleInfo : ScriptableObject
     public float hungerModifier;
     public float weight = 0.0f;
 
+    public bool foodPopupDone = false;
     public void UpdateHunger(float _time)
     {
         hunger -= _time;
@@ -25,6 +26,12 @@ public class WhaleInfo : ScriptableObject
             if (currentThought != Thought.Food)
             {
                 ThoughtsScript.instance.ShowThought(Thought.Food, true);
+
+                if (!foodPopupDone)
+                {
+                    foodPopupDone = true;
+                    PopUpHandler.instance.QueuePopUp("When the whale gets hungry, press 1 to feed it from provisions", KeyCode.Alpha1);
+                }
             }
             hungerModifier = 0.75f;
         }
@@ -56,7 +63,7 @@ public class WhaleInfo : ScriptableObject
 
     public void FeedWhale()
     {
-        hunger += 10.0f;
+        hunger += 100.0f;
         if (hunger > 100)
         {
             hunger = 100;

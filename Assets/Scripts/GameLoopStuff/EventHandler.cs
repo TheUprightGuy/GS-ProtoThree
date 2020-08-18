@@ -74,6 +74,7 @@ public class EventHandler : MonoBehaviour
         Debug.Log("EstablishingShotOver setting paused to false");
         gameState.gamePaused = false;
         endEstablishingShot?.Invoke();
+        
     }
 
     public void OnEndTriggered()

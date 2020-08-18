@@ -42,13 +42,11 @@ public class ResourceCollector : MonoBehaviour
         newPos.y = WhaleMovementScript.instance.transform.position.y;
         transform.position = newPos;
     }
-
+    public float timer = 0.0f;
     public float time = 0.0f;
     // Update is called once per frame
     void Update()
     {
-        
-
         if (trig.playerInRange && whaleInfo.leashed && time <= 1.0f)
         {
             time += Time.deltaTime / OverallCollectTime;
