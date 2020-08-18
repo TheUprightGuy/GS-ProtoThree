@@ -23,7 +23,8 @@ namespace Menu
             _gameState = EventHandler.instance.gameState;
             //On start menu will always be open except for testing
             _gameState.inMenu = true;
-            EventHandler.instance.menuOpened += () => menuCanvas.SetActive(true);
+            EventHandler.instance.menuOpened += OnMenuOpened;
+            CallbackHandler.instance.MoveToFire();
         }
 
         public void OnPlayPressed()
@@ -36,6 +37,13 @@ namespace Menu
             playButton.GetComponent<Button>().onClick.AddListener(OnResumePressed);
             playButton.name = "RESUME";
             menuCanvas.SetActive(false);
+            CallbackHandler.instance.MoveToSaddle();
+        }
+
+        private void OnMenuOpened()
+        {
+            menuCanvas.SetActive(true);
+            CallbackHandler.instance.MoveToFire();
         }
 
         private void OnResumePressed()
@@ -45,6 +53,7 @@ namespace Menu
             EventHandler.instance.gameState.gamePaused = false;
             EventHandler.instance.gameState.inMenu = false;
             menuCanvas.SetActive(false);
+            CallbackHandler.instance.MoveToSaddle();
         }
 
         public void OnQuitPressed()

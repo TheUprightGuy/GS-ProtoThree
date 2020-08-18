@@ -9,4 +9,5 @@ public class GameState : ScriptableObject
     public bool inMenu;
     public bool gamePaused;
     public bool inCinematic = false;
+    public List<int> objectivesHighlighted = new List<int>();
 }

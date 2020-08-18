@@ -94,6 +94,8 @@ public class ShopUIScript : MonoBehaviour
         {
             Debug.Log("Purchased a Lamp");
             LampBeam.SetActive(true);
+            EventHandler.instance.OnLampBought();
+            CallbackHandler.instance.SetQuestObjective(null);
         }
     }
 

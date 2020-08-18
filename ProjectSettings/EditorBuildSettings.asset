@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/WhaleMovement.unity
-    guid: 3ae89c17008f3ae4b8ce92b236911d53
   - enabled: 1
     path: Assets/Scenes/World.unity
     guid: c59e01f4e8abc9347a26ec00759e3c63

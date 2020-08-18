@@ -17,6 +17,7 @@ public class ShopTrigger : MonoBehaviour
                 PopUpHandler.instance.QueuePopUp("You can purchase items from the shop in this view", 6.0f);
             }
             CallbackHandler.instance.ToggleShop(true);
+            EventHandler.instance.HighlightObjective(1);
         }
     }
 
