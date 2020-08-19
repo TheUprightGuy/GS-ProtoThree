@@ -30,7 +30,7 @@ public class WhaleInfo : ScriptableObject
                 if (!foodPopupDone)
                 {
                     foodPopupDone = true;
-                    PopUpHandler.instance.QueuePopUp("When the whale gets hungry, press 1 to feed it from provisions", KeyCode.Alpha1);
+                    PopUpHandler.instance.QueuePopUp("When the whale gets hungry, press <b>1</b> to feed it from provisions", KeyCode.Alpha1);
                 }
             }
             hungerModifier = 0.75f;

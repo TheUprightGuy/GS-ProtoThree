@@ -62,7 +62,7 @@ public class IslandTrigger : MonoBehaviour
             if (!PopUpDone)
             {
                 PopUpDone = true;
-                PopUpHandler.instance.QueuePopUp("Press Space to orbit the island", KeyCode.Space);
+                PopUpHandler.instance.QueuePopUp("Press <b>Space</b> to orbit the island", KeyCode.Space);
                 PopUpHandler.instance.QueuePopUp("Any resources found will be collected while orbiting an island", 7.0f);
             }
 
