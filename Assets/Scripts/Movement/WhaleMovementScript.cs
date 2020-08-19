@@ -173,9 +173,14 @@ public class WhaleMovementScript : MonoBehaviour
             {
                 orbit.SetOrbitDirection();
                 CallbackHandler.instance.LandingTooltip(false);
+                if (orbit.leashObject.GetComponent<ShopTrigger>())
+                {
+                    CallbackHandler.instance.ToggleShop(true);
+                }
             }
             else
             {
+                CallbackHandler.instance.ToggleShop(false);
                 CallbackHandler.instance.LandingTooltip(true);
                 orbit.leashObject.GetComponent<IslandTrigger>().ToggleLeashed(false);
             }

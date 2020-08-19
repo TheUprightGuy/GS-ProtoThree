@@ -16,7 +16,6 @@ public class ShopTrigger : MonoBehaviour
                 PopUpHandler.instance.QueuePopUp("Use the scroll wheel to switch to first person view", 6.0f);
                 PopUpHandler.instance.QueuePopUp("You can purchase items from the shop in this view", 6.0f);
             }
-            CallbackHandler.instance.ToggleShop(true);
             EventHandler.instance.HighlightObjective(1);
         }
     }
@@ -27,6 +26,7 @@ public class ShopTrigger : MonoBehaviour
 
         if (player)
         {
+            shopPopUpDone = true;
             CallbackHandler.instance.ToggleShop(false);
         }
     }
