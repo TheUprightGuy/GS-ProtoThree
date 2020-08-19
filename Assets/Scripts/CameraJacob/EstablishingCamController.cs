@@ -73,7 +73,7 @@ public class EstablishingCamController : MonoBehaviour
         menuVCam.SetActive(false);
     }
     
-    private void OnMenuOpened()    //Not used currently
+    private void OnMenuOpened()
     {
         menuToGameViewBlendList.SetActive(false);
         establishingShotBlendList.SetActive(false);

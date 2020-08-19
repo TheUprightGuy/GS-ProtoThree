@@ -17,7 +17,7 @@ public class ShopTrigger : MonoBehaviour
                 PopUpHandler.instance.QueuePopUp("You can purchase items while orbiting in this view", 6.0f);
                 PopUpHandler.instance.QueuePopUp("A lamp can help guide us to objectives", 6.0f);
             }
-            EventHandler.instance.HighlightObjective(1);
+            StartCoroutine(EventHandler.instance.HighlightObjective(1));
         }
     }
 

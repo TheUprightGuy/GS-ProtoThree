@@ -52,7 +52,7 @@ public class ResourceCollector : MonoBehaviour
         if (trig.playerInRange && whaleInfo.leashed && time <= 1.0f)
         {
             //Highlight shop if it's undiscovered when first collecting resources
-            EventHandler.instance.HighlightObjective(0);
+            StartCoroutine(EventHandler.instance.HighlightObjective(0));
             EventHandler.instance.gameState.objectivesHighlighted.Add(1);    //Don't need to highlight resources
             
             time += Time.deltaTime / OverallCollectTime;

@@ -60,10 +60,14 @@ public class EventHandler : MonoBehaviour
         }
     }
 
-    public void HighlightObjective(int index)
+    public IEnumerator HighlightObjective(int index)
     {
+        while (gameState.gamePaused)
+        {
+            yield return new WaitForSeconds(10f);    //Wait for the player to resume before highlighting the objective
+        }
         //Don't check if it's already been highlighted
-        if (gameState.objectivesHighlighted.Contains(index)) return;
+        if (gameState.objectivesHighlighted.Contains(index)) yield break;
         Debug.Log("Highlighting shop");
         gameState.objectivesHighlighted.Add(index);
         EstablishingCamController.instance.currentObjectiveIndex = index;
@@ -88,7 +92,7 @@ public class EventHandler : MonoBehaviour
     private IEnumerator FreeRoamTillFinalObjective()
     {
         yield return new WaitForSeconds(freeRoamDuration);
-        HighlightObjective(2);    //Highlight final objective
+        StartCoroutine(HighlightObjective(2));    //Highlight final objective
         WhaleMovementScript.instance.lamp.SetActive(true);
         AudioManager.instance.PlaySound("OtherWhaleSound");
     }
@@ -99,7 +103,7 @@ public class EventHandler : MonoBehaviour
         gameState.gamePaused = false;
         gameStart?.Invoke();
         yield return new WaitForSeconds(freeRoamDuration);
-        HighlightObjective(0);    //Highlight shop objective
+        StartCoroutine(HighlightObjective(0));    //Highlight shop objective
     }
 
     private IEnumerator WaitForEstablishingShot()
