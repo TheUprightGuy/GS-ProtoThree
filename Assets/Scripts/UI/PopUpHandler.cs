@@ -32,13 +32,13 @@ public class PopUpHandler : MonoBehaviour
     #endregion Singleton
 
     bool bPlaying = false;
-    float timer = 0.0f;
+    public float timer = 0.0f;
 
     private void Start()
     {
         transitions = GetComponent<Animator>();
         textToChange = GetComponentInChildren<Text>();
-        EventHandler.instance.endEstablishingShot += BasePopups;
+        //EventHandler.instance.endEstablishingShot += BasePopups;
         //QueuePopUp("This is test one", KeyCode.T);
         //QueuePopUp("This is test two", 5.0f);
     }
@@ -47,21 +47,23 @@ public class PopUpHandler : MonoBehaviour
     {
         if (PopUpQueue.Count > 0)
         {
+            timer += Time.deltaTime / PopUpQueue[0].TimeCheck;
+
             //Play next prompt in Queue (make sure has gone to start)
             if (!bPlaying && transitions.GetCurrentAnimatorStateInfo(0).IsName("Start"))
             {
+                timer = 0.0f;
                 textToChange.text = PopUpQueue[0].PopUpText;
                 transitions.SetTrigger("FadeIn");
-                timer = 0.0f;
                 bPlaying = true;
             }
             else //
             {
 
-                timer += Time.deltaTime / PopUpQueue[0].TimeCheck;
-
+                
                 if (Input.GetKeyDown(PopUpQueue[0].KeyCheck) || timer > 1.0f)
                 {
+                    timer = 0.0f;
                     PopUpQueue.RemoveAt(0);
                     //play end anim
                     transitions.SetTrigger("FadeOut");
@@ -91,19 +93,19 @@ public class PopUpHandler : MonoBehaviour
     }
 
     bool bCalled = false;
-    public void BasePopups()
+    public void BasePopups(float time)
     {
         if (!bCalled)
         {
             bCalled = true;
-            StartCoroutine(WaitForTime());
+            StartCoroutine(WaitForTime(time));
         }
         
     }
 
-    private IEnumerator WaitForTime()
+    private IEnumerator WaitForTime(float time)
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(time);
         PopUpHandler.instance.QueuePopUp("Press A and D to steer the whale", KeyCode.A);
         PopUpHandler.instance.QueuePopUp("Hold Left Click to look around", KeyCode.Mouse0);
     }
