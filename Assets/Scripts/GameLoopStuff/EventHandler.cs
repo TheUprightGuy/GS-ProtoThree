@@ -33,7 +33,8 @@ public class EventHandler : MonoBehaviour
     [Header("Cinematic durations")]
     public float establishingShotDuration;
     public float menuToGameViewDuration;
-    public float freeRoamDuration = 5f;
+    public float freeRoamDuration = 60f;
+    public float freeRoamAfterLampDuration = 15f;
     //Actions
     public Action menuClosed;
     public Action startEstablishingShot;
@@ -91,7 +92,7 @@ public class EventHandler : MonoBehaviour
     
     private IEnumerator FreeRoamTillFinalObjective()
     {
-        yield return new WaitForSeconds(freeRoamDuration);
+        yield return new WaitForSeconds(freeRoamAfterLampDuration);
         StartCoroutine(HighlightObjective(2));    //Highlight final objective
         WhaleMovementScript.instance.lamp.SetActive(true);
         AudioManager.instance.PlaySound("OtherWhaleSound");
