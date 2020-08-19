@@ -93,10 +93,7 @@ public class IslandTrigger : MonoBehaviour
         {
             playerInRange = false;
             player.inRange = false;
-            //player.orbit.leashObject = null;
-            //lineRenderer.positionCount = 0;
             CallbackHandler.instance.LandingTooltip(false);
-            //ToggleLeashed(false);
         }
     }
 
