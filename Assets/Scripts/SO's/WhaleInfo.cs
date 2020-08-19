@@ -77,6 +77,7 @@ public class WhaleInfo : ScriptableObject
         hunger = 69.0f; // LMAO
         weight = 0.0f;
         currentThought = Thought.None;
+        foodPopupDone = false;
     }
 
     public void ToggleLeashed(bool _toggle)

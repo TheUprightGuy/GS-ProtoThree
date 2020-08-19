@@ -81,7 +81,7 @@ public class IslandTrigger : MonoBehaviour
 
         if (player && !player.whaleInfo.leashed)
         {
-            SetupCircle(Vector3.Distance(player.transform.position, transform.position), player.transform.position.y);
+            SetupCircle(Vector3.Distance(player.transform.position, transform.position), player.transform.position.y - 1.5f);
         }
     }
 
