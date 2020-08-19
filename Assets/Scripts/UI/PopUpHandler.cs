@@ -103,7 +103,7 @@ public class PopUpHandler : MonoBehaviour
     private IEnumerator WaitForTime(float time)
     {
         yield return new WaitForSeconds(time);
-        PopUpHandler.instance.QueuePopUp("Press <b>A</b> and <b>D</b> to steer the whale", KeyCode.A);
+        PopUpHandler.instance.QueuePopUp("Use the <b>WASD</b> keys to steer the whale", KeyCode.A);
         PopUpHandler.instance.QueuePopUp("Hold <b>Left Click</b> to look around", KeyCode.Mouse0);
     }
 }

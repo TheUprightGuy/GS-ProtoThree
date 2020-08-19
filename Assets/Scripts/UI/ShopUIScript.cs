@@ -14,6 +14,15 @@ public class ShopUIScript : MonoBehaviour
     bool ready = false;
     float scalar = 0.0f;
 
+    public Button lampButton;
+    public Button toolsButton;
+    public Button tradeButton;
+    public TMPro.TextMeshProUGUI provisions;
+    public TMPro.TextMeshProUGUI supplies;
+
+    Color interactable = new Color(1,1,1,1);
+    Color nonInteractable = new Color(1, 1, 1, 0.5f);
+
     #region Callbacks
     private void Start()
     {
@@ -37,6 +46,69 @@ public class ShopUIScript : MonoBehaviour
             else
             {
                 HideMe();
+            }
+        }
+
+        UpdateButtons();
+    }
+
+    public void UpdateButtons()
+    {
+        int provisionCount = ResourceDisplayScript.instance.provisions;
+        int supplyCount = ResourceDisplayScript.instance.supplies;
+        provisions.SetText(provisionCount.ToString());
+        supplies.SetText(supplyCount.ToString());
+
+        lampButton.interactable = (supplyCount >= 5);
+        // DON'T JUDGE ME 
+        if (!lampButton.interactable)
+        {
+            Image[] images = lampButton.gameObject.GetComponentsInChildren<Image>();
+            foreach (Image n in images)
+            {
+                n.color = nonInteractable;
+            }
+        }
+        else
+        {
+            Image[] images = lampButton.gameObject.GetComponentsInChildren<Image>();
+            foreach (Image n in images)
+            {
+                n.color = interactable;
+            }
+        }
+        toolsButton.interactable = (supplyCount >= 2);
+        if (!toolsButton.interactable)
+        {
+            Image[] images = toolsButton.gameObject.GetComponentsInChildren<Image>();
+            foreach (Image n in images)
+            {
+                n.color = nonInteractable;
+            }
+        }
+        else
+        {
+            Image[] images = toolsButton.gameObject.GetComponentsInChildren<Image>();
+            foreach (Image n in images)
+            {
+                n.color = interactable;
+            }
+        }
+        tradeButton.interactable = (supplyCount >= 1);
+        if (!tradeButton.interactable)
+        {
+            Image[] images = tradeButton.gameObject.GetComponentsInChildren<Image>();
+            foreach (Image n in images)
+            {
+                n.color = nonInteractable;
+            }
+        }
+        else
+        {
+            Image[] images = tradeButton.gameObject.GetComponentsInChildren<Image>();
+            foreach (Image n in images)
+            {
+                n.color = interactable;
             }
         }
     }

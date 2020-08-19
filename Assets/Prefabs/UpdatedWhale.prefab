@@ -30095,6 +30095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lure: {fileID: 8323822555328794239}
   body: {fileID: 8323822555882968382}
+  lamp: {fileID: 0}
   lureScript: {fileID: 3478038640148006855}
   orbit: {fileID: 0}
   whaleInfo: {fileID: 0}
@@ -32979,7 +32980,7 @@ PrefabInstance:
     - target: {fileID: 8173024572280211842, guid: e619df55c9b2b254aa327e8bd5053435,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0358
+      value: 0.036
       objectReference: {fileID: 0}
     - target: {fileID: 8173024572280211842, guid: e619df55c9b2b254aa327e8bd5053435,
         type: 3}
@@ -33024,12 +33025,12 @@ PrefabInstance:
     - target: {fileID: 8173024572280211842, guid: e619df55c9b2b254aa327e8bd5053435,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0574
+      value: -0.057
       objectReference: {fileID: 0}
     - target: {fileID: 8173024572280211842, guid: e619df55c9b2b254aa327e8bd5053435,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0878
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 8173024572280211842, guid: e619df55c9b2b254aa327e8bd5053435,
         type: 3}
