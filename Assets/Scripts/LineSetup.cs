@@ -10,24 +10,44 @@ public class LineSetup : MonoBehaviour
     LineRenderer lr;
     CapsuleCollider cc;
     Vector3[] positions = new Vector3[2];
+    public float TimeToTransition = 5.0f;
+
+    public AnimationCurve LineWidthOverTime;
+    //Vector3 currentPos = transform.position;
     // Start is called before the first frame update
     void Start()
     {
         lr = GetComponent<LineRenderer>();
         cc = GetComponent<CapsuleCollider>();
 
-        positions[0] = target.position;
+        positions[0] = transform.position;
         positions[1] = transform.position;
         lr.SetPositions(positions);
     }
 
+    private void OnEnable() {
+        positions[0] = transform.position;
+        StartCoroutine(LerpToPos(target.position, TimeToTransition));
+    }
+
+    IEnumerator LerpToPos(Vector3 targetPos, float timeToLerp)
+    {
+        float elapsedTime = 0.0f;
+        while (elapsedTime < timeToLerp)
+        {
+            positions[0] = Vector3.Lerp(transform.position, targetPos, (elapsedTime / timeToLerp));
+            lr.startWidth = LineWidthOverTime.Evaluate(elapsedTime / timeToLerp);
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+    }
     // Update is called once per frame
     void Update()
     {
         transform.position = LampModel.position;
-        if (Application.isPlaying)
+        if (Application.isPlaying) 
         {
-            positions[0] = target.position;
+            //positions[0] = target.position;
             positions[1] = transform.position;
             lr.SetPositions(positions);
             UpdateCollider();
