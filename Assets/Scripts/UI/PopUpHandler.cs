@@ -38,9 +38,6 @@ public class PopUpHandler : MonoBehaviour
     {
         transitions = GetComponent<Animator>();
         textToChange = GetComponentInChildren<Text>();
-        //EventHandler.instance.endEstablishingShot += BasePopups;
-        //QueuePopUp("This is test one", KeyCode.T);
-        //QueuePopUp("This is test two", 5.0f);
     }
     // Update is called once per frame
     void Update()
