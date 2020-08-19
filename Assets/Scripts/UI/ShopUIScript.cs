@@ -90,10 +90,9 @@ public class ShopUIScript : MonoBehaviour
 
     public void Lamp()
     {
-        if (ResourceDisplayScript.instance.SpendSupplies(8))
+        if (ResourceDisplayScript.instance.SpendSupplies(5))
         {
             Debug.Log("Purchased a Lamp");
-            LampBeam.SetActive(true);
             EventHandler.instance.OnLampBought();
             CallbackHandler.instance.SetQuestObjective(null);
         }

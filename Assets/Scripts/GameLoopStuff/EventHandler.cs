@@ -89,6 +89,7 @@ public class EventHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(freeRoamDuration);
         HighlightObjective(2);    //Highlight final objective
+        WhaleMovementScript.instance.lamp.SetActive(true);
         AudioManager.instance.PlaySound("OtherWhaleSound");
     }
     

@@ -24,6 +24,7 @@ public class WhaleMovementScript : MonoBehaviour
     [Header("Setup Fields")]
     public GameObject lure;
     public GameObject body;
+    public GameObject lamp;
     private Rigidbody rb;
     [HideInInspector] public LureScript lureScript;
     [HideInInspector] public OrbitScript orbit;
