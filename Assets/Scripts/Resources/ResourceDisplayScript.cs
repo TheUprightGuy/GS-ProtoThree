@@ -139,7 +139,11 @@ public class ResourceDisplayScript : MonoBehaviour
         {
             return false;
         }
-
+        else
+        {
+            rfb.ProvPopUp("-" + _provisions.ToString());
+        }
+        
         provisions -= _provisions;
         DisplayProvisions();
         provisionsPercentage = (float)provisions / (float)provisionsMax;
