@@ -32,6 +32,7 @@ public class LureScript : MonoBehaviour
     public float forwardSpeed = 10.0f;
     [Header("Control Point")]
     public Transform controlPoint;
+    float controlSway;
     [Header("Bird")]
     public Transform bird;
 
@@ -82,5 +83,9 @@ public class LureScript : MonoBehaviour
                 controlPoint.position -= transform.forward * Time.deltaTime * forwardSpeed;
             }
         }
+
+        controlSway = Mathf.PingPong(Time.time, 2.0f) - 1.0f;
+
+        controlPoint.position += transform.right * Time.deltaTime * 2 * controlSway / (currentForward + 2.5f);
     }
 }
