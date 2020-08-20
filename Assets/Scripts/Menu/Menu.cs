@@ -24,8 +24,14 @@ namespace Menu
             //On start menu will always be open except for testing
             _gameState.inMenu = true;
             EventHandler.instance.menuOpened += OnMenuOpened;
+            Invoke("GoSit", 0.1f);
+        }
+
+        public void GoSit()
+        {
             CallbackHandler.instance.MoveToFire();
         }
+
         static bool popupDone = false;
         public void OnPlayPressed()
         {
