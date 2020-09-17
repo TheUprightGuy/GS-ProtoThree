@@ -48,9 +48,10 @@ public class PlayerCamera : MonoBehaviour
         // Begin Lerp
         if (timer <= 0)
         {
-            // Lerp Between Current Forward & Character Forward
-            Vector3 adj = Vector3.Lerp(transform.forward, character.forward, Time.deltaTime);
-            transform.forward = adj;
+            // Lerp Between Current & Character Rotations
+            Vector3 adj = Vector3.Lerp(transform.rotation.eulerAngles, character.rotation.eulerAngles, Time.deltaTime);
+            adj = new Vector3(Mathf.Clamp(adj.x, pitchMinMax.x, pitchMinMax.y), adj.y, 0.0f);
+            transform.rotation = Quaternion.Euler(adj);
         }
 
         // Set Position
