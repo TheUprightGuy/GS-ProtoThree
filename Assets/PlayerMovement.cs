@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     bool jumping;
     float distToGround;
 
+    public Animator animator;
+
     [Header("Required Fields")]
     public float jumpVelocity;
     public float fallMultiplier = 2.5f;
@@ -71,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
             transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRot, ref turnSmoothVelocity, turnSmoothTime);
             cam.timer = 1.5f;
         }
+        animator.SetBool("Moving", moveVector != Vector2.zero);
 
         bool running = Input.GetKey(KeyCode.LeftShift);
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * moveVector.magnitude;
