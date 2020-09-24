@@ -1265,6 +1265,7 @@ MonoBehaviour:
   runSpeed: 6
   walkSpeed: 2
   cam: {fileID: 0}
+  startAnim: 1
 --- !u!1 &4813653285271086532
 GameObject:
   m_ObjectHideFlags: 0
