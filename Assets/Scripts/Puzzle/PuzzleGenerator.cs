@@ -7,10 +7,8 @@ namespace Puzzle
     public class PuzzleGenerator : MonoBehaviour
     {
         private int _currentType;
-        public int colNum = 4;
+        public int puzzleSize = 4;//num of tiles in each row and col
         public float distanceFromStartingTiles = 5f;
-        public int numTileTypes = 4; //Can be randomised for more variety
-        public int rowNum = 4;
         public List<List<GameObject>> startingTiles;
         public List<Material> tileMaterials;
         public List<GameObject> tilePrefabs;
@@ -22,9 +20,9 @@ namespace Puzzle
             tiles = new List<List<GameObject>>();
             startingTiles = new List<List<GameObject>>();
             var tilePos = gameObject.transform.position;
-            tilePos.x += (float) rowNum / 2 + 0.5f;
+            tilePos.x += (float) puzzleSize / 2 + 0.5f;
             tilePos = GenerateStartingTiles(tilePos);
-            tilePos.x -= (float) rowNum / 2 + 0.5f;
+            tilePos.x -= (float) puzzleSize / 2 + 0.5f;
             tilePos.z += distanceFromStartingTiles;
             GenerateTiles(tilePos);
             _currentType = 0;
@@ -34,13 +32,13 @@ namespace Puzzle
         private void GeneratePath()
         {
             //Choose a random starting tile in the first row
-            var rand = Random.Range(0, colNum);
+            var rand = Random.Range(0, puzzleSize);
             var currentTile = new Vector2(0, rand);
             SetPathTile(currentTile);
             //For each row, choose a random col which will serve as a target tile
-            for (var i = 0; i < rowNum; i++)
+            for (var i = 0; i < puzzleSize; i++)
             {
-                rand = Random.Range(0, colNum);
+                rand = Random.Range(0, puzzleSize);
                 var targetTile = new Vector2(i, rand);
                 //If current tile col number is greater than target til col
                 //keep moving left until you reach the same tile, altering the tile type as you go
@@ -57,7 +55,7 @@ namespace Puzzle
                 }
 
                 currentTile.x += 1;
-                if (currentTile.x < rowNum) SetPathTile(currentTile);
+                if (currentTile.x < puzzleSize) SetPathTile(currentTile);
             }
         }
 
@@ -71,17 +69,17 @@ namespace Puzzle
             tile.name = tilePrefabs[_currentType].name;
             Debug.Log("Col: " + tileSO.col + " Row: " + tileSO.row + " Type: " + tile.name);
             _currentType += 1;
-            _currentType %= numTileTypes;
+            _currentType %= tilePrefabs.Count;
         }
 
         private void GenerateTiles(Vector3 tilePos)
         {
-            for (var i = 0; i < rowNum; i++)
+            for (var i = 0; i < puzzleSize; i++)
             {
                 var newRow = new List<GameObject>();
-                for (var j = 0; j < colNum; j++)
+                for (var j = 0; j < puzzleSize; j++)
                 {
-                    var randTile = Random.Range(0, numTileTypes);
+                    var randTile = Random.Range(0, tilePrefabs.Count);
                     var newTile = Instantiate(tilePrefabs[randTile], tilePos, Quaternion.identity, transform);
                     newTile.GetComponent<MeshRenderer>().material = tileMaterials[randTile];
                     newTile.name = tilePrefabs[randTile].name;
@@ -95,7 +93,7 @@ namespace Puzzle
                 }
 
                 tiles.Add(newRow);
-                tilePos.z -= rowNum * tileSpacing;
+                tilePos.z -= puzzleSize * tileSpacing;
                 tilePos.x += 1 * tileSpacing;
             }
         }
@@ -104,7 +102,7 @@ namespace Puzzle
         {
             var currentTile = 0;
             var newRow = new List<GameObject>();
-            for (var j = 0; j < numTileTypes; j++)
+            for (var j = 0; j < tilePrefabs.Count; j++)
             {
                 var newTile = Instantiate(tilePrefabs[currentTile], tilePos, Quaternion.identity, transform);
                 newTile.name = tilePrefabs[currentTile].name;
@@ -129,7 +127,7 @@ namespace Puzzle
             if (tileType == _currentType)
             {
                 _currentType += 1;
-                _currentType %= numTileTypes;
+                _currentType %= tilePrefabs.Count;
                 return true;
             }
 
