@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2125101616706423898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.1, z: 0.9}
+  m_LocalScale: {x: 1.2, y: 0.1, z: 1.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -106,7 +106,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd024fdd038a12943af0a735b8c347a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  col: 0
-  row: 0
-  triggered: 0
+  puzzleTileSo: {fileID: 0}
+  puzzleGenerator: {fileID: 0}

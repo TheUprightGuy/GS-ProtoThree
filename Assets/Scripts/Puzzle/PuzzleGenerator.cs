@@ -116,12 +116,11 @@ public class PuzzleGenerator : MonoBehaviour
 
                 newRow.Add(newTile);
 
-                tilePos.z += 1;
+                tilePos.z += 1 * distanceFromStartingTiles;
                 currentTile += 1;
             }
 
             startingTiles.Add(newRow);
-            tilePos.x += 1;
             return tilePos;
     }
 
