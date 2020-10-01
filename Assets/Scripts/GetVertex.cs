@@ -12,8 +12,13 @@ public class GetVertex : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-           transform.position =  GetNearbyVertex();
+            Fader.instance.FadeOut(this);
         }
+    }
+
+    public void MoveToClosestPoint()
+    {
+        transform.position = GetNearbyVertex();
     }
 
     public Vector3 GetNearbyVertex()
