@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Puzzle;
 using UnityEngine;
 
 public class PuzzleTile : MonoBehaviour
