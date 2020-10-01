@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PlayerCamera : MonoBehaviour
 
     float yaw, pitch;
     public float timer = 0;
-
+    
     private void LateUpdate()
     {
         if (Input.GetMouseButtonDown(0))
