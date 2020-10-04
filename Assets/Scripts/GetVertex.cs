@@ -5,20 +5,33 @@ using UnityEngine;
 public class GetVertex : MonoBehaviour
 {
     public MeshFilter islandMesh;
-    public GameObject prefab;
     public GameObject bigIsland;
+
+    public GameObject player;
+    public GameObject rider;
+
+    public Cinemachine.CinemachineFreeLook followCam;
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
+            bigIsland = WhaleMovementScript.instance.orbit.leashObject;
+            islandMesh = bigIsland.GetComponent<MeshFilter>();
+
             Fader.instance.FadeOut(this);
+            player.transform.parent = null;
+            rider.SetActive(false);
+            player.SetActive(true);
+            MoveToClosestPoint();
+            followCam.gameObject.SetActive(true);
+            GetComponent<WhaleMovementScript>().enabled = false;
         }
     }
 
     public void MoveToClosestPoint()
     {
-        transform.position = GetNearbyVertex();
+        player.transform.position = GetNearbyVertex();
     }
 
     public Vector3 GetNearbyVertex()

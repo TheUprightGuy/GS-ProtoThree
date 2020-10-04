@@ -47,10 +47,10 @@ public class TestMovement : MonoBehaviour
         distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
     }
 
+  
     // Update is called once per frame
     void Update()
     {
-
         if (startAnim)
         {
             currentSpeed = 1.0f;
