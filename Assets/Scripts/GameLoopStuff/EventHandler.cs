@@ -21,7 +21,7 @@ public class EventHandler : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
         // TEMP
-        //OnAwake();
+        OnAwake();
     }
 
     
