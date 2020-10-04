@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Birds
+  - Grass Exclusion Zone
   layers:
   - Default
   - TransparentFX
