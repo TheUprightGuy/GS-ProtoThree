@@ -40,27 +40,30 @@ public class ObjData
     public float maxScale = 1.0f;
 
     //Defines size of radius
-    public float discDiameter = 5;
     public float density = 10;
+
+    public float CellSize = 5.0f;
 
     public GameObject prefabTemplate;
 
     [SerializeField]
     private List<List<ObjData>> batches;
 
+    private List<Mesh> MeshCells;
+
     [HideInInspector]
     public Bounds BoundingBox;
     private void Start()
     {
-        PlaceObjs();
+        PlaceObjMesh();
     }
 
     private void Update()
     {
-        Redraw();
+        RedrawMesh();
     }
 
-    public void Redraw()
+    public void RedrawGPUI()
     {
         if (batches != null)
         {
@@ -72,8 +75,82 @@ public class ObjData
         
     }
 
-    public void PlaceObjs()
+    public void RedrawMesh()
     {
+        foreach (var item in MeshCells)
+        {
+            Graphics.DrawMesh(item, Vector3.zero, Quaternion.identity, prefabTemplate.GetComponentInChildren<MeshRenderer>().sharedMaterial, 0);
+        }
+    }
+
+    public void PlaceObjMesh()
+    {
+        if (MeshCells == null)
+        {
+            Debug.Log("Making Array");
+            MeshCells = new List<Mesh>();
+        }
+
+        if (MeshCells.Count > 0)
+        {
+            Debug.Log("Clearing Array");
+            MeshCells.Clear();
+        }
+
+        List<List<CombineInstance>> MeshCellInstances = new List<List<CombineInstance>>();
+
+        int numOfColumns = Mathf.CeilToInt(transform.localScale.x / CellSize);
+        int numOfRows = Mathf.CeilToInt(transform.localScale.z / CellSize);
+        Vector2 startPos = new Vector2(transform.position.x - (transform.localScale.x / 2), transform.position.z - (transform.localScale.z / 2));
+
+        for (int i = 0; i < numOfColumns * numOfRows; i++)
+        {
+            List<CombineInstance> temp = new List<CombineInstance>();
+            MeshCellInstances.Add(temp);
+        }
+
+        
+        Debug.Log("Randomising Positions...");
+        List<Vector3> PointList = ReRoll();
+        Debug.Log("Randomising Positions Done");
+
+        PointList = RaycastPositions(PointList);
+
+        Debug.Log("Batching Mesh...");
+        for (int i = 0; i < PointList.Count; i++)
+        {
+            float xLocal = PointList[i].x - startPos.x;
+            int col = Mathf.FloorToInt(xLocal / CellSize);
+
+            float yLocal = PointList[i].z - startPos.y;
+            int row = Mathf.FloorToInt(yLocal / CellSize);
+
+            int iIndex = row * numOfColumns + col;
+
+            float randScale = Random.Range(minScale, maxScale);
+            foreach (Transform item in prefabTemplate.transform)
+            {
+                CombineInstance newInstance = new CombineInstance();
+                newInstance.mesh = item.GetComponent<MeshFilter>().sharedMesh;
+                newInstance.transform = Matrix4x4.TRS(PointList[i] + prefabTemplate.transform.position + item.transform.position, item.rotation, item.localScale * randScale);
+                MeshCellInstances[iIndex].Add(newInstance);
+            }
+        }
+        Debug.Log("Batching Mesh Done");
+
+        foreach (var item in MeshCellInstances)
+        {
+            Mesh newMesh = new Mesh();
+            newMesh.CombineMeshes(item.ToArray());
+            MeshCells.Add(newMesh);
+        }
+    }
+
+    public void PlaceObjsGPUI()
+    {
+
+        
+
         if (batches == null)
         {
             Debug.Log("Making Array");
@@ -99,7 +176,6 @@ public class ObjData
         for (int i = 0; i < PointList.Count; i++)
         {
 
-            Vector3 position = new Vector3(Random.Range(-(discDiameter / 2), (discDiameter / 2)), 0.0f, Random.Range(-(discDiameter / 2), (discDiameter / 2)));
             float randScale = Random.Range(minScale, maxScale);
             foreach (Transform item in prefabTemplate.transform)
             {
@@ -123,7 +199,7 @@ public class ObjData
         }
 
 
-        Redraw();
+        RedrawGPUI();
     }
 
     public List<Vector3> ReRoll()
@@ -150,7 +226,7 @@ public class ObjData
 
         return PointList;
     }
-    public LayerMask mask = -1;
+
     public List<Vector3> RaycastPositions(List<Vector3> posList)
     {
 

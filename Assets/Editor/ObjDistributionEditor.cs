@@ -21,7 +21,7 @@ public class ObjDistributionEditor : Editor
         ObjDistribuition t = target as ObjDistribuition;
         if (GUILayout.Button("Reload"))
         {
-            t.PlaceObjs();
+            t.PlaceObjMesh();
         }
 
 
