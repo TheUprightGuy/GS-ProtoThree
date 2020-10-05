@@ -45,4 +45,16 @@ public class PuzzleSwitch : MonoBehaviour
             Debug.Log("Complete!");
         }
     }
+
+    private void OnMouseOver()
+    {
+
+        meshRenderer.material.SetFloat("Boolean_55E471DA", 1.0f);
+    }
+
+    private void OnMouseExit()
+    {
+        meshRenderer.material.SetFloat("Boolean_55E471DA", 0.0f);
+    }
+
 }
