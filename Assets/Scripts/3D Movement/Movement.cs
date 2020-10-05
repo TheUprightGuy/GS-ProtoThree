@@ -69,29 +69,37 @@ public class Movement : MonoBehaviour
 
         currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * accelSpeed);
 
-        float slowSpeedTurnBonus = maxSpeed / moveSpeed;
+        float slowSpeedTurnBonus = (maxSpeed / currentSpeed);
 
         if (Input.GetKey(KeyCode.D))
         {
-            if (myTurn + Time.deltaTime * turnSpeed * slowSpeedTurnBonus < 30)
+
+            if (myTurn + Time.deltaTime * turnSpeed * slowSpeedTurnBonus < 40)
             {
                 myTurn += Time.deltaTime * turnSpeed * slowSpeedTurnBonus;
             }
+           
             if (myRoll - Time.deltaTime * rollSpeed > -10)
             {
                 myRoll -= Time.deltaTime * rollSpeed;
             }
         }
-        if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
-            if (myTurn - Time.deltaTime * turnSpeed * slowSpeedTurnBonus > -30)
+            if (myTurn - Time.deltaTime * turnSpeed * slowSpeedTurnBonus > -40)
             {
                 myTurn -= Time.deltaTime * turnSpeed * slowSpeedTurnBonus;
             }
+            
             if (myRoll + Time.deltaTime * rollSpeed < 10)
             {
                 myRoll += Time.deltaTime * rollSpeed;
             }
+        }
+        else
+        {
+            myTurn = Mathf.Lerp(myTurn, 0, Time.deltaTime * turnSpeed);
+            myRoll = Mathf.Lerp(myRoll, 0, Time.deltaTime * rollSpeed * 5);
         }
 
         if (Input.GetKey(KeyCode.W))
@@ -139,7 +147,7 @@ public class Movement : MonoBehaviour
         desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
         body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
 
-        desiredVec = new Vector3(myPitch, myTurn, transform.eulerAngles.z);
+        desiredVec = new Vector3(myPitch, transform.eulerAngles.y + myTurn, transform.eulerAngles.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(desiredVec), Time.deltaTime * rotationSpeed);
     }
 
