@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Unity.Jobs;
 using Unity.Collections;
+using UnityEngine.UI;
 
 public class ObjData
 {
@@ -44,8 +45,13 @@ public class ObjData
 
     public float CellSize = 5.0f;
 
+    //public LayerMask GrassMask;
+    public string GrassExclusionTag;
+
+    public LayerMask RayCastIgnore;
     public GameObject prefabTemplate;
 
+    
     [SerializeField]
     private List<List<ObjData>> batches;
 
@@ -266,9 +272,12 @@ public class ObjData
         for (int i = 0; i < posList.Count; i++)
         {
             RaycastHit hit;
-            if (Physics.Raycast(posList[i], Vector3.down, out hit, Mathf.Infinity))
+            if (Physics.Raycast(posList[i], Vector3.down, out hit, Mathf.Infinity, RayCastIgnore.value))
             {
-                returnList.Add(hit.point);
+                if (hit.collider.gameObject.tag != GrassExclusionTag)
+                {
+                    returnList.Add(hit.point);
+                }
             }
         }
         Debug.Log("RayCasts Complete");
