@@ -48,7 +48,7 @@ public class ObjData
     //public LayerMask GrassMask;
     public string GrassExclusionTag;
 
-    public LayerMask RayCastIgnore;
+    public LayerMask RayCastToHit;
     public GameObject prefabTemplate;
 
     
@@ -272,7 +272,7 @@ public class ObjData
         for (int i = 0; i < posList.Count; i++)
         {
             RaycastHit hit;
-            if (Physics.Raycast(posList[i], Vector3.down, out hit, Mathf.Infinity, RayCastIgnore.value))
+            if (Physics.Raycast(posList[i], Vector3.down, out hit, Mathf.Infinity, RayCastToHit.value))
             {
                 if (hit.collider.gameObject.tag != GrassExclusionTag)
                 {
