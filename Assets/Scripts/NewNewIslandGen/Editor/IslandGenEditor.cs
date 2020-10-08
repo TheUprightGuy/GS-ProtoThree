@@ -53,7 +53,7 @@ public class IslandGenEditor : Editor
             for (int i = t.transform.childCount; i > 0; --i)
                 DestroyImmediate(t.transform.GetChild(0).gameObject);
 
-            float digVal = t.DigValue;
+            float digVal = t.BrushDensity;
             if (Event.current.shift)
             {
                 digVal = -digVal;

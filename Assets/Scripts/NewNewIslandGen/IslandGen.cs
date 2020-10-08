@@ -12,20 +12,29 @@ public class IslandGen : MonoBehaviour
     public Material m_material;
 
     public enum MARCHING_MODE { CUBES, TETRAHEDRON };
-    public MARCHING_MODE mode = MARCHING_MODE.TETRAHEDRON;
 
     List<GameObject> meshes = new List<GameObject>();
 
+    [Header("Noise Settings")]
     public int seed = 0;
+    public int octaves = 3;
+    [InspectorName("Frequency (Perlin)")]
+    public float PerlinFreq = 2.0f;
+    [InspectorName("Frequency (Fractal)")]
+    public float FractalFreq = 1.0f;
+    [Header("Marching Cube Settings")]
+    public MARCHING_MODE mode = MARCHING_MODE.TETRAHEDRON;
+    public Vector3Int VoxelSize;
 
-    public float dist = 0.5f;
+    [Header("Island Settings")]
+    public float IslandSize = 0.5f;
+    public float IslandMidY = 0.8f;
+    public float IslandMaxLowY = 0.0f;
 
-    public float size = 1.0f;
+    [Header("Brush")]
+    public float BrushSize = 1.0f;
+    public float BrushDensity = 1.0f;
 
-    public float MidY;
-    public float MaxLowY;
-
-    public float DigValue = 1.0f;
     [HideInInspector]
     public Vector3 Hitpoint = Vector3.positiveInfinity;
 
@@ -35,7 +44,6 @@ public class IslandGen : MonoBehaviour
     int height = 32;
     int length = 32;
 
-    public Vector3Int VoxelSize;
     float[] voxels;
 
     // Start is called before the first frame update
@@ -79,9 +87,9 @@ public class IslandGen : MonoBehaviour
                     Vector3 newVec = new Vector3(fx, fy, fz);
                     Vector3 test = new Vector3(-width / 2, -height / 2, -length / 2);
                     float dist = Vector3.Distance(Hitpoint, voxelPos);
-                    if (dist < size)
+                    if (dist < BrushSize)
                     {
-                        voxels[idx] += digVal * (1 - (dist / size));
+                        voxels[idx] += digVal * (1 - (dist / BrushSize));
                         returnVal = true;
                     }
                     //voxels[idx] = weight * ((fractal.Sample3D(fx, fy, fz) + 1) / 2);
@@ -101,8 +109,8 @@ public class IslandGen : MonoBehaviour
         {
             voxels = new float[width * height * length];
         }
-        INoise perlin = new PerlinNoise(seed, 2.0f);
-        FractalNoise fractal = new FractalNoise(perlin, 3, 1.0f);
+        INoise perlin = new PerlinNoise(seed, PerlinFreq);
+        FractalNoise fractal = new FractalNoise(perlin, octaves, FractalFreq);
 
         //Fill voxels with values. Im using perlin noise but any method to create voxels will work.
         for (int x = 0; x < width; x++)
@@ -120,13 +128,14 @@ public class IslandGen : MonoBehaviour
 
                     Vector2 newVec = new Vector2(fx, fz);
                     float distFromCenter = Vector2.Distance(newVec, Vector3.one / 2);
-                    float weight = (dist / distFromCenter);
+                    float weight = (IslandSize / distFromCenter);
 
-                    if (fy > MidY)
+                   
+                    weight *= ((fy + IslandMaxLowY) / IslandMidY);
+                    if (fy > IslandMidY)
                     {
                         weight = 0.0f;
                     }
-                    weight *= ((fy + MaxLowY) / MidY);
 
                     voxels[idx] = weight * ((fractal.Sample3D(fx, fy, fz) + 1) / 2);
 
@@ -218,7 +227,7 @@ public class IslandGen : MonoBehaviour
     {
         if (Hitpoint != Vector3.positiveInfinity)
         {
-            Gizmos.DrawWireSphere(Hitpoint, size);
+            Gizmos.DrawWireSphere(Hitpoint, BrushSize);
         }
 
         Vector3 offset = new Vector3(width / 2, height / 2, length / 2);
