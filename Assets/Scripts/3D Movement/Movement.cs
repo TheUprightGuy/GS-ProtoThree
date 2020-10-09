@@ -29,9 +29,13 @@ public class Movement : MonoBehaviour
     public float moveSpeed = 1;
     public float accelSpeed = 1;
     public float maxSpeed = 5.0f;
-    [HideInInspector] public float turnSpeed = 40;
-    [HideInInspector] public float liftSpeed = 20;
-    [HideInInspector] public float rollSpeed = 20;
+    [Header("Tracking")]
+    public OrbitScript orbit;
+    public bool inRange;
+    public float maxDistance;
+    public float angle;
+    public float islandMod = 0.0f;
+    public float distance;
 
     #region Local Variables
     [Header("Local Variables")]
@@ -45,9 +49,12 @@ public class Movement : MonoBehaviour
     public float currentSpeed = 0.0f;
     Vector3 desiredVec;
     Vector3 desiredRoll;
-    public float myRoll = 0.0f;
-    public float myTurn = 0.0f;
-    public float myPitch = 0.0f;
+    [HideInInspector] public float myRoll = 0.0f;
+    [HideInInspector] public float myTurn = 0.0f;
+    [HideInInspector] public float myPitch = 0.0f;
+    [HideInInspector] public float turnSpeed = 40;
+    [HideInInspector] public float liftSpeed = 20;
+    [HideInInspector] public float rollSpeed = 20;
     #endregion Local Variables
 
     #region Setup
@@ -60,7 +67,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float movement = currentSpeed / 2;
+        float movement = currentSpeed * islandMod / 2;
 
         float f = body.transform.rotation.eulerAngles.z;
         f = (f > 180) ? f - 360 : f;
@@ -144,6 +151,11 @@ public class Movement : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            CheckBelow();
+        }
+
         desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
         body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
 
@@ -151,8 +163,94 @@ public class Movement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(desiredVec), Time.deltaTime * rotationSpeed);
     }
 
+    [Header("Slowdown")]
+    public GameObject front;
+
     private void FixedUpdate()
     {
-        rb.MovePosition(transform.position + transform.forward * currentSpeed * Time.deltaTime);     
+        if (inRange)
+        {
+            Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
+            Vector3 closestPointOnBase = orbit.islandBase.ClosestPoint(front.transform.position);
+            distance = Vector3.Distance(front.transform.position, closestPoint);
+
+            Debug.DrawLine(front.transform.position, closestPoint, Color.red);
+            float perc = Mathf.Clamp01(Vector3.Distance(front.transform.position, closestPoint) / maxDistance);
+            Vector3 pointNorm = Vector3.Normalize(closestPoint - front.transform.position);
+            float dotProduct = Vector3.Dot(pointNorm, front.transform.forward);
+            islandMod = Mathf.Clamp01(perc / dotProduct / dotProduct);
+
+
+            Debug.DrawLine(front.transform.position, closestPointOnBase, Color.green);
+            Vector3 dirToBase = closestPointOnBase - front.transform.position;
+            if (dirToBase.y > 0)
+            {
+                float botPerc = Mathf.Clamp01(Vector3.Distance(front.transform.position, closestPointOnBase) / maxDistance);
+                Vector3 botPointNorm = Vector3.Normalize(closestPointOnBase - front.transform.position);
+                float botProduct = Vector3.Dot(botPointNorm, front.transform.forward);
+                islandMod = Mathf.Clamp01(botPerc / botProduct / botProduct);
+            }            
+        }
+        else
+        {
+            islandMod = 1.0f;
+        }
+
+        rb.MovePosition(transform.position + transform.forward * islandMod * currentSpeed * Time.deltaTime);
+    }
+
+    public float GetNearbyVertex()
+    {
+        MeshFilter meshFilter = orbit.leashObject.GetComponent<MeshFilter>();
+        // Get mesh
+        Mesh mesh = meshFilter.mesh;
+        // Set init values
+        float minDistanceSqr = Mathf.Infinity;
+        Vector3 nearestVertex = Vector3.zero;
+        // Look for closest Vertex
+        foreach (Vector3 vertex in mesh.vertices)
+        {
+            // Get Vertex w/ Rotation
+            Vector3 diff = transform.position - (meshFilter.gameObject.transform.position + meshFilter.transform.rotation * vertex);
+            float distSqr = diff.sqrMagnitude;
+
+            // Return Closest
+            if (distSqr < minDistanceSqr)
+            {
+                minDistanceSqr = distSqr;
+                nearestVertex = vertex;
+            }
+        }
+
+        Vector3 vertexPos = meshFilter.transform.rotation * nearestVertex + meshFilter.gameObject.transform.position;
+
+        Vector3 newPos = vertexPos;
+        Vector3 inVec = (meshFilter.transform.position - vertexPos).normalized * 10.0f;
+
+        newPos += inVec;
+
+
+        //transform.position = nearestVertex;
+        return (Vector3.Distance(newPos, transform.position));
+    }
+
+    public GameObject temp;
+    RaycastHit hit;
+
+    public void CheckBelow()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 100.0f))
+        {
+            /*
+             * Get the location of the hit.
+             * This data can be modified and used to move your object.
+             */
+            Instantiate(temp, hit.point, Quaternion.identity);
+            Debug.Log("Hit");
+        }
+        else
+        {
+            Debug.Log("No Hit");
+        }
     }
 }
