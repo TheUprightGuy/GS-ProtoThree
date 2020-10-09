@@ -30,7 +30,9 @@ public class IslandGen : MonoBehaviour
     public float IslandSize = 0.5f;
     public float IslandMidY = 0.8f;
     public float IslandMaxLowY = 0.0f;
-
+    public int NumOfGradients = 1;
+    public float MinGradientSize = 0.1f;
+    public float MaxGradientSize = 0.5f;
     [Header("Brush")]
     public float BrushSize = 1.0f;
     public float BrushDensity = 1.0f;
@@ -112,6 +114,17 @@ public class IslandGen : MonoBehaviour
         INoise perlin = new PerlinNoise(seed, PerlinFreq);
         FractalNoise fractal = new FractalNoise(perlin, octaves, FractalFreq);
 
+        //Z is mapped to size
+        List<Vector3> grads = new List<Vector3>();
+
+        for (int i = 0; i < NumOfGradients; i++)
+        {
+            Vector3 newGrad = new Vector3(Random.Range(MaxGradientSize / 2, 1.0f - MaxGradientSize / 2),
+                                          Random.Range(MaxGradientSize / 2, 1.0f - MaxGradientSize / 2),
+                                          Random.Range(MinGradientSize, MaxGradientSize));
+            grads.Add(newGrad);
+        }
+
         //Fill voxels with values. Im using perlin noise but any method to create voxels will work.
         for (int x = 0; x < width; x++)
         {
@@ -126,17 +139,34 @@ public class IslandGen : MonoBehaviour
 
                     int idx = x + y * width + z * width * height;
 
-                    Vector2 newVec = new Vector2(fx, fz);
-                    float distFromCenter = Vector2.Distance(newVec, Vector3.one / 2);
-                    float weight = (IslandSize / distFromCenter);
+                    Vector2 pos2 = new Vector2(fx, fz);
 
-                   
-                    weight *= ((fy + IslandMaxLowY) / IslandMidY);
+
+                    //Vector2 gradPos = new Vector2(grads[0].x, grads[0].y);
+                    //float distFromCenter = Vector2.Distance(pos2, gradPos);
+                    //float weight = (grads[0].z / distFromCenter);
+
+
+
+                    float weight = 0.0f;
+
+                    foreach (Vector3 item in grads)
+                    {
+                        Vector2 gradPos = new Vector2(item.x, item.y);
+                        float gradSize = item.z;
+
+                        float distFromGrad = Vector2.Distance(pos2, gradPos);
+
+                        float distPercent = (gradSize / distFromGrad); //Furthest is 1, closest is 0
+
+                        weight = weight + distPercent;
+                    }
                     if (fy > IslandMidY)
                     {
                         weight = 0.0f;
                     }
 
+                    weight *= ((fy + IslandMaxLowY) / IslandMidY);
                     voxels[idx] = weight * ((fractal.Sample3D(fx, fy, fz) + 1) / 2);
 
                 }
