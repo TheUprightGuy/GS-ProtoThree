@@ -61,6 +61,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         desiredVec = body.transform.eulerAngles;
+        temp.SetActive(false);
     }
     #endregion Setup
 
@@ -165,6 +166,7 @@ public class Movement : MonoBehaviour
 
     [Header("Slowdown")]
     public GameObject front;
+    public float dotProduct;
 
     private void FixedUpdate()
     {
@@ -177,8 +179,8 @@ public class Movement : MonoBehaviour
             Debug.DrawLine(front.transform.position, closestPoint, Color.red);
             float perc = Mathf.Clamp01(Vector3.Distance(front.transform.position, closestPoint) / maxDistance);
             Vector3 pointNorm = Vector3.Normalize(closestPoint - front.transform.position);
-            float dotProduct = Vector3.Dot(pointNorm, front.transform.forward);
-            islandMod = Mathf.Clamp01(perc / dotProduct / dotProduct);
+            dotProduct = 1 - Vector3.Dot(pointNorm, front.transform.forward);
+            islandMod = Mathf.Clamp01((perc - (dotProduct * (1 - perc))) / dotProduct);
 
 
             Debug.DrawLine(front.transform.position, closestPointOnBase, Color.green);
@@ -187,8 +189,8 @@ public class Movement : MonoBehaviour
             {
                 float botPerc = Mathf.Clamp01(Vector3.Distance(front.transform.position, closestPointOnBase) / maxDistance);
                 Vector3 botPointNorm = Vector3.Normalize(closestPointOnBase - front.transform.position);
-                float botProduct = Vector3.Dot(botPointNorm, front.transform.forward);
-                islandMod = Mathf.Clamp01(botPerc / botProduct / botProduct);
+                float botProduct = 1 - Vector3.Dot(botPointNorm, front.transform.forward);
+                islandMod = Mathf.Clamp01((botPerc - (botProduct *(1 - botPerc))) / botProduct);
             }            
         }
         else
@@ -245,7 +247,9 @@ public class Movement : MonoBehaviour
              * Get the location of the hit.
              * This data can be modified and used to move your object.
              */
-            Instantiate(temp, hit.point, Quaternion.identity);
+            temp.SetActive(true);
+            temp.transform.position = hit.point;
+            //Instantiate(temp, hit.point, Quaternion.identity);
             Debug.Log("Hit");
         }
         else
