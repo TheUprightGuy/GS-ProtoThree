@@ -41,6 +41,7 @@ public class OrbitScript : MonoBehaviour
             orbitDirection = -1;
         }
 
+        if (leashObject.GetComponent<IslandTrigger>())
         leashObject.GetComponent<IslandTrigger>().ToggleLeashed(true);
     }
 

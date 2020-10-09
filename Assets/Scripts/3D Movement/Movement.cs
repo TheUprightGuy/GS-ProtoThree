@@ -38,6 +38,7 @@ public class Movement : MonoBehaviour
     public float distance;
 
     #region Local Variables
+    WhaleInfo whaleInfo;
     [Header("Local Variables")]
     public float rotationSpeed = 0.2f;
     // Cache Variables
@@ -56,12 +57,12 @@ public class Movement : MonoBehaviour
     [HideInInspector] public float liftSpeed = 20;
     [HideInInspector] public float rollSpeed = 20;
     #endregion Local Variables
-
     #region Setup
     private void Start()
     {
         desiredVec = body.transform.eulerAngles;
         temp.SetActive(false);
+        whaleInfo = CallbackHandler.instance.whaleInfo;
     }
     #endregion Setup
 
@@ -154,9 +155,11 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            CheckBelow();
+            if (CheckBelow())
+            {
+                Orbit(true);
+            }
         }
-
         desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
         body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
 
@@ -173,7 +176,6 @@ public class Movement : MonoBehaviour
         if (inRange)
         {
             Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
-            Vector3 closestPointOnBase = orbit.islandBase.ClosestPoint(front.transform.position);
             distance = Vector3.Distance(front.transform.position, closestPoint);
 
             Debug.DrawLine(front.transform.position, closestPoint, Color.red);
@@ -183,6 +185,7 @@ public class Movement : MonoBehaviour
             islandMod = Mathf.Clamp01((perc - (dotProduct * (1 - perc))) / dotProduct);
 
 
+            Vector3 closestPointOnBase = orbit.islandBase.ClosestPoint(front.transform.position);
             Debug.DrawLine(front.transform.position, closestPointOnBase, Color.green);
             Vector3 dirToBase = closestPointOnBase - front.transform.position;
             if (dirToBase.y > 0)
@@ -201,7 +204,7 @@ public class Movement : MonoBehaviour
         rb.MovePosition(transform.position + transform.forward * islandMod * currentSpeed * Time.deltaTime);
     }
 
-    public float GetNearbyVertex()
+    /*public float GetNearbyVertex()
     {
         MeshFilter meshFilter = orbit.leashObject.GetComponent<MeshFilter>();
         // Get mesh
@@ -234,13 +237,16 @@ public class Movement : MonoBehaviour
 
         //transform.position = nearestVertex;
         return (Vector3.Distance(newPos, transform.position));
-    }
+    }*/
 
     public GameObject temp;
     RaycastHit hit;
 
-    public void CheckBelow()
+    public bool CheckBelow()
     {
+        Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
+        float checkDistance = Vector3.Distance(front.transform.position, closestPoint);
+
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 100.0f))
         {
             /*
@@ -251,10 +257,36 @@ public class Movement : MonoBehaviour
             temp.transform.position = hit.point;
             //Instantiate(temp, hit.point, Quaternion.identity);
             Debug.Log("Hit");
+            return true;
+        }
+        else if (checkDistance < 25.0f)
+        {
+            temp.SetActive(true);
+            temp.transform.position = hit.point;
+            // Need to add a slight push inwards to the island
+            Debug.Log("Side Hit");
+            return true;
         }
         else
         {
             Debug.Log("No Hit");
+            return false;
+        }
+    }
+
+    public void Orbit(bool _toggle)
+    {
+        if (inRange)
+        {
+            whaleInfo.ToggleLeashed(_toggle);
+            if (whaleInfo.leashed)
+            {
+                orbit.SetOrbitDirection();
+            }
+        }
+        else
+        {
+            whaleInfo.ToggleLeashed(false);
         }
     }
 }
