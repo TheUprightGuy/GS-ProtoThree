@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Birds
-  - Grass Exclusion Zone
+  - GEZone
+  - IslandMesh
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Island
   - 
   - 
   - 
