@@ -176,25 +176,19 @@ public class Movement : MonoBehaviour
         if (inRange)
         {
             Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
-            distance = Vector3.Distance(front.transform.position, closestPoint);
+            distance = Vector3.Distance(front.transform.position, closestPoint) - 10.0f;
 
             Debug.DrawLine(front.transform.position, closestPoint, Color.red);
-            float perc = Mathf.Clamp01(Vector3.Distance(front.transform.position, closestPoint) / maxDistance);
-            Vector3 pointNorm = Vector3.Normalize(closestPoint - front.transform.position);
-            dotProduct = 1 - Vector3.Dot(pointNorm, front.transform.forward);
-            islandMod = Mathf.Clamp01((perc - (dotProduct * (1 - perc))) / dotProduct);
 
-
-            Vector3 closestPointOnBase = orbit.islandBase.ClosestPoint(front.transform.position);
-            Debug.DrawLine(front.transform.position, closestPointOnBase, Color.green);
-            Vector3 dirToBase = closestPointOnBase - front.transform.position;
-            if (dirToBase.y > 0)
+            // New Attempt
+            if (distance < 30.0f)
             {
-                float botPerc = Mathf.Clamp01(Vector3.Distance(front.transform.position, closestPointOnBase) / maxDistance);
-                Vector3 botPointNorm = Vector3.Normalize(closestPointOnBase - front.transform.position);
-                float botProduct = 1 - Vector3.Dot(botPointNorm, front.transform.forward);
-                islandMod = Mathf.Clamp01((botPerc - (botProduct *(1 - botPerc))) / botProduct);
-            }            
+                float perc = Mathf.Clamp01(distance / 30.0f);
+
+                Vector3 pointNorm = Vector3.Normalize(closestPoint - front.transform.position);
+                dotProduct = 1 - Vector3.Dot(front.transform.forward, pointNorm);
+                islandMod = Mathf.Clamp01(perc / dotProduct);
+            }
         }
         else
         {
@@ -203,41 +197,6 @@ public class Movement : MonoBehaviour
 
         rb.MovePosition(transform.position + transform.forward * islandMod * currentSpeed * Time.deltaTime);
     }
-
-    /*public float GetNearbyVertex()
-    {
-        MeshFilter meshFilter = orbit.leashObject.GetComponent<MeshFilter>();
-        // Get mesh
-        Mesh mesh = meshFilter.mesh;
-        // Set init values
-        float minDistanceSqr = Mathf.Infinity;
-        Vector3 nearestVertex = Vector3.zero;
-        // Look for closest Vertex
-        foreach (Vector3 vertex in mesh.vertices)
-        {
-            // Get Vertex w/ Rotation
-            Vector3 diff = transform.position - (meshFilter.gameObject.transform.position + meshFilter.transform.rotation * vertex);
-            float distSqr = diff.sqrMagnitude;
-
-            // Return Closest
-            if (distSqr < minDistanceSqr)
-            {
-                minDistanceSqr = distSqr;
-                nearestVertex = vertex;
-            }
-        }
-
-        Vector3 vertexPos = meshFilter.transform.rotation * nearestVertex + meshFilter.gameObject.transform.position;
-
-        Vector3 newPos = vertexPos;
-        Vector3 inVec = (meshFilter.transform.position - vertexPos).normalized * 10.0f;
-
-        newPos += inVec;
-
-
-        //transform.position = nearestVertex;
-        return (Vector3.Distance(newPos, transform.position));
-    }*/
 
     public GameObject temp;
     RaycastHit hit;
