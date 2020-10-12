@@ -22,17 +22,18 @@ public class Fader : MonoBehaviour
     }
     #endregion Singleton
 
-    GetVertex transitionScript;
+    //GetVertex transitionScript;
+    Movement movement;
 
-    public void FadeOut(GetVertex _transitionScript)
+    public void FadeOut(Movement _movement)
     {
-        transitionScript = _transitionScript;
+        movement = _movement;
         animator.SetTrigger("FadeOut");
     }
 
     public void MovePlayer()
     {
-        transitionScript.MoveToClosestPoint();
+        movement.MoveCharacter();
         FadeIn();
     }
 

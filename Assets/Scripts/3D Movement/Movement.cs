@@ -155,9 +155,14 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (CheckBelow())
+            if (CheckBelow() != Vector3.zero)
             {
                 Orbit(true);
+                orbit.leashObject.GetComponent<MeshCollider>().convex = false;
+                
+                Fader.instance.FadeOut(this);
+                // Called by Animator
+                // MoveCharacter();
             }
         }
         desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
@@ -165,6 +170,21 @@ public class Movement : MonoBehaviour
 
         desiredVec = new Vector3(myPitch, transform.eulerAngles.y + myTurn, transform.eulerAngles.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(desiredVec), Time.deltaTime * rotationSpeed);
+    }
+
+    public GameObject player;
+    public GameObject rider;
+    public Cinemachine.CinemachineFreeLook followCam;
+
+    public void MoveCharacter()
+    {
+        followCam.gameObject.SetActive(true);
+        this.enabled = false;
+        rider.SetActive(false);
+        player.SetActive(true);
+        player.transform.parent = null;
+        player.transform.position = CheckBelow();
+        //player.GetComponent<Rigidbody>().useGravity = true;
     }
 
     [Header("Slowdown")]
@@ -175,19 +195,24 @@ public class Movement : MonoBehaviour
     {
         if (inRange)
         {
-            Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
-            distance = Vector3.Distance(front.transform.position, closestPoint) - 10.0f;
+            distance = Mathf.Infinity;
 
-            Debug.DrawLine(front.transform.position, closestPoint, Color.red);
-
-            // New Attempt
-            if (distance < 30.0f)
+            if (orbit.leashObject)
             {
-                float perc = Mathf.Clamp01(distance / 30.0f);
+                Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
+                distance = Vector3.Distance(closestPoint,front.transform.position) - 10.0f;
 
-                Vector3 pointNorm = Vector3.Normalize(closestPoint - front.transform.position);
-                dotProduct = 1 - Vector3.Dot(front.transform.forward, pointNorm);
-                islandMod = Mathf.Clamp01(perc / dotProduct);
+                Debug.DrawLine(front.transform.position, closestPoint, Color.red);
+
+                // New Attempt
+                if (distance < 30.0f)
+                {
+                    float perc = Mathf.Clamp01(distance / 30.0f);
+
+                    Vector3 pointNorm = Vector3.Normalize(closestPoint - front.transform.position);
+                    dotProduct = 1 - Vector3.Dot(front.transform.forward, pointNorm);
+                    islandMod = Mathf.Clamp01(perc / dotProduct);
+                }
             }
         }
         else
@@ -201,7 +226,7 @@ public class Movement : MonoBehaviour
     public GameObject temp;
     RaycastHit hit;
 
-    public bool CheckBelow()
+    public Vector3 CheckBelow()
     {
         Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
         float checkDistance = Vector3.Distance(front.transform.position, closestPoint);
@@ -212,24 +237,24 @@ public class Movement : MonoBehaviour
              * Get the location of the hit.
              * This data can be modified and used to move your object.
              */
-            temp.SetActive(true);
-            temp.transform.position = hit.point;
+            //temp.SetActive(true);
+            //temp.transform.position = hit.point;
             //Instantiate(temp, hit.point, Quaternion.identity);
             Debug.Log("Hit");
-            return true;
+            return hit.point;
         }
         else if (checkDistance < 25.0f)
         {
-            temp.SetActive(true);
-            temp.transform.position = hit.point;
+            //temp.SetActive(true);
+            //temp.transform.position = hit.point;
             // Need to add a slight push inwards to the island
             Debug.Log("Side Hit");
-            return true;
+            return hit.point;
         }
         else
         {
             Debug.Log("No Hit");
-            return false;
+            return Vector3.zero;
         }
     }
 

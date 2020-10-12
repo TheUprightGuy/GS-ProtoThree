@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PuzzleSwitch : MonoBehaviour
 {
-
     public List<PuzzleSwitch> adjacentSwitches;
 
-    [HideInInspector] public bool active;
+    //[HideInInspector] 
+    public bool active;
     [HideInInspector] public Material on;
     [HideInInspector] public Material off;
 
-    MeshRenderer meshRenderer;
+    public MeshRenderer meshRenderer;
+    public bool highlight;
 
     private void Awake()
     {
@@ -26,6 +27,11 @@ public class PuzzleSwitch : MonoBehaviour
         {
             n.Switch();
         }
+
+        if (SwitchPuzzleMaster.instance.CheckComplete())
+        {
+            Debug.Log("Complete!");
+        }
     }
 
     public void Switch()
@@ -37,24 +43,15 @@ public class PuzzleSwitch : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    private void Update()
     {
-        Use();
-        if (SwitchPuzzleMaster.instance.CheckComplete())
+        if (MouseOverHighlight.instance.highlightedSwitch == this)
         {
-            Debug.Log("Complete!");
+            meshRenderer.material.SetFloat("Boolean_55E471DA", 1.0f);
+        }
+        else
+        {
+            meshRenderer.material.SetFloat("Boolean_55E471DA", 0.0f);
         }
     }
-
-    private void OnMouseOver()
-    {
-
-        meshRenderer.material.SetFloat("Boolean_55E471DA", 1.0f);
-    }
-
-    private void OnMouseExit()
-    {
-        meshRenderer.material.SetFloat("Boolean_55E471DA", 0.0f);
-    }
-
 }

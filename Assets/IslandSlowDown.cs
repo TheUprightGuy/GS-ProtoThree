@@ -6,8 +6,17 @@ public class IslandSlowDown : MonoBehaviour
 {
     [Header("Setup Fields")]
     [HideInInspector] public bool playerInRange = false;
-    private bool lerp;
-    public MeshCollider bottom;
+
+    private void Start()
+    {
+        Invoke("SwitchConvex", 1.0f);
+    }
+
+    public void SwitchConvex()
+    {
+        GetComponent<MeshCollider>().convex = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Movement player = other.GetComponent<Movement>();
@@ -18,7 +27,6 @@ public class IslandSlowDown : MonoBehaviour
             player.inRange = true;
             player.maxDistance = GetComponent<SphereCollider>().bounds.extents.x;
             player.orbit.leashObject = this.gameObject;
-            player.orbit.islandBase = bottom;
         }
     }
     private void OnTriggerExit(Collider other)

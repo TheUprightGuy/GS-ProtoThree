@@ -25,7 +25,7 @@ public class LureScript : MonoBehaviour
     public float speed;
     [Header("Limits")]
     public float sideLimit = 5.0f;
-    public float backLimit = -1.25f;
+    public float backLimit = -5.0f;
     public float forwardLimit = 3.0f;
     [Header("Speeds")]
     public float turnSpeed = 10.0f;
@@ -36,6 +36,11 @@ public class LureScript : MonoBehaviour
     [Header("Bird")]
     public Transform bird;
 
+    public Vector3 initPos;
+    private void Start()
+    {
+        initPos = transform.localPosition;
+    }
 
     // Update is called once per frame
     void Update()
@@ -50,7 +55,7 @@ public class LureScript : MonoBehaviour
             {
                 currentSide -= Time.deltaTime * turnSpeed;
                 transform.position -= transform.right * Time.deltaTime * turnSpeed;
-                controlPoint.position += transform.right * Time.deltaTime * turnSpeed * 0.5f;
+                //controlPoint.position += transform.right * Time.deltaTime * turnSpeed * 0.5f;
                 bird.localEulerAngles -= Vector3.up * Time.deltaTime * 100.0f;
             }
         }
@@ -60,7 +65,7 @@ public class LureScript : MonoBehaviour
             {
                 currentSide += Time.deltaTime * turnSpeed;
                 transform.position += transform.right * Time.deltaTime * turnSpeed;
-                controlPoint.position -= transform.right * Time.deltaTime * turnSpeed * 0.5f;
+                //controlPoint.position -= transform.right * Time.deltaTime * turnSpeed * 0.5f;
                 bird.localEulerAngles += Vector3.up * Time.deltaTime * 100.0f;
             }
         }
@@ -70,8 +75,8 @@ public class LureScript : MonoBehaviour
             if (currentForward + Time.deltaTime * forwardSpeed < forwardLimit)
             {
                 currentForward += Time.deltaTime * forwardSpeed;
-                transform.position += transform.forward * Time.deltaTime * forwardSpeed;
-                controlPoint.position += transform.forward * Time.deltaTime * forwardSpeed;
+                transform.position += -transform.up * Time.deltaTime * forwardSpeed;
+                //controlPoint.position += -transform.up * Time.deltaTime * forwardSpeed;
             }
         }
         else if (Input.GetKey(KeyCode.S))
@@ -79,13 +84,22 @@ public class LureScript : MonoBehaviour
             if (currentForward + Time.deltaTime * forwardSpeed > backLimit)
             {
                 currentForward -= Time.deltaTime * forwardSpeed;
-                transform.position -= transform.forward * Time.deltaTime * forwardSpeed;
-                controlPoint.position -= transform.forward * Time.deltaTime * forwardSpeed;
+                transform.position -= -transform.up * Time.deltaTime * forwardSpeed;
+                //controlPoint.position -= -transform.up * Time.deltaTime * forwardSpeed;
             }
         }
 
         controlSway = Mathf.PingPong(Time.time, 2.0f) - 1.0f;
 
-        controlPoint.position += transform.right * Time.deltaTime * 2 * controlSway / (currentForward + 2.5f);
+        controlPoint.localPosition = Vector3.right * controlSway * 50.0f - Vector3.forward * 250.0f;
+
+        if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, initPos, Time.deltaTime);
+            
+            bird.localRotation = Quaternion.Slerp(bird.localRotation, Quaternion.identity, Time.deltaTime);
+            currentForward = Mathf.Lerp(currentForward, 0, Time.deltaTime);
+            currentSide = Mathf.Lerp(currentSide, 0, Time.deltaTime);
+        }
     }
 }
