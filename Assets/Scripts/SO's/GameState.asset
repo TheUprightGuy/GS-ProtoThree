@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: GameState
   m_EditorClassIdentifier: Assembly-CSharp::NewBehaviourScript
   inMenu: 0
+  gamePaused: 0
+  inCinematic: 0
+  objectivesHighlighted: 

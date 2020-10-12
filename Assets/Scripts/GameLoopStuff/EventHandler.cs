@@ -20,6 +20,7 @@ public class EventHandler : MonoBehaviour
         instance = this;
 
         DontDestroyOnLoad(this.gameObject);
+        // TEMP
         OnAwake();
     }
 

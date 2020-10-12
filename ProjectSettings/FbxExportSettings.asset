@@ -15,6 +15,7 @@
             "."
         ],
         "fbxSavePaths": [
+            "Models/BaseIslandMesh",
             "."
         ],
         "selectedFbxPath": 0,

@@ -32,6 +32,11 @@ public class ColourGenerator : MonoBehaviour {
 
         MeshRenderer m = GetComponent<MeshRenderer>();
         MeshFilter mf = GetComponent<MeshFilter>();
+
+        if (m == null || mf == null)
+        {
+            return;
+        }
         float boundsY = mf.sharedMesh.bounds.size.y * transform.position.y;
         mat = m.sharedMaterial;
         mat.SetFloat("boundsY", boundsY);

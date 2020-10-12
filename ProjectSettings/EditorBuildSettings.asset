@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/WaydsWorld.unity
-    guid: c59e01f4e8abc9347a26ec00759e3c63
+    path: Assets/Scenes/WaydsDemoScene.unity
+    guid: 7a1df7707f5f1904aa583b180cad84bf
   m_configObjects: {}

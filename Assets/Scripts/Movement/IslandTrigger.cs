@@ -55,15 +55,19 @@ public class IslandTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        //WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        Movement player = other.GetComponent<Movement>();
 
         if (player)
         {
             if (!PopUpDone)
             {
                 PopUpDone = true;
-                PopUpHandler.instance.QueuePopUp("Press <b>Space</b> to orbit the island", KeyCode.Space);
-                PopUpHandler.instance.QueuePopUp("Any resources found will be collected while orbiting an island", 7.0f);
+                if (PopUpHandler.instance)
+                {
+                    PopUpHandler.instance.QueuePopUp("Press <b>Space</b> to orbit the island", KeyCode.Space);
+                    PopUpHandler.instance.QueuePopUp("Any resources found will be collected while orbiting an island", 7.0f);
+                }
             }
 
             playerInRange = true;
@@ -77,9 +81,10 @@ public class IslandTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        //WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        Movement player = other.GetComponent<Movement>();
 
-        if (player && !player.whaleInfo.leashed)
+        if (player)// && !player.whaleInfo.leashed)
         {
             SetupCircle(Vector3.Distance(player.transform.position, transform.position), player.transform.position.y - 1.5f);
         }
@@ -87,7 +92,8 @@ public class IslandTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        //WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        Movement player = other.GetComponent<Movement>();
 
         if (player)
         {
