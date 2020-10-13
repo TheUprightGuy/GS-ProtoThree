@@ -114,4 +114,22 @@ public class CallbackHandler : MonoBehaviour
             cutCam();
         }
     }
+
+    public event Action<string> supplyPopUp;
+    public void SupplyPopUp(string _supplies)
+    {
+        if (supplyPopUp != null)
+        {
+            supplyPopUp(_supplies);
+        }
+    }
+
+    public event Action<string> provisionPopUp;
+    public void ProvisionPopUp(string _provisions)
+    {
+        if (supplyPopUp != null)
+        {
+            provisionPopUp(_provisions);
+        }
+    }
 }

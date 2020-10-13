@@ -28,7 +28,7 @@ public class ResourceDisplayScript : MonoBehaviour
     [HideInInspector] public int provisionsMax;
     float provisionsPercentage;
 
-    public ResourceFeedBack rfb;
+    //public ResourceFeedBack rfb;
     public List<GameObject> supplyObjs;
     public List<GameObject> provisionObjs;
 
@@ -58,6 +58,15 @@ public class ResourceDisplayScript : MonoBehaviour
         DisplaySupplies();
     }
 
+    public bool MaxSupplies()
+    {
+        return (supplies >= suppliesMax);
+    }
+
+    public bool MaxProvisions()
+    {
+        return (provisions >= provisionsMax);
+    }
 
     public void DisplaySupplies()
     {
@@ -99,7 +108,8 @@ public class ResourceDisplayScript : MonoBehaviour
         }
         else
         {
-            rfb.SupplyPopUp("+" + _supplies.ToString());
+            CallbackHandler.instance.SupplyPopUp("+" + _supplies.ToString());
+            //rfb.SupplyPopUp("+" + _supplies.ToString());
         }
         suppliesPercentage = (float)supplies / (float)suppliesMax;
         DisplaySupplies();
@@ -114,7 +124,8 @@ public class ResourceDisplayScript : MonoBehaviour
         }
         else
         {
-            rfb.ProvPopUp("+" + _provisions.ToString());
+            CallbackHandler.instance.ProvisionPopUp("+" + _provisions.ToString());
+            //rfb.ProvPopUp("+" + _provisions.ToString());
         }
         provisionsPercentage = (float)provisions / (float)provisionsMax;
         DisplayProvisions();
@@ -128,7 +139,8 @@ public class ResourceDisplayScript : MonoBehaviour
         }
         else
         {
-            rfb.ProvPopUp("-" + _supplies.ToString());
+            CallbackHandler.instance.SupplyPopUp("-" + _supplies.ToString());
+            //rfb.ProvPopUp("-" + _supplies.ToString());
         }
         supplies -= _supplies;
         suppliesPercentage = (float)supplies / (float)suppliesMax;
@@ -144,7 +156,8 @@ public class ResourceDisplayScript : MonoBehaviour
         }
         else
         {
-            rfb.ProvPopUp("-" + _provisions.ToString());
+            CallbackHandler.instance.ProvisionPopUp("-" + _provisions.ToString());
+            //rfb.ProvPopUp("-" + _provisions.ToString());
         }
 
         provisions -= _provisions;

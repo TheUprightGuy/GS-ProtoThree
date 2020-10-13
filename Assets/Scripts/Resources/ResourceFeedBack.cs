@@ -7,11 +7,21 @@ public class ResourceFeedBack : MonoBehaviour
     public GameObject PopupPrefab;
     public Sprite Supplies;
     public Sprite Provs;
+
+    #region Callbacks
     // Start is called before the first frame update
     void Start()
     {
-        
+        CallbackHandler.instance.supplyPopUp += SupplyPopUp;
+        CallbackHandler.instance.provisionPopUp += ProvPopUp;
     }
+
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.supplyPopUp -= SupplyPopUp;
+        CallbackHandler.instance.provisionPopUp -= ProvPopUp;
+    }
+    #endregion Callbacks
 
     // Update is called once per frame
     void Update()
