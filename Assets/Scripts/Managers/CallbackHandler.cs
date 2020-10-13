@@ -96,4 +96,22 @@ public class CallbackHandler : MonoBehaviour
             moveToFire();
         }
     }
+
+    public event Action shiftWhale;
+    public void ShiftWhale()
+    {
+        if (shiftWhale != null)
+        {
+            shiftWhale();
+        }
+    }
+
+    public event Action cutCam;
+    public void CutCam()
+    {
+        if (cutCam != null)
+        {
+            cutCam();
+        }
+    }
 }

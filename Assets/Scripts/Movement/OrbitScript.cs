@@ -22,6 +22,12 @@ public class OrbitScript : MonoBehaviour
     private void Start()
     {
         whaleInfo = CallbackHandler.instance.whaleInfo;
+        CallbackHandler.instance.shiftWhale += ShiftWhale;
+    }
+
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.shiftWhale -= ShiftWhale;
     }
     #endregion Setup
 
@@ -43,6 +49,12 @@ public class OrbitScript : MonoBehaviour
 
         if (leashObject.GetComponent<IslandTrigger>())
         leashObject.GetComponent<IslandTrigger>().ToggleLeashed(true);
+    }
+
+    public void ShiftWhale()
+    {
+        float rad = leashObject.GetComponent<SphereCollider>().radius / 2;
+        transform.position += new Vector3(rad * orbitDirection, 0, rad * orbitDirection);
     }
 
     // Update is called once per frame

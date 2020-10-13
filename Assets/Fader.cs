@@ -33,7 +33,10 @@ public class Fader : MonoBehaviour
 
     public void MovePlayer()
     {
+        CallbackHandler.instance.CutCam();
+        movement.Orbit(true);
         movement.MoveCharacter();
+        CallbackHandler.instance.ShiftWhale();
         FadeIn();
     }
 

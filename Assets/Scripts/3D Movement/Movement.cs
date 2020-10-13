@@ -36,6 +36,7 @@ public class Movement : MonoBehaviour
     public float angle;
     public float islandMod = 0.0f;
     public float distance;
+    public bool orbiting;
 
     #region Local Variables
     WhaleInfo whaleInfo;
@@ -69,6 +70,12 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (orbiting)
+        {
+            animator.SetFloat("Movement", currentSpeed);
+            return;
+        }
+
         float movement = currentSpeed * islandMod / 2;
 
         float f = body.transform.rotation.eulerAngles.z;
@@ -76,7 +83,7 @@ public class Movement : MonoBehaviour
         animator.SetFloat("Turning", f / 10.0f);
         animator.SetFloat("Movement", movement);
 
-        currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * accelSpeed);
+        currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * accelSpeed);   
 
         float slowSpeedTurnBonus = (maxSpeed / currentSpeed);
 
@@ -157,10 +164,10 @@ public class Movement : MonoBehaviour
         {
             if (CheckBelow() != Vector3.zero)
             {
-                Orbit(true);
+                //Orbit(true);
                 orbit.leashObject.GetComponent<MeshCollider>().convex = false;
-                
                 Fader.instance.FadeOut(this);
+                orbiting = true;
                 // Called by Animator
                 // MoveCharacter();
             }
@@ -179,7 +186,6 @@ public class Movement : MonoBehaviour
     public void MoveCharacter()
     {
         followCam.gameObject.SetActive(true);
-        this.enabled = false;
         rider.SetActive(false);
         player.SetActive(true);
         player.transform.parent = null;
@@ -193,6 +199,9 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (orbiting)
+            return;
+
         if (inRange)
         {
             distance = Mathf.Infinity;
