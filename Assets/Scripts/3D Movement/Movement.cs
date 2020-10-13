@@ -72,7 +72,8 @@ public class Movement : MonoBehaviour
     {
         if (orbiting)
         {
-            animator.SetFloat("Movement", currentSpeed);
+            animator.SetFloat("Movement", currentSpeed * islandMod / 2);
+            currentSpeed = Mathf.Lerp(currentSpeed, 1.0f, Time.deltaTime);
             return;
         }
 
@@ -200,7 +201,10 @@ public class Movement : MonoBehaviour
     private void FixedUpdate()
     {
         if (orbiting)
+        {
+            rb.MovePosition(transform.position + transform.forward * islandMod * currentSpeed * Time.deltaTime);
             return;
+        }
 
         if (inRange)
         {

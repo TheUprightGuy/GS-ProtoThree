@@ -82,7 +82,7 @@ public class OrbitScript : MonoBehaviour
     {
         if (whaleInfo.leashed && leashObject)
         {
-            rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
+            //rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
         }
         if (!leashObject)
         {
