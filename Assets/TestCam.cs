@@ -16,11 +16,13 @@ public class TestCam : MonoBehaviour
     {
         cam.m_XAxis.m_MaxSpeed = 0;
         cam.m_YAxis.m_MaxSpeed = 0;
+        cam.m_RecenterToTargetHeading.m_enabled = true;
 
         if (Input.GetMouseButton(0))
         {
             cam.m_XAxis.m_MaxSpeed = 300;
             cam.m_YAxis.m_MaxSpeed = 2;
+            cam.m_RecenterToTargetHeading.m_enabled = false;
         }
     }
 }
