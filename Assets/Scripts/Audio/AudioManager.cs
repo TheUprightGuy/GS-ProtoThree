@@ -205,5 +205,10 @@ namespace Audio
         {
             _audioSource.Stop();
         }
+
+        public void Register(AudioSource audioSource)
+        {
+            AddAudioSourceToDictionary(audioSource);
+        }
     }
 }
