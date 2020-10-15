@@ -1776,6 +1776,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97f71cd0dc2210546955673b42016bd5, type: 3}
+--- !u!1001 &9005994373417086003
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.34850833
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 32.94834
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.9472707
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181138, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005994372800181164, guid: 4f010edde3dca154bba87105a032f934,
+        type: 3}
+      propertyPath: m_Name
+      value: PuzzleDoor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4f010edde3dca154bba87105a032f934, type: 3}
 --- !u!1001 &9035695718663988043
 PrefabInstance:
   m_ObjectHideFlags: 0
