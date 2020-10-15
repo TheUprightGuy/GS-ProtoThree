@@ -31,6 +31,18 @@ public class Fader : MonoBehaviour
         animator.SetTrigger("FadeOut");
     }
 
+    public void FadeOut()
+    {
+        animator.SetTrigger("FadeToWhale");
+    }
+
+    public void StartExit()
+    {
+        CallbackHandler.instance.PickUpMC();
+        CallbackHandler.instance.StartExit();
+        FadeIn();
+    }
+
     public void MovePlayer()
     {
         CallbackHandler.instance.CutCam();

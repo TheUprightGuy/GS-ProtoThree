@@ -1,0 +1,69 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HomingScript : MonoBehaviour
+{
+    public Transform player;
+    public float dist;
+    Vector3 homingPos;
+    Vector3 homingDir;
+
+    Vector3 exitPos;
+    Vector3 exitDir;
+
+    #region Callbacks
+    private void Start()
+    {
+        CallbackHandler.instance.startHoming += StartHoming;
+        CallbackHandler.instance.startExit += StartExit;
+    }
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.startHoming -= StartHoming;
+        CallbackHandler.instance.startExit -= StartExit;
+    }
+    #endregion Callbacks
+
+    public void StartHoming(Transform _player)
+    {
+        player = _player;
+        Movement.instance.homing = true;
+        Movement.instance.orbiting = false;
+    }
+
+    public void StartExit()
+    {
+        exitPos = Movement.instance.orbit.leashObject.transform.position;
+    }
+
+    private void Update()
+    {
+        if (Movement.instance.homing)
+        {
+            homingPos = player.position + Vector3.up * 5.0f;
+
+            dist = Vector3.Distance(transform.position, homingPos);
+            if (dist < 5.0f)
+            {
+                Fader.instance.FadeOut();
+                Movement.instance.homing = false;
+            }
+
+            homingDir = Vector3.Normalize(homingPos - transform.position);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(homingDir), Time.deltaTime * 10.0f);
+        }
+
+        if (Movement.instance.exit)
+        {
+            dist = Vector3.Distance(transform.position, exitPos);
+            if (dist >= 20.0f)
+            {
+                Movement.instance.exit = false;
+            }
+
+            exitDir = Vector3.Normalize(Vector3.Normalize(transform.position - exitPos) + transform.forward);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(exitDir), Time.deltaTime * 5.0f);
+        }
+    }
+}

@@ -51,43 +51,46 @@ public class LureScript : MonoBehaviour
         speed = (currentForward + 2.0f) / 2.0f;
         lerpTimer -= Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.A))
+        if (!Movement.instance.player.activeSelf)
         {
-            if (currentSide - Time.deltaTime * turnSpeed > -sideLimit)
+            if (Input.GetKey(KeyCode.A))
             {
-                currentSide -= Time.deltaTime * turnSpeed;
-                transform.position -= transform.right * Time.deltaTime * turnSpeed;
-                //controlPoint.position += transform.right * Time.deltaTime * turnSpeed * 0.5f;
-                bird.localEulerAngles -= Vector3.up * Time.deltaTime * 10.0f * turnSpeed;
+                if (currentSide - Time.deltaTime * turnSpeed > -sideLimit)
+                {
+                    currentSide -= Time.deltaTime * turnSpeed;
+                    transform.position -= transform.right * Time.deltaTime * turnSpeed;
+                    //controlPoint.position += transform.right * Time.deltaTime * turnSpeed * 0.5f;
+                    bird.localEulerAngles -= Vector3.up * Time.deltaTime * 10.0f * turnSpeed;
+                }
             }
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            if (currentSide + Time.deltaTime * turnSpeed < sideLimit)
+            else if (Input.GetKey(KeyCode.D))
             {
-                currentSide += Time.deltaTime * turnSpeed;
-                transform.position += transform.right * Time.deltaTime * turnSpeed;
-                //controlPoint.position -= transform.right * Time.deltaTime * turnSpeed * 0.5f;
-                bird.localEulerAngles += Vector3.up * Time.deltaTime * 10.0f * turnSpeed;
+                if (currentSide + Time.deltaTime * turnSpeed < sideLimit)
+                {
+                    currentSide += Time.deltaTime * turnSpeed;
+                    transform.position += transform.right * Time.deltaTime * turnSpeed;
+                    //controlPoint.position -= transform.right * Time.deltaTime * turnSpeed * 0.5f;
+                    bird.localEulerAngles += Vector3.up * Time.deltaTime * 10.0f * turnSpeed;
+                }
             }
-        }
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            if (currentForward + Time.deltaTime * forwardSpeed < forwardLimit)
+            if (Input.GetKey(KeyCode.W))
             {
-                currentForward += Time.deltaTime * forwardSpeed;
-                transform.position += -transform.up * Time.deltaTime * forwardSpeed;
-                //controlPoint.position += -transform.up * Time.deltaTime * forwardSpeed;
+                if (currentForward + Time.deltaTime * forwardSpeed < forwardLimit)
+                {
+                    currentForward += Time.deltaTime * forwardSpeed;
+                    transform.position += -transform.up * Time.deltaTime * forwardSpeed;
+                    //controlPoint.position += -transform.up * Time.deltaTime * forwardSpeed;
+                }
             }
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            if (currentForward + Time.deltaTime * forwardSpeed > backLimit)
+            else if (Input.GetKey(KeyCode.S))
             {
-                currentForward -= Time.deltaTime * forwardSpeed;
-                transform.position -= -transform.up * Time.deltaTime * forwardSpeed;
-                //controlPoint.position -= -transform.up * Time.deltaTime * forwardSpeed;
+                if (currentForward + Time.deltaTime * forwardSpeed > backLimit)
+                {
+                    currentForward -= Time.deltaTime * forwardSpeed;
+                    transform.position -= -transform.up * Time.deltaTime * forwardSpeed;
+                    //controlPoint.position -= -transform.up * Time.deltaTime * forwardSpeed;
+                }
             }
         }
 

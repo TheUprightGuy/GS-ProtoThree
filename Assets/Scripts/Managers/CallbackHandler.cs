@@ -132,4 +132,31 @@ public class CallbackHandler : MonoBehaviour
             provisionPopUp(_provisions);
         }
     }
+
+    public event Action<Transform> startHoming;
+    public void StartHoming(Transform _player)
+    {
+        if (startHoming != null)
+        {
+            startHoming(_player);
+        }
+    }
+
+    public event Action pickUpMC;
+    public void PickUpMC()
+    {
+        if (pickUpMC != null)
+        {
+            pickUpMC();
+        }
+    }
+
+    public event Action startExit;
+    public void StartExit()
+    {
+        if (startExit != null)
+        {
+            startExit();
+        }
+    }
 }

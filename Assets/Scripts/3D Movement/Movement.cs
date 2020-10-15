@@ -43,10 +43,6 @@ public class Movement : MonoBehaviour
     [Header("Local Variables")]
     public float rotationSpeed = 0.2f;
     // Cache Variables
-    Vector3 lurePos;
-    Vector3 myPos;
-    Vector3 _direction;
-    Quaternion _lookRotation;
     //[HideInInspector]
     public float currentSpeed = 0.0f;
     Vector3 desiredVec;
@@ -64,6 +60,12 @@ public class Movement : MonoBehaviour
         desiredVec = body.transform.eulerAngles;
         temp.SetActive(false);
         whaleInfo = CallbackHandler.instance.whaleInfo;
+
+        CallbackHandler.instance.pickUpMC += PickUpMC;
+    }
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.pickUpMC -= PickUpMC;
     }
     #endregion Setup
 
@@ -74,6 +76,13 @@ public class Movement : MonoBehaviour
         {
             animator.SetFloat("Movement", currentSpeed * islandMod / 2);
             currentSpeed = Mathf.Lerp(currentSpeed, 1.0f, Time.deltaTime);
+            return;
+        }
+
+        if (homing)
+        {
+            animator.SetFloat("Movement", currentSpeed * islandMod / 2);
+            currentSpeed = Mathf.Lerp(currentSpeed, 3.0f, Time.deltaTime);
             return;
         }
 
@@ -183,6 +192,7 @@ public class Movement : MonoBehaviour
     public GameObject player;
     public GameObject rider;
     public Cinemachine.CinemachineFreeLook followCam;
+    public FollowCamera followCamera;
 
     public void MoveCharacter()
     {
@@ -191,18 +201,40 @@ public class Movement : MonoBehaviour
         player.SetActive(true);
         player.transform.parent = null;
         player.transform.position = CheckBelow();
+        followCamera.enabled = false;
         //player.GetComponent<Rigidbody>().useGravity = true;
+    }
+
+    public void PickUpMC()
+    {
+        followCam.gameObject.SetActive(false);
+        rider.SetActive(true);
+        player.SetActive(false);
+        orbiting = false;
+        homing = false;
+        whaleInfo.ToggleLeashed(false);
+        exit = true;
+        orbit.leashObject.GetComponent<MeshCollider>().convex = true;
+        followCamera.enabled = true;
     }
 
     [Header("Slowdown")]
     public GameObject front;
     public float dotProduct;
+    public bool homing;
+    public bool exit;
 
     private void FixedUpdate()
     {
-        if (orbiting)
+        if (orbiting || homing)
         {
             rb.MovePosition(transform.position + transform.forward * islandMod * currentSpeed * Time.deltaTime);
+            return;
+        }
+
+        if (exit)
+        {
+            rb.MovePosition(transform.position + transform.forward * currentSpeed * Time.deltaTime);
             return;
         }
 
@@ -244,7 +276,9 @@ public class Movement : MonoBehaviour
         Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
         float checkDistance = Vector3.Distance(front.transform.position, closestPoint);
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 100.0f))
+        Vector3 dir = closestPoint - front.transform.position;
+
+        if (Physics.Raycast(front.transform.position, Vector3.down, out hit, 100.0f))
         {
             /*
              * Get the location of the hit.
@@ -256,13 +290,13 @@ public class Movement : MonoBehaviour
             Debug.Log("Hit");
             return hit.point;
         }
-        else if (checkDistance < 25.0f)
+        else if (checkDistance < 12.0f && dir.y < 0)
         {
             //temp.SetActive(true);
             //temp.transform.position = hit.point;
             // Need to add a slight push inwards to the island
             Debug.Log("Side Hit");
-            return hit.point;
+            return closestPoint;
         }
         else
         {

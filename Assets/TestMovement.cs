@@ -78,6 +78,11 @@ public class TestMovement : MonoBehaviour
         bool running = Input.GetKey(KeyCode.LeftShift);
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * moveVector.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            CallbackHandler.instance.StartHoming(transform);
+        }
     }
 
     private void FixedUpdate()
