@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class SlidingDoorScript : MonoBehaviour
 {
-    public bool rotatingLocks;
-    public bool slidingDoors;
-    public float rotato;
     public DoorRotationScript door1;
     public DoorRotationScript door2;
 
-    // Update is called once per frame
-    void Update()
+    #region Callbacks
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            RotateLocks();
-        }
+        CallbackHandler.instance.openDoors += OpenDoors;
     }
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.openDoors -= OpenDoors;
+    }
+    #endregion Callbacks
 
-    public void RotateLocks()
+    public void OpenDoors()
     {
         door1.rotatingLocks = true;
         door2.rotatingLocks = true;

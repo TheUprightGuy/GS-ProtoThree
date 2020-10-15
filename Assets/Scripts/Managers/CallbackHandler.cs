@@ -159,4 +159,13 @@ public class CallbackHandler : MonoBehaviour
             startExit();
         }
     }
+
+    public event Action openDoors;
+    public void OpenDoors()
+    {
+        if (openDoors != null)
+        {
+            openDoors();
+        }
+    }
 }
