@@ -9,7 +9,8 @@ public class OrbitScript : MonoBehaviour
     Quaternion lookRot;
     Rigidbody rb;
     WhaleInfo whaleInfo;
-    [HideInInspector] public GameObject leashObject = null;
+    //[HideInInspector] 
+    public GameObject leashObject = null;
     [HideInInspector] public MeshCollider islandBase;
     [HideInInspector] public float initialSlerp = 0.0f;
     [HideInInspector] public int orbitDirection = 1;
