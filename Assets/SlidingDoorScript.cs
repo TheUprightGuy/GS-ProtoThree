@@ -18,6 +18,13 @@ public class SlidingDoorScript : MonoBehaviour
     }
     #endregion Callbacks
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OpenDoors();
+        }
+    }
     public void OpenDoors()
     {
         door1.rotatingLocks = true;
