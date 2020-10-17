@@ -13,6 +13,7 @@ public class IslandGen : MonoBehaviour
 
     public enum MARCHING_MODE { CUBES, TETRAHEDRON };
 
+    [SerializeField]
     List<GameObject> meshes = new List<GameObject>();
 
     [Header("Noise Settings")]
@@ -72,11 +73,11 @@ public class IslandGen : MonoBehaviour
             return returnVal;
         }
 
-        for (int x = 1; x < width - 1; x++)
+        for (int x = 0; x < width; x++)
         {
-            for (int y = 1; y < height - 1; y++)
+            for (int y = 0; y < height; y++)
             {
-                for (int z = 1; z < length - 1; z++)
+                for (int z = 0; z < length; z++)
                 {
                     Vector3 voxelPos = new Vector3((-width / 2) + x, (-height / 2) + y, (-length / 2) + z);
 
@@ -95,7 +96,7 @@ public class IslandGen : MonoBehaviour
                         returnVal = true;
                     }
                     //voxels[idx] = weight * ((fractal.Sample3D(fx, fy, fz) + 1) / 2);
-
+                    voxels[idx] = Mathf.Clamp(voxels[idx], -2, 2);
                 }
             }
         }
@@ -168,6 +169,7 @@ public class IslandGen : MonoBehaviour
 
                     weight *= ((fy + IslandMaxLowY) / IslandMidY);
                     voxels[idx] = weight * ((fractal.Sample3D(fx, fy, fz) + 1) / 2);
+                    voxels[idx] = Mathf.Clamp(voxels[idx], -2, 2);
 
                 }
             }
