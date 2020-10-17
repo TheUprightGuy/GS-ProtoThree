@@ -17,41 +17,63 @@ public class TexturePainterControllerEditor : Editor
             t.UpdateDefaultColors();
         }
     }
+
+    double lastCheck = 0.0f;
+    bool mouseHeld = false;
      void OnSceneGUI()
      {
-     
-         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+        if ( Event.current.button == 0)
+        {
+            switch (Event.current.type)
+            {
+                case EventType.MouseDown:
+                    mouseHeld = true;
+                    break;
+                case EventType.MouseUp:
+                    mouseHeld = false;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
+        Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
          RaycastHit hit;
 
         TexturePainterController t = target as TexturePainterController;
         Handles.color = Color.white;
-         if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Island")) && !Event.current.control)
+         if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Island")) && !Event.current.control && !Event.current.alt)
          {
              int id = GUIUtility.GetControlID(FocusType.Passive);
              HandleUtility.AddDefaultControl(id);
              Tools.hidden = true;
 
-            Handles.Disc(Quaternion.identity, ray.origin + (ray.direction * 10.0f), ray.direction, 1, false, 1);
+            Handles.Disc(Quaternion.identity, hit.point, hit.normal, 1, false, 1);
             t.Hitpoint = hit.point;
-             //SHandles.Disc(Quaternion.identity, t.transform.position, new Vector3(1, 1, 0), 5, false, 1);
-         }
+            //SHandles.Disc(Quaternion.identity, t.transform.position, new Vector3(1, 1, 0), 5, false, 1);
+
+            if (mouseHeld && (EditorApplication.timeSinceStartup - lastCheck) > (1 / 60))
+            {
+                lastCheck = EditorApplication.timeSinceStartup;
+                Debug.Log("Left-Mouse Down"/*EditorApplication.timeSinceStartup*/);
+                t.UpdateBrush();
+            }
+        }
          else
          {
              Tools.hidden = false;
              t.Hitpoint = Vector3.positiveInfinity;
          }
      
-         if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
-         {
-             Debug.Log("Left-Mouse Down");
-            t.UpdateBrush();
-         }
-     
-         //if (t.ModifyVoxels())
-         //{
-         //    Handles.color = Color.red;
-         //}
          
-         SceneView.RepaintAll();
+
+        
+        //if (t.ModifyVoxels())
+        //{
+        //    Handles.color = Color.red;
+        //}
+
+        SceneView.RepaintAll();
      }
 }

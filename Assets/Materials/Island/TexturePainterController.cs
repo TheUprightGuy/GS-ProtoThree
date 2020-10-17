@@ -72,7 +72,7 @@ public class TexturePainterController : MonoBehaviour
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_GREEN", GreenTexture);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_BLUE", BlueTexture);
 
-        Vector3[] vertices = GetComponent<MeshFilter>().mesh.vertices;
+        Vector3[] vertices = GetComponent<MeshFilter>().sharedMesh.vertices;
         int verticeCount = vertices.Length;
         Color[] colors = new Color[verticeCount];
         switch (ColorDefault)
@@ -122,7 +122,7 @@ public class TexturePainterController : MonoBehaviour
                 break;
         }
 
-        GetComponent<MeshFilter>().mesh.colors = colors;
+        GetComponent<MeshFilter>().sharedMesh.colors = colors;
     }
 
     public void UpdateBrush()
@@ -144,9 +144,9 @@ public class TexturePainterController : MonoBehaviour
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_GREEN", GreenTexture);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_BLUE", BlueTexture);
 
-        Vector3[] vertices = GetComponent<MeshFilter>().mesh.vertices;
+        Vector3[] vertices = GetComponent<MeshFilter>().sharedMesh.vertices;
         int verticeCount = vertices.Length;
-        Color[] colors = GetComponent<MeshFilter>().mesh.colors;
+        Color[] colors = GetComponent<MeshFilter>().sharedMesh.colors;
         
         for (int i = 0; i < verticeCount; i++)
         {
@@ -158,14 +158,14 @@ public class TexturePainterController : MonoBehaviour
             }
         }
 
-        GetComponent<MeshFilter>().mesh.colors = colors;
+        GetComponent<MeshFilter>().sharedMesh.colors = colors;
     }
 
     private void OnDrawGizmos()
     {
         if (Hitpoint != Vector3.positiveInfinity)
         {
-            Gizmos.DrawWireSphere(Hitpoint, BrushSize);
+            //Gizmos.DrawWireSphere(Hitpoint, BrushSize);
         }
 
     }

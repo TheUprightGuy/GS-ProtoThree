@@ -36,7 +36,9 @@ public class ObjData
     [ExecuteAlways]
     public class ObjDistribuition : MonoBehaviour
     {
-    
+
+
+    public int Seed = 69;
     public float minScale = 1.0f;
     public float maxScale = 1.0f;
 
@@ -178,6 +180,7 @@ public class ObjData
         
         List<ObjData> currBatch = new List<ObjData>();
 
+        
         int batchIndexNum = 0;
         for (int i = 0; i < PointList.Count; i++)
         {
@@ -214,6 +217,8 @@ public class ObjData
 
         float stepSizeX = transform.localScale.x / density;
         float stepSizeZ = transform.localScale.z / density;
+
+        Random.InitState(Seed);
         for (float i = -(density / 2); i < density / 2; i++) //have inital position been in center, rather than up and left
         {
             for (float j = -(density / 2); j < density / 2; j++)
