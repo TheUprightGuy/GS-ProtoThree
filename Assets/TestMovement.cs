@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public class TestMovement : MonoBehaviour
@@ -52,6 +53,7 @@ public class TestMovement : MonoBehaviour
         {
             rb.velocity = Vector3.up * jumpVelocity;
             jumping = true;
+            AudioManager.instance.PlaySound("jump");
         }
         // Falling - Apply Gravity Multiplier
         if (rb.velocity.y < 0)

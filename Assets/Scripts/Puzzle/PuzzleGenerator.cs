@@ -1,19 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Puzzle
 {
     public class PuzzleGenerator : MonoBehaviour
     {
-        private int _currentType;
+        public int _currentType;
         public int puzzleSize = 4;//num of tiles in each row and col
         public float distanceFromStartingTiles = 5f;
         public List<List<GameObject>> startingTiles;
-        public List<Material> tileMaterials;
+        public List<GameObject> tileMeshes;
         public List<GameObject> tilePrefabs;
         public List<List<GameObject>> tiles;
         public float tileSpacing = 1.1f;
+        public bool disabled;
 
         public void Awake()
         {
@@ -21,13 +24,14 @@ namespace Puzzle
             startingTiles = new List<List<GameObject>>();
             var tilePos = gameObject.transform.position;
             var right = transform.right;
-            tilePos += right * ((float) puzzleSize / 2 + 0.5f);
+            /*tilePos += right * ((float) puzzleSize / 2 + 0.5f);
             tilePos = GenerateStartingTiles(tilePos);
-            tilePos -= right * ((float) puzzleSize / 2 + 0.5f);
+            tilePos -= right * ((float) puzzleSize / 2 + 0.5f);*/
             tilePos += transform.forward * distanceFromStartingTiles;
             GenerateTiles(tilePos);
-            _currentType = 0;
+            disabled = false;
             GeneratePath();
+            _currentType = 0;
         }
 
         private void GeneratePath()
@@ -66,7 +70,8 @@ namespace Puzzle
             var tile = tileRow[(int) tileCoordinate.x];
             var tileSO = tile.GetComponent<PuzzleTile>().puzzleTileSo;
             tile.GetComponent<PuzzleTile>().puzzleTileSo.type = _currentType;
-            tile.GetComponent<MeshRenderer>().material = tileMaterials[_currentType];
+            Destroy(tile.transform.GetChild(0).gameObject);
+            Instantiate(tileMeshes[_currentType], tile.transform);
             tile.name = tilePrefabs[_currentType].name;
             Debug.Log("Col: " + tileSO.col + " Row: " + tileSO.row + " Type: " + tile.name);
             _currentType += 1;
@@ -82,7 +87,7 @@ namespace Puzzle
                 {
                     var randTile = Random.Range(0, tilePrefabs.Count);
                     var newTile = Instantiate(tilePrefabs[randTile], tilePos, transform.rotation, transform);
-                    newTile.GetComponent<MeshRenderer>().material = tileMaterials[randTile];
+                    Instantiate(tileMeshes[randTile], newTile.transform);
                     newTile.name = tilePrefabs[randTile].name;
                     var ptSo = ScriptableObject.CreateInstance<PuzzleTileSO>();
                     ptSo.Initialise(randTile, j, i);
@@ -138,6 +143,7 @@ namespace Puzzle
 
         public void ResetPuzzle(GameObject player)
         {
+            if (disabled) return;
             ResetTiles();
             TeleportToStart(player);
         }
@@ -154,6 +160,11 @@ namespace Puzzle
         private void TeleportToStart(GameObject player)
         {
             player.transform.position = transform.position + Vector3.up * player.transform.position.y + Vector3.back;
+        }
+
+        public void FoundCollectable()
+        {
+            disabled = true;
         }
     }
 }
