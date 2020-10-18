@@ -51,6 +51,8 @@ public class ObjData
     public string GrassExclusionTag;
 
     public LayerMask RayCastToHit;
+
+    public bool CastFortriggers = false;
     public GameObject prefabTemplate;
 
     
@@ -61,9 +63,17 @@ public class ObjData
 
     [HideInInspector]
     public Bounds BoundingBox;
-    private void Start()
+
+    private void Awake()
     {
         PlaceObjMesh();
+    }
+
+
+
+    private void Start()
+    {
+        ///PlaceObjMesh();
     }
 
     private void Update()
@@ -277,7 +287,8 @@ public class ObjData
         for (int i = 0; i < posList.Count; i++)
         {
             RaycastHit hit;
-            if (Physics.Raycast(posList[i], Vector3.down, out hit, Mathf.Infinity, RayCastToHit.value))
+            if (Physics.Raycast(posList[i], Vector3.down, out hit, Mathf.Infinity, RayCastToHit.value,
+                (CastFortriggers) ? (QueryTriggerInteraction.Collide) : (QueryTriggerInteraction.Ignore)))
             {
                 if (hit.collider.gameObject.tag != GrassExclusionTag)
                 {

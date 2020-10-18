@@ -18,6 +18,7 @@ namespace Puzzle
         public float tileSpacing = 1.1f;
         public bool disabled;
 
+        public Vector3 RestartPos = Vector3.zero;
         public void Awake()
         {
             tiles = new List<List<GameObject>>();
@@ -159,12 +160,17 @@ namespace Puzzle
 
         private void TeleportToStart(GameObject player)
         {
-            player.transform.position = transform.position + Vector3.up * player.transform.position.y + Vector3.back;
+            player.transform.position = RestartPos; //transform.position + Vector3.up * player.transform.position.y + Vector3.back;
         }
 
         public void FoundCollectable()
         {
             disabled = true;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(RestartPos, 1.0f);
         }
     }
 }

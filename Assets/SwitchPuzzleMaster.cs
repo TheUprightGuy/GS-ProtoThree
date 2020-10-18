@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class SwitchPuzzleMaster : MonoBehaviour
 {
     public static SwitchPuzzleMaster instance;
@@ -22,7 +22,8 @@ public class SwitchPuzzleMaster : MonoBehaviour
     public Material on;
     public Material off;
     public bool complete;
-
+    public UnityEvent CompletionEvent;
+    
     private void Start()
     {
         foreach (Transform n in transform)
@@ -39,6 +40,13 @@ public class SwitchPuzzleMaster : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (CheckComplete())
+        {
+            CompletionEvent.Invoke();
+        }
+    }
     public bool CheckComplete()
     {
         foreach(PuzzleSwitch n in switches)
