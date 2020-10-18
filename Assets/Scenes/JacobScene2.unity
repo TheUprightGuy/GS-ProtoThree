@@ -495,6 +495,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: IslandTunnel
       objectReference: {fileID: 0}
+    - target: {fileID: 8668918676863071634, guid: 24b05ec3eba0e584c88db648d6fa64fd,
+        type: 3}
+      propertyPath: puzzleGenerator
+      value: 
+      objectReference: {fileID: 1018825715}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24b05ec3eba0e584c88db648d6fa64fd, type: 3}
 --- !u!4 &425154463 stripped
@@ -547,6 +552,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1249082683908259563}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1018825715 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7408026049962469467, guid: 24b05ec3eba0e584c88db648d6fa64fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 383675342}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c62cc4d583694c4aa1217da8c214d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1047128924 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4449845787232845642, guid: 72d4225f41f37e9408ba06d7d16613a1,
@@ -1584,6 +1601,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Provisions
       objectReference: {fileID: 0}
+    - target: {fileID: 5561946095874671554, guid: 73debdbb8596d4d488d26cfec16fc0b1,
+        type: 3}
+      propertyPath: m_TagString
+      value: GEZone
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73debdbb8596d4d488d26cfec16fc0b1, type: 3}
 --- !u!1001 &7502930239689979513
@@ -1597,6 +1619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 1163899408075136458, guid: 2422ea24d19dbcf409a4a4fb301dbc1f,
+        type: 3}
+      propertyPath: m_TagString
+      value: GEZone
       objectReference: {fileID: 0}
     - target: {fileID: 1163899408075136462, guid: 2422ea24d19dbcf409a4a4fb301dbc1f,
         type: 3}
@@ -1796,6 +1823,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Supplies
+      objectReference: {fileID: 0}
+    - target: {fileID: 6414379309651188872, guid: b40b7c1dad6ad7144a97b25af53f4e24,
+        type: 3}
+      propertyPath: m_TagString
+      value: GEZone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b40b7c1dad6ad7144a97b25af53f4e24, type: 3}
