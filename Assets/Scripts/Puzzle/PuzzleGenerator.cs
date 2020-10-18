@@ -20,10 +20,11 @@ namespace Puzzle
             tiles = new List<List<GameObject>>();
             startingTiles = new List<List<GameObject>>();
             var tilePos = gameObject.transform.position;
-            tilePos.x += (float) puzzleSize / 2 + 0.5f;
+            var right = transform.right;
+            tilePos += right * ((float) puzzleSize / 2 + 0.5f);
             tilePos = GenerateStartingTiles(tilePos);
-            tilePos.x -= (float) puzzleSize / 2 + 0.5f;
-            tilePos.z += distanceFromStartingTiles;
+            tilePos -= right * ((float) puzzleSize / 2 + 0.5f);
+            tilePos += transform.forward * distanceFromStartingTiles;
             GenerateTiles(tilePos);
             _currentType = 0;
             GeneratePath();
@@ -80,7 +81,7 @@ namespace Puzzle
                 for (var j = 0; j < puzzleSize; j++)
                 {
                     var randTile = Random.Range(0, tilePrefabs.Count);
-                    var newTile = Instantiate(tilePrefabs[randTile], tilePos, Quaternion.identity, transform);
+                    var newTile = Instantiate(tilePrefabs[randTile], tilePos, transform.rotation, transform);
                     newTile.GetComponent<MeshRenderer>().material = tileMaterials[randTile];
                     newTile.name = tilePrefabs[randTile].name;
                     var ptSo = ScriptableObject.CreateInstance<PuzzleTileSO>();
@@ -89,12 +90,12 @@ namespace Puzzle
                     puzzleTile.puzzleTileSo = ptSo;
                     puzzleTile.puzzleGenerator = this;
                     newRow.Add(newTile);
-                    tilePos.z += 1 * tileSpacing;
+                    tilePos += transform.forward * tileSpacing;
                 }
 
                 tiles.Add(newRow);
-                tilePos.z -= puzzleSize * tileSpacing;
-                tilePos.x += 1 * tileSpacing;
+                tilePos -= transform.forward * puzzleSize * tileSpacing;
+                tilePos += transform.right * tileSpacing;
             }
         }
 
@@ -104,7 +105,7 @@ namespace Puzzle
             var newRow = new List<GameObject>();
             for (var j = 0; j < tilePrefabs.Count; j++)
             {
-                var newTile = Instantiate(tilePrefabs[currentTile], tilePos, Quaternion.identity, transform);
+                var newTile = Instantiate(tilePrefabs[currentTile], tilePos, transform.rotation, transform);
                 newTile.name = tilePrefabs[currentTile].name;
                 var ptSo = ScriptableObject.CreateInstance<PuzzleTileSO>();
                 ptSo.Initialise(currentTile, j, 0);
@@ -114,7 +115,7 @@ namespace Puzzle
 
                 newRow.Add(newTile);
 
-                tilePos.z += 1 * tileSpacing;
+                tilePos += transform.forward * tileSpacing;
                 currentTile += 1;
             }
 

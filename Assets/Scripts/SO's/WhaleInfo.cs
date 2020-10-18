@@ -25,12 +25,12 @@ public class WhaleInfo : ScriptableObject
             // Overwrite any other thoughts
             if (currentThought != Thought.Food)
             {
-                ThoughtsScript.instance.ShowThought(Thought.Food, true);
+                //ThoughtsScript.instance.ShowThought(Thought.Food, true);
 
                 if (!foodPopupDone)
                 {
                     foodPopupDone = true;
-                    PopUpHandler.instance.QueuePopUp("When the whale gets hungry, press <b>1</b> to feed it from provisions", KeyCode.Alpha1);
+                    //PopUpHandler.instance.QueuePopUp("When the whale gets hungry, press <b>1</b> to feed it from provisions", KeyCode.Alpha1);
                 }
             }
             hungerModifier = 0.75f;

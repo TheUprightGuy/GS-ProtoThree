@@ -18,8 +18,8 @@ public class FollowCamera : MonoBehaviour
     float yMinLimit = -60.0f, yMaxLimit = 60.0f;
     float distanceMin = 0.5f, distanceMax = 13.0f;
     float x = 0.0f, y = 0.0f;
-    bool zoomIn = false, zoomOut = false;
-    bool rotating = false;
+    public bool zoomIn = false, zoomOut = false;
+    public bool rotating = false;
     float timer = 0.0f, lerpTimer = 0.0f;
     #endregion LocalVariables
     #region Setup
@@ -66,8 +66,10 @@ public class FollowCamera : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButtonDown(0)){
-                rotating = (EventSystem.current.IsPointerOverGameObject()) ? false : true;}
+            if (Input.GetMouseButtonDown(0))
+            {
+                rotating = true;
+            }// (EventSystem.current.IsPointerOverGameObject()) ? false : true;}
 
             if (Input.GetMouseButtonUp(0)){
                 rotating = false;}

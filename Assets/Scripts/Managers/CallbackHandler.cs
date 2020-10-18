@@ -96,4 +96,76 @@ public class CallbackHandler : MonoBehaviour
             moveToFire();
         }
     }
+
+    public event Action shiftWhale;
+    public void ShiftWhale()
+    {
+        if (shiftWhale != null)
+        {
+            shiftWhale();
+        }
+    }
+
+    public event Action cutCam;
+    public void CutCam()
+    {
+        if (cutCam != null)
+        {
+            cutCam();
+        }
+    }
+
+    public event Action<string> supplyPopUp;
+    public void SupplyPopUp(string _supplies)
+    {
+        if (supplyPopUp != null)
+        {
+            supplyPopUp(_supplies);
+        }
+    }
+
+    public event Action<string> provisionPopUp;
+    public void ProvisionPopUp(string _provisions)
+    {
+        if (supplyPopUp != null)
+        {
+            provisionPopUp(_provisions);
+        }
+    }
+
+    public event Action<Transform> startHoming;
+    public void StartHoming(Transform _player)
+    {
+        if (startHoming != null)
+        {
+            startHoming(_player);
+        }
+    }
+
+    public event Action pickUpMC;
+    public void PickUpMC()
+    {
+        if (pickUpMC != null)
+        {
+            pickUpMC();
+        }
+    }
+
+    public event Action startExit;
+    public void StartExit()
+    {
+        if (startExit != null)
+        {
+            startExit();
+        }
+    }
+
+    public event Action openDoors;
+    public void OpenDoors()
+    {
+        if (openDoors != null)
+        {
+            openDoors();
+        }
+    }
 }

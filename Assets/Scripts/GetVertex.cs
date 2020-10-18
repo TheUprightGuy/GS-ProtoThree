@@ -19,7 +19,7 @@ public class GetVertex : MonoBehaviour
             bigIsland = WhaleMovementScript.instance.orbit.leashObject;
             islandMesh = bigIsland.GetComponent<MeshFilter>();
 
-            Fader.instance.FadeOut(this);
+            //Fader.instance.FadeOut(this);
             followCam.gameObject.SetActive(true);
             GetComponent<WhaleMovementScript>().enabled = false;
         }

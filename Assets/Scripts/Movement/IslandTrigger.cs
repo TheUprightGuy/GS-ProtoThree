@@ -55,7 +55,8 @@ public class IslandTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        //WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        Movement player = other.GetComponent<Movement>();
 
         if (player)
         {
@@ -80,9 +81,10 @@ public class IslandTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        //WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        Movement player = other.GetComponent<Movement>();
 
-        if (player && !player.whaleInfo.leashed)
+        if (player)// && !player.whaleInfo.leashed)
         {
             SetupCircle(Vector3.Distance(player.transform.position, transform.position), player.transform.position.y - 1.5f);
         }
@@ -90,7 +92,8 @@ public class IslandTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        //WhaleMovementScript player = other.GetComponent<WhaleMovementScript>();
+        Movement player = other.GetComponent<Movement>();
 
         if (player)
         {

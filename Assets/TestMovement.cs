@@ -36,10 +36,6 @@ public class TestMovement : MonoBehaviour
     public float walkSpeed = 2.0f;
 
     public Camera cam;
-    public bool startAnim = true;
-    public Transform startAnimPos;
-    // temp
-    public Cinemachine.CinemachineVirtualCamera openingShot;
 
     // Start is called before the first frame update
     void Start()
@@ -51,20 +47,6 @@ public class TestMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (startAnim)
-        {
-            currentSpeed = 1.0f;
-            Quaternion desiredRot = Quaternion.LookRotation(startAnimPos.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5.0f);
-            transform.Translate((Vector3.forward) * Time.deltaTime * moveSpeed);
-            if (Vector3.Distance(transform.position, startAnimPos.position) < 0.2f)
-            {
-                startAnim = false;
-               // openingShot.Priority = 0;
-            }
-            return;
-        }
-
         // Grounded - Allow Jump
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
@@ -96,6 +78,11 @@ public class TestMovement : MonoBehaviour
         bool running = Input.GetKey(KeyCode.LeftShift);
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * moveVector.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            CallbackHandler.instance.StartHoming(transform);
+        }
     }
 
     private void FixedUpdate()

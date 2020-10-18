@@ -64,8 +64,15 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
-        moveVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        moveVector = moveVector.normalized;
+        if (Input.GetMouseButton(0))
+        {
+            moveVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            moveVector = moveVector.normalized;
+        }
+        else
+        {
+            moveVector = Vector2.zero;
+        }
 
         if (moveVector != Vector2.zero)
         {

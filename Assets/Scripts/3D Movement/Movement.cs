@@ -29,69 +29,103 @@ public class Movement : MonoBehaviour
     public float moveSpeed = 1;
     public float accelSpeed = 1;
     public float maxSpeed = 5.0f;
-    [HideInInspector] public float turnSpeed = 40;
-    [HideInInspector] public float liftSpeed = 20;
-    [HideInInspector] public float rollSpeed = 20;
+    [Header("Tracking")]
+    public OrbitScript orbit;
+    public bool inRange;
+    public float maxDistance;
+    public float angle;
+    public float islandMod = 0.0f;
+    public float distance;
+    public bool orbiting;
 
     #region Local Variables
+    WhaleInfo whaleInfo;
     [Header("Local Variables")]
     public float rotationSpeed = 0.2f;
     // Cache Variables
-    Vector3 lurePos;
-    Vector3 myPos;
-    Vector3 _direction;
-    Quaternion _lookRotation;
     //[HideInInspector]
     public float currentSpeed = 0.0f;
     Vector3 desiredVec;
     Vector3 desiredRoll;
-    public float myRoll = 0.0f;
-    public float myTurn = 0.0f;
-    public float myPitch = 0.0f;
+    [HideInInspector] public float myRoll = 0.0f;
+    [HideInInspector] public float myTurn = 0.0f;
+    [HideInInspector] public float myPitch = 0.0f;
+    [HideInInspector] public float turnSpeed = 40;
+    [HideInInspector] public float liftSpeed = 20;
+    [HideInInspector] public float rollSpeed = 20;
     #endregion Local Variables
-
     #region Setup
     private void Start()
     {
         desiredVec = body.transform.eulerAngles;
+        temp.SetActive(false);
+        whaleInfo = CallbackHandler.instance.whaleInfo;
+
+        CallbackHandler.instance.pickUpMC += PickUpMC;
+    }
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.pickUpMC -= PickUpMC;
     }
     #endregion Setup
 
     // Update is called once per frame
     void Update()
     {
-        float movement = currentSpeed / 2;
+        if (orbiting)
+        {
+            animator.SetFloat("Movement", currentSpeed * islandMod / 2);
+            currentSpeed = Mathf.Lerp(currentSpeed, 1.0f, Time.deltaTime);
+            return;
+        }
+
+        if (homing)
+        {
+            animator.SetFloat("Movement", currentSpeed * islandMod / 2);
+            currentSpeed = Mathf.Lerp(currentSpeed, 3.0f, Time.deltaTime);
+            return;
+        }
+
+        float movement = currentSpeed * islandMod / 2;
 
         float f = body.transform.rotation.eulerAngles.z;
         f = (f > 180) ? f - 360 : f;
         animator.SetFloat("Turning", f / 10.0f);
         animator.SetFloat("Movement", movement);
 
-        currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * accelSpeed);
+        currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * accelSpeed);   
 
-        float slowSpeedTurnBonus = maxSpeed / moveSpeed;
+        float slowSpeedTurnBonus = (maxSpeed / currentSpeed);
 
         if (Input.GetKey(KeyCode.D))
         {
-            if (myTurn + Time.deltaTime * turnSpeed * slowSpeedTurnBonus < 30)
+
+            if (myTurn + Time.deltaTime * turnSpeed * slowSpeedTurnBonus < 40)
             {
                 myTurn += Time.deltaTime * turnSpeed * slowSpeedTurnBonus;
             }
+           
             if (myRoll - Time.deltaTime * rollSpeed > -10)
             {
                 myRoll -= Time.deltaTime * rollSpeed;
             }
         }
-        if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
-            if (myTurn - Time.deltaTime * turnSpeed * slowSpeedTurnBonus > -30)
+            if (myTurn - Time.deltaTime * turnSpeed * slowSpeedTurnBonus > -40)
             {
                 myTurn -= Time.deltaTime * turnSpeed * slowSpeedTurnBonus;
             }
+            
             if (myRoll + Time.deltaTime * rollSpeed < 10)
             {
                 myRoll += Time.deltaTime * rollSpeed;
             }
+        }
+        else
+        {
+            myTurn = Mathf.Lerp(myTurn, 0, Time.deltaTime * turnSpeed);
+            myRoll = Mathf.Lerp(myRoll, 0, Time.deltaTime * rollSpeed * 5);
         }
 
         if (Input.GetKey(KeyCode.W))
@@ -136,15 +170,154 @@ public class Movement : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (CheckBelow() != Vector3.zero)
+            {
+                //Orbit(true);
+                orbit.leashObject.GetComponent<MeshCollider>().convex = false;
+                Fader.instance.FadeOut(this);
+                orbiting = true;
+                // Called by Animator
+                // MoveCharacter();
+            }
+        }
         desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
         body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
 
-        desiredVec = new Vector3(myPitch, myTurn, transform.eulerAngles.z);
+        desiredVec = new Vector3(myPitch, transform.eulerAngles.y + myTurn, transform.eulerAngles.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(desiredVec), Time.deltaTime * rotationSpeed);
     }
 
+    public GameObject player;
+    public GameObject rider;
+    public Cinemachine.CinemachineFreeLook followCam;
+    public FollowCamera followCamera;
+
+    public void MoveCharacter()
+    {
+        followCam.gameObject.SetActive(true);
+        rider.SetActive(false);
+        player.SetActive(true);
+        player.transform.parent = null;
+        player.transform.position = CheckBelow();
+        followCamera.enabled = false;
+        //player.GetComponent<Rigidbody>().useGravity = true;
+    }
+
+    public void PickUpMC()
+    {
+        followCam.gameObject.SetActive(false);
+        rider.SetActive(true);
+        player.SetActive(false);
+        orbiting = false;
+        homing = false;
+        whaleInfo.ToggleLeashed(false);
+        exit = true;
+        orbit.leashObject.GetComponent<MeshCollider>().convex = true;
+        followCamera.enabled = true;
+    }
+
+    [Header("Slowdown")]
+    public GameObject front;
+    public float dotProduct;
+    public bool homing;
+    public bool exit;
+
     private void FixedUpdate()
     {
-        rb.MovePosition(transform.position + transform.forward * currentSpeed * Time.deltaTime);     
+        if (orbiting || homing)
+        {
+            rb.MovePosition(transform.position + transform.forward * islandMod * currentSpeed * Time.deltaTime);
+            return;
+        }
+
+        if (exit)
+        {
+            rb.MovePosition(transform.position + transform.forward * currentSpeed * Time.deltaTime);
+            return;
+        }
+
+        if (inRange)
+        {
+            distance = Mathf.Infinity;
+
+            if (orbit.leashObject)
+            {
+                Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
+                distance = Vector3.Distance(closestPoint,front.transform.position) - 10.0f;
+
+                Debug.DrawLine(front.transform.position, closestPoint, Color.red);
+
+                // New Attempt
+                if (distance < 30.0f)
+                {
+                    float perc = Mathf.Clamp01(distance / 30.0f);
+
+                    Vector3 pointNorm = Vector3.Normalize(closestPoint - front.transform.position);
+                    dotProduct = 1 - Vector3.Dot(front.transform.forward, pointNorm);
+                    islandMod = Mathf.Clamp01(perc / dotProduct);
+                }
+            }
+        }
+        else
+        {
+            islandMod = 1.0f;
+        }
+
+        rb.MovePosition(transform.position + transform.forward * islandMod * currentSpeed * Time.deltaTime);
+    }
+
+    public GameObject temp;
+    RaycastHit hit;
+
+    public Vector3 CheckBelow()
+    {
+        Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
+        float checkDistance = Vector3.Distance(front.transform.position, closestPoint);
+
+        Vector3 dir = closestPoint - front.transform.position;
+
+        if (Physics.Raycast(front.transform.position, Vector3.down, out hit, 100.0f))
+        {
+            /*
+             * Get the location of the hit.
+             * This data can be modified and used to move your object.
+             */
+            //temp.SetActive(true);
+            //temp.transform.position = hit.point;
+            //Instantiate(temp, hit.point, Quaternion.identity);
+            Debug.Log("Hit");
+            return hit.point;
+        }
+        else if (checkDistance < 12.0f && dir.y < 0)
+        {
+            //temp.SetActive(true);
+            //temp.transform.position = hit.point;
+            // Need to add a slight push inwards to the island
+            Debug.Log("Side Hit");
+            return closestPoint;
+        }
+        else
+        {
+            Debug.Log("No Hit");
+            return Vector3.zero;
+        }
+    }
+
+    public void Orbit(bool _toggle)
+    {
+        if (inRange)
+        {
+            whaleInfo.ToggleLeashed(_toggle);
+            if (whaleInfo.leashed)
+            {
+                orbit.SetOrbitDirection();
+            }
+        }
+        else
+        {
+            whaleInfo.ToggleLeashed(false);
+        }
     }
 }

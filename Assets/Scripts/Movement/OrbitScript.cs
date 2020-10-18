@@ -9,7 +9,9 @@ public class OrbitScript : MonoBehaviour
     Quaternion lookRot;
     Rigidbody rb;
     WhaleInfo whaleInfo;
-    [HideInInspector] public GameObject leashObject;
+    //[HideInInspector] 
+    public GameObject leashObject = null;
+    [HideInInspector] public MeshCollider islandBase;
     [HideInInspector] public float initialSlerp = 0.0f;
     [HideInInspector] public int orbitDirection = 1;
 
@@ -21,6 +23,12 @@ public class OrbitScript : MonoBehaviour
     private void Start()
     {
         whaleInfo = CallbackHandler.instance.whaleInfo;
+        CallbackHandler.instance.shiftWhale += ShiftWhale;
+    }
+
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.shiftWhale -= ShiftWhale;
     }
     #endregion Setup
 
@@ -40,7 +48,14 @@ public class OrbitScript : MonoBehaviour
             orbitDirection = -1;
         }
 
+        if (leashObject.GetComponent<IslandTrigger>())
         leashObject.GetComponent<IslandTrigger>().ToggleLeashed(true);
+    }
+
+    public void ShiftWhale()
+    {
+        float rad = leashObject.GetComponent<SphereCollider>().radius / 2;
+        transform.position += new Vector3(rad * orbitDirection, 0, rad * orbitDirection);
     }
 
     // Update is called once per frame
@@ -68,7 +83,7 @@ public class OrbitScript : MonoBehaviour
     {
         if (whaleInfo.leashed && leashObject)
         {
-            rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
+            //rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
         }
         if (!leashObject)
         {
