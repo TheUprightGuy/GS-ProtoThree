@@ -267,11 +267,7 @@ MonoBehaviour:
   _currentType: 0
   puzzleSize: 4
   distanceFromStartingTiles: 8.2
-  tileMaterials:
-  - {fileID: 2100000, guid: 65aa59ffd269f2f49a0151438449c1fb, type: 2}
-  - {fileID: 2100000, guid: 0860c25f07996e845b844787b8b92836, type: 2}
-  - {fileID: 2100000, guid: e3506a61ddae03f41b323f014c45b2d1, type: 2}
-  - {fileID: 2100000, guid: 12fb69f35a5975f429399a1349df28c8, type: 2}
+  tileMeshes: []
   tilePrefabs:
   - {fileID: 8370589782387919159, guid: e18bf75429f7b4944b9f73f488f6c039, type: 3}
   - {fileID: 3525572896698660012, guid: 5f130ab08f29fa24f80c1d6546f22e15, type: 3}
@@ -478,4 +474,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a9e026540469244af2c5c9f3438556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleGenerator: {fileID: 0}
+  puzzleGenerator: {fileID: 4919599811710582729}
