@@ -245,7 +245,7 @@ public class Movement : MonoBehaviour
             if (orbit.leashObject)
             {
                 Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
-                distance = Vector3.Distance(closestPoint,front.transform.position) - 10.0f;
+                distance = Vector3.Distance(closestPoint, front.transform.position);
 
                 Debug.DrawLine(front.transform.position, closestPoint, Color.red);
 
