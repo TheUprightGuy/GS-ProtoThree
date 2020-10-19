@@ -54,6 +54,11 @@ public class UIManager : MonoBehaviour
         {
             PingPong();
         }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            LandingToggle(true);
+        }
     }
 
     public void ShowMe()
