@@ -55,14 +55,21 @@ public class ObjData
     public bool CastFortriggers = false;
     public GameObject prefabTemplate;
 
+    public enum RenderingMode
+    {
+        BATCHED,
+        INDIVIDUAL
+    }
+
+    public RenderingMode RenderType;
     
     [SerializeField]
     private List<List<ObjData>> batches;
 
     private List<Mesh> MeshCells;
-
     [HideInInspector]
     public Bounds BoundingBox;
+
 
     private void Awake()
     {
@@ -78,7 +85,17 @@ public class ObjData
 
     private void Update()
     {
-        RedrawMesh();
+        switch (RenderType)
+        {
+            case RenderingMode.BATCHED:
+                RedrawMesh();
+                break;
+            case RenderingMode.INDIVIDUAL  :
+                break;
+            default:
+                break;
+        }
+        
     }
 
     public void RedrawGPUI()
@@ -103,6 +120,58 @@ public class ObjData
 
     public void PlaceObjMesh()
     {
+        
+
+        Debug.Log("Randomising Positions...");
+        List<Vector3> PointList = ReRoll();
+        Debug.Log("Randomising Positions Done");
+
+        PointList = RaycastPositions(PointList);
+
+
+        switch (RenderType)
+        {
+            case RenderingMode.BATCHED:
+                BatchMesh(PointList);
+                break;
+            case RenderingMode.INDIVIDUAL:
+                IndividualMesh(PointList);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void IndividualMesh(List<Vector3> PointList)
+    {
+
+        Vector2 startPos = new Vector2(transform.position.x - (transform.localScale.x / 2), transform.position.z - (transform.localScale.z / 2));
+
+        for (int i = transform.childCount; i > 0; --i)
+            DestroyImmediate(transform.GetChild(0).gameObject);
+
+
+        for (int i = 0; i < PointList.Count; i++)
+        {
+            float xLocal = PointList[i].x - startPos.x;
+            int col = Mathf.FloorToInt(xLocal / CellSize);
+
+            float yLocal = PointList[i].z - startPos.y;
+            int row = Mathf.FloorToInt(yLocal / CellSize);
+
+            float randScale = Random.Range(minScale, maxScale);
+
+            GameObject newObj = Instantiate(prefabTemplate);
+            newObj.transform.localScale = prefabTemplate.transform.localScale * randScale;
+            newObj.transform.position = PointList[i] + prefabTemplate.transform.position;
+
+            newObj.transform.parent = this.transform;
+
+        }
+    }
+
+    public void BatchMesh(List<Vector3> PointList)
+    {
         if (MeshCells == null)
         {
             Debug.Log("Making Array");
@@ -115,24 +184,17 @@ public class ObjData
             MeshCells.Clear();
         }
 
-        List<List<CombineInstance>> MeshCellInstances = new List<List<CombineInstance>>();
-
         int numOfColumns = Mathf.CeilToInt(transform.localScale.x / CellSize);
         int numOfRows = Mathf.CeilToInt(transform.localScale.z / CellSize);
         Vector2 startPos = new Vector2(transform.position.x - (transform.localScale.x / 2), transform.position.z - (transform.localScale.z / 2));
 
+
+        List<List<CombineInstance>> MeshCellInstances = new List<List<CombineInstance>>();
         for (int i = 0; i < numOfColumns * numOfRows; i++)
         {
             List<CombineInstance> temp = new List<CombineInstance>();
             MeshCellInstances.Add(temp);
         }
-
-        
-        Debug.Log("Randomising Positions...");
-        List<Vector3> PointList = ReRoll();
-        Debug.Log("Randomising Positions Done");
-
-        PointList = RaycastPositions(PointList);
 
         Debug.Log("Batching Mesh...");
         for (int i = 0; i < PointList.Count; i++)
@@ -158,67 +220,15 @@ public class ObjData
 
         foreach (var item in MeshCellInstances)
         {
+            if (item.Count < 1)
+            {
+                continue;
+            }
+
             Mesh newMesh = new Mesh();
             newMesh.CombineMeshes(item.ToArray());
             MeshCells.Add(newMesh);
         }
-    }
-
-    public void PlaceObjsGPUI()
-    {
-
-        
-
-        if (batches == null)
-        {
-            Debug.Log("Making Array");
-            batches = new List<List<ObjData>>();
-        }
-
-        if (batches.Count > 0)
-        {
-            Debug.Log("Clearing Array");
-            batches.Clear();
-        }
-
-        Debug.Log("Randomising Positions...");
-        List<Vector3> PointList = ReRoll();
-        Debug.Log("Randomising Positions Done");
-
-        PointList = RaycastPositions(PointList);
-
-        
-        List<ObjData> currBatch = new List<ObjData>();
-
-        
-        int batchIndexNum = 0;
-        for (int i = 0; i < PointList.Count; i++)
-        {
-
-            float randScale = Random.Range(minScale, maxScale);
-            foreach (Transform item in prefabTemplate.transform)
-            {
-
-                //Apply prefabs positions AFTER raycast for offset
-                currBatch.Add(new ObjData( PointList[i] + prefabTemplate.transform.position, item.localScale * randScale, item.rotation)); ;
-                batchIndexNum++;
-            }
-
-            if (batchIndexNum >= 1000)
-            {
-                batches.Add(currBatch);
-                currBatch = new List<ObjData>();
-                batchIndexNum = 0;
-            }
-
-        }
-        if (batchIndexNum < 1000)
-        {
-            batches.Add(currBatch);
-        }
-
-
-        RedrawGPUI();
     }
 
     public List<Vector3> ReRoll()
@@ -301,6 +311,64 @@ public class ObjData
         return returnList;
     }
 
+
+    //DEFUNCT PLS NO USE TY
+    public void PlaceObjsGPUI()
+    {
+
+        
+
+        if (batches == null)
+        {
+            Debug.Log("Making Array");
+            batches = new List<List<ObjData>>();
+        }
+
+        if (batches.Count > 0)
+        {
+            Debug.Log("Clearing Array");
+            batches.Clear();
+        }
+
+        Debug.Log("Randomising Positions...");
+        List<Vector3> PointList = ReRoll();
+        Debug.Log("Randomising Positions Done");
+
+        PointList = RaycastPositions(PointList);
+
+        
+        List<ObjData> currBatch = new List<ObjData>();
+
+        
+        int batchIndexNum = 0;
+        for (int i = 0; i < PointList.Count; i++)
+        {
+
+            float randScale = Random.Range(minScale, maxScale);
+            foreach (Transform item in prefabTemplate.transform)
+            {
+
+                //Apply prefabs positions AFTER raycast for offset
+                currBatch.Add(new ObjData( PointList[i] + prefabTemplate.transform.position, item.localScale * randScale, item.rotation)); ;
+                batchIndexNum++;
+            }
+
+            if (batchIndexNum >= 1000)
+            {
+                batches.Add(currBatch);
+                currBatch = new List<ObjData>();
+                batchIndexNum = 0;
+            }
+
+        }
+        if (batchIndexNum < 1000)
+        {
+            batches.Add(currBatch);
+        }
+
+
+        RedrawGPUI();
+    }
     private void OnDrawGizmos()
     {
        

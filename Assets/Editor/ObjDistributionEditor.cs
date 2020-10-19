@@ -21,7 +21,34 @@ public class ObjDistributionEditor : Editor
         ObjDistribuition t = target as ObjDistribuition;
         if (GUILayout.Button("Reload"))
         {
-            t.PlaceObjMesh();
+           
+
+            switch (t.RenderType)
+            {
+                case ObjDistribuition.RenderingMode.BATCHED:
+                    t.PlaceObjMesh();
+                    break;
+                case ObjDistribuition.RenderingMode.INDIVIDUAL:
+                    if (t.density > 100 && 
+                        EditorUtility.DisplayDialog("Oh god consider what you are doing please",
+                                                    "Are you sure you want to place " + (t.density * t.density) +
+                                                    " individual objects?", "I know what I'm doing :)", "Oh god no take me back"))
+                    {
+                        t.PlaceObjMesh();
+                    }
+                    else if (t.density > 100)
+                    {
+                        t.RenderType = ObjDistribuition.RenderingMode.BATCHED;
+                        t.PlaceObjMesh();
+                    }
+                    else
+                    {
+                        t.PlaceObjMesh();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
 

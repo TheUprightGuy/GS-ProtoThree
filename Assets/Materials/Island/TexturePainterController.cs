@@ -43,9 +43,20 @@ public class TexturePainterController : MonoBehaviour
     public float BrushSize = 1.0f;
     public float BrushDensity = 1.0f;
     // Start is called before the first frame update
-    void Start()
+
+    [SerializeField]
+    private Mesh SavedMesh = null;
+
+    private void Awake()
     {
-        
+        if (SavedMesh != null)
+        {
+            GetComponent<MeshFilter>().mesh = SavedMesh;
+        }
+        else
+        {
+            UpdateDefaultColors();
+        }
     }
 
     // Update is called once per frame
@@ -123,6 +134,7 @@ public class TexturePainterController : MonoBehaviour
         }
 
         GetComponent<MeshFilter>().sharedMesh.colors = colors;
+        SavedMesh = GetComponent<MeshFilter>().sharedMesh;
     }
 
     public void UpdateBrush()
@@ -159,6 +171,7 @@ public class TexturePainterController : MonoBehaviour
         }
 
         GetComponent<MeshFilter>().sharedMesh.colors = colors;
+        SavedMesh = GetComponent<MeshFilter>().sharedMesh;
     }
 
     private void OnDrawGizmos()
