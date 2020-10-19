@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     [HideInInspector] public bool hideMe = false;
     [HideInInspector] public bool ready = false;
 
+    public bool showing;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,15 +30,19 @@ public class UIManager : MonoBehaviour
 
     public void LandingToggle(bool _toggle)
     {
-        if (_toggle)
+        if (showing != _toggle)
         {
-            showMe = true;
-            hideMe = false;
-        }
-        else
-        {
-            hideMe = true;
-            showMe = false;
+            if (_toggle)
+            {
+                showMe = true;
+                hideMe = false;
+            }
+            else
+            {
+                hideMe = true;
+                showMe = false;
+            }
+            showing = _toggle;
         }
     }
 

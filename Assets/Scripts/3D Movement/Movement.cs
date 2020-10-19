@@ -170,6 +170,15 @@ public class Movement : MonoBehaviour
             }
         }
 
+        if (orbit.leashObject && CheckBelow() != Vector3.zero)
+        {
+            CallbackHandler.instance.LandingTooltip(true);
+        }
+        else
+        {
+            CallbackHandler.instance.LandingTooltip(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (CheckBelow() != Vector3.zero)
