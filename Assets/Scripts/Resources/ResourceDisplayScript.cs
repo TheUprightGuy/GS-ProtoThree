@@ -37,6 +37,7 @@ public class ResourceDisplayScript : MonoBehaviour
         suppliesMax = supplyObjs.Count;
         provisionsMax = provisionObjs.Count;
         DisplayResources();
+        MCShopUI.instance.resourceCount.SetText(supplies.ToString());
     }
 
     private void Update()
@@ -113,6 +114,7 @@ public class ResourceDisplayScript : MonoBehaviour
         }
         suppliesPercentage = (float)supplies / (float)suppliesMax;
         DisplaySupplies();
+        MCShopUI.instance.resourceCount.SetText(supplies.ToString());
     }
 
     public void AddProvisions(int _provisions)
@@ -145,6 +147,7 @@ public class ResourceDisplayScript : MonoBehaviour
         supplies -= _supplies;
         suppliesPercentage = (float)supplies / (float)suppliesMax;
         DisplaySupplies();
+        MCShopUI.instance.resourceCount.SetText(supplies.ToString());
         return true;
     }
 
