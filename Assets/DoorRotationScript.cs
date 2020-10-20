@@ -5,10 +5,11 @@ using UnityEngine;
 public class DoorRotationScript : MonoBehaviour
 {
     public GameObject door;
+    public SlidingDoorScript parent;
 
     public bool rotatingLocks;
     public bool slidingDoors;
-    public float rotato;
+
     public GameObject buttonLock;
     public GameObject middleLock;
     public GameObject outsideLock;
@@ -30,6 +31,8 @@ public class DoorRotationScript : MonoBehaviour
             {
                 rotatingLocks = false;
                 slidingDoors = true;
+                parent.doorPFX.StopPFX();
+                parent.doorPFX.PlayDoorPFX();
             }
         }
         if (slidingDoors)
@@ -38,6 +41,11 @@ public class DoorRotationScript : MonoBehaviour
             {
                 buttonLock.transform.localPosition += new Vector3(0, 0, 0.1f) * Time.deltaTime;
                 door.transform.localPosition += new Vector3(-1, 0, 0) * Time.deltaTime;
+            }
+            else
+            {
+                parent.doorPFX.StopDoorPFX();
+                this.enabled = false;
             }
         }
 

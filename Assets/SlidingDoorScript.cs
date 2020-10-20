@@ -6,11 +6,14 @@ public class SlidingDoorScript : MonoBehaviour
 {
     public DoorRotationScript door1;
     public DoorRotationScript door2;
+    public DoorPFX doorPFX;
 
     #region Callbacks
     private void Start()
     {
         CallbackHandler.instance.openDoors += OpenDoors;
+        door1.parent = this;
+        door2.parent = this;
     }
     private void OnDestroy()
     {

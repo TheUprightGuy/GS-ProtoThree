@@ -168,4 +168,24 @@ public class CallbackHandler : MonoBehaviour
             openDoors();
         }
     }
+
+    public bool inShopRange;
+
+    public event Action<Item> showDetails;
+    public void ShowDetails(Item _item)
+    {
+        if (showDetails != null)
+        {
+            showDetails(_item);
+        }
+    }
+
+    public event Action hideDetails;
+    public void HideDetails()
+    {
+        if (hideDetails != null)
+        {
+            hideDetails();
+        }
+    }
 }
