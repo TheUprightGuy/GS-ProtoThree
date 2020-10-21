@@ -188,4 +188,23 @@ public class CallbackHandler : MonoBehaviour
             hideDetails();
         }
     }
+
+    public event Action<string,string> setDialogue;
+    public void SetDialogue(string _speaker, string _dialogue)
+    {
+        if (setDialogue != null)
+        {
+            ToggleText(true);
+            setDialogue(_speaker, _dialogue);
+        }
+    }
+
+    public event Action<bool> toggleText;
+    public void ToggleText(bool _toggle)
+    {
+        if (toggleText != null)
+        {
+            toggleText(_toggle);
+        }
+    }
 }
