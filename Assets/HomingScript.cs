@@ -6,6 +6,7 @@ public class HomingScript : MonoBehaviour
 {
     public Transform player;
     public float dist;
+    public float pickupHeight = 10.0f;
     Vector3 homingPos;
     Vector3 homingDir;
 
@@ -41,7 +42,7 @@ public class HomingScript : MonoBehaviour
     {
         if (Movement.instance.homing)
         {
-            homingPos = player.position + Vector3.up * 5.0f;
+            homingPos = player.position + Vector3.up * pickupHeight;
 
             dist = Vector3.Distance(transform.position, homingPos);
             if (dist < 5.0f)

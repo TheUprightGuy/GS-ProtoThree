@@ -60,11 +60,6 @@ public class UIManager : MonoBehaviour
         {
             PingPong();
         }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            LandingToggle(true);
-        }
     }
 
     public void ShowMe()
@@ -99,10 +94,5 @@ public class UIManager : MonoBehaviour
         timer += Time.deltaTime / 4;
 
         scale.localScale = new Vector3(scalar, scalar, 1.0f);
-    }
-
-    public void Orbit()
-    {
-        CallbackHandler.instance.Orbit(true);
     }
 }

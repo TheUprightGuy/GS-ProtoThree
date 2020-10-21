@@ -815,6 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   dist: 0
+  pickupHeight: 10
 --- !u!1 &4449845786181460715
 GameObject:
   m_ObjectHideFlags: 0
