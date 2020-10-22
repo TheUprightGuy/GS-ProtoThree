@@ -45,16 +45,17 @@ public class TexturePainterController : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField]
-    private Mesh SavedMesh = null;
+    private Mesh SavedMesh;
 
     private void Awake()
     {
-        if (SavedMesh != null)
+        if (SavedMesh != null && SavedMesh.colors.Length > 0)
         {
-            GetComponent<MeshFilter>().mesh = SavedMesh;
+            GetComponent<MeshFilter>().sharedMesh = SavedMesh;
         }
         else
         {
+            UnityEditor.EditorUtility.SetDirty(this);
             UpdateDefaultColors();
         }
     }
@@ -78,6 +79,7 @@ public class TexturePainterController : MonoBehaviour
             return;
         }
 
+        UnityEditor.EditorUtility.SetDirty(gameObject.GetComponent<MeshRenderer>().material);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_DEFAULT", DefaultTexture);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_RED", RedTexture);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_GREEN", GreenTexture);
