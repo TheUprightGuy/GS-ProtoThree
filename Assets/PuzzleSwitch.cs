@@ -11,13 +11,9 @@ public class PuzzleSwitch : MonoBehaviour
     [HideInInspector] public Material on;
     [HideInInspector] public Material off;
 
-    public MeshRenderer meshRenderer;
+    public List<MeshRenderer> glowMeshes;
+    public List<MeshRenderer> highlightMeshes;
     public bool highlight;
-
-    private void Awake()
-    {
-        meshRenderer = GetComponent<MeshRenderer>();
-    }
 
     public void Use()
     {
@@ -39,7 +35,10 @@ public class PuzzleSwitch : MonoBehaviour
         if (!SwitchPuzzleMaster.instance.complete)
         {
             active = !active;
-            meshRenderer.material = active ? on : off;
+            foreach (MeshRenderer n in highlightMeshes)
+            {
+                n.material = active ? on : off;
+            }
         }
     }
 
@@ -47,11 +46,17 @@ public class PuzzleSwitch : MonoBehaviour
     {
         if (MouseOverHighlight.instance.highlightedSwitch == this)
         {
-            meshRenderer.material.SetFloat("Boolean_55E471DA", 1.0f);
+            foreach (MeshRenderer n in glowMeshes)
+            {
+                n.material.SetFloat("Boolean_55E471DA", 1.0f);
+            }
         }
         else
         {
-            meshRenderer.material.SetFloat("Boolean_55E471DA", 0.0f);
+            foreach (MeshRenderer n in glowMeshes)
+            {
+                n.material.SetFloat("Boolean_55E471DA", 0.0f);
+            }
         }
     }
 }

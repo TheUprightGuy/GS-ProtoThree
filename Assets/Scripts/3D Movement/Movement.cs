@@ -187,6 +187,7 @@ public class Movement : MonoBehaviour
                 orbit.leashObject.GetComponent<MeshCollider>().convex = false;
                 Fader.instance.FadeOut(this);
                 orbiting = true;
+                CallbackHandler.instance.LandingTooltip(false);
                 // Called by Animator
                 // MoveCharacter();
             }

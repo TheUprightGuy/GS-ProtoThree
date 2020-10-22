@@ -26,8 +26,22 @@ public class LineSetup : MonoBehaviour
     }
 
     private void OnEnable() {
-        positions[0] = transform.position;
-        StartCoroutine(LerpToPos(target.position, TimeToTransition));
+        DrawLine();
+    }
+
+    public void SetLampTarget(Transform _target)
+    {
+        target = _target;
+        DrawLine();
+    }
+
+    void DrawLine()
+    {
+        if (target)
+        {
+            positions[0] = transform.position;
+            StartCoroutine(LerpToPos(target.position, TimeToTransition));
+        }
     }
 
     IEnumerator LerpToPos(Vector3 targetPos, float timeToLerp)
@@ -54,7 +68,7 @@ public class LineSetup : MonoBehaviour
         }
     }
 
-    private void OnValidate()
+    /*private void OnValidate()
     {
         lr = GetComponent<LineRenderer>();
         cc = GetComponent<CapsuleCollider>();
@@ -63,7 +77,7 @@ public class LineSetup : MonoBehaviour
         positions[1] = transform.position;
         lr.SetPositions(positions);
         UpdateCollider();
-    }
+    }*/
 
     void UpdateCollider()
     {
