@@ -1081,7 +1081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   landingButton: {fileID: 8584244845803923723}
-  dialogueUI: {fileID: 0}
+  dialogueUI: {fileID: 352245064097499432}
   showMe: 0
   hideMe: 0
   ready: 0
