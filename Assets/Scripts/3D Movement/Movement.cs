@@ -38,6 +38,8 @@ public class Movement : MonoBehaviour
     public float distance;
     public bool orbiting;
 
+    public GameObject saddle;
+
     #region Local Variables
     WhaleInfo whaleInfo;
     [Header("Local Variables")]
@@ -60,14 +62,24 @@ public class Movement : MonoBehaviour
         desiredVec = body.transform.eulerAngles;
         temp.SetActive(false);
         whaleInfo = CallbackHandler.instance.whaleInfo;
+        saddle.SetActive(false);
 
         CallbackHandler.instance.pickUpMC += PickUpMC;
+        CallbackHandler.instance.unlockSaddle += UnlockSaddle;
     }
     private void OnDestroy()
     {
         CallbackHandler.instance.pickUpMC -= PickUpMC;
+        CallbackHandler.instance.unlockSaddle -= UnlockSaddle;
     }
     #endregion Setup
+
+    public void UnlockSaddle()
+    {
+        saddle.SetActive(true);
+        maxSpeed = 6.5f;
+        rider.transform.localPosition = rider.GetComponent<CharacterControllerScript>().newSaddlePos.localPosition;
+    }
 
     // Update is called once per frame
     void Update()
@@ -290,15 +302,23 @@ public class Movement : MonoBehaviour
 
         if (Physics.Raycast(front.transform.position, Vector3.down, out hit, 100.0f))
         {
-            /*
-             * Get the location of the hit.
-             * This data can be modified and used to move your object.
-             */
-            //temp.SetActive(true);
-            //temp.transform.position = hit.point;
-            //Instantiate(temp, hit.point, Quaternion.identity);
-            Debug.Log("Hit");
-            return hit.point;
+            if (!hit.collider.isTrigger)
+            {
+
+                /*
+                 * Get the location of the hit.
+                 * This data can be modified and used to move your object.
+                 */
+                //temp.SetActive(true);
+                //temp.transform.position = hit.point;
+                //Instantiate(temp, hit.point, Quaternion.identity);
+                Debug.Log("Hit");
+                return hit.point;
+            }
+            else
+            {
+                return Vector3.zero;
+            }
         }
         else if (checkDistance < 12.0f && dir.y < 0)
         {

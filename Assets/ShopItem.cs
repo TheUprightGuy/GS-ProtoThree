@@ -16,7 +16,8 @@ public struct Item
 public enum ItemType
 {
     Provisions,
-    Lantern
+    Lantern,
+    Saddle
 }
 
 

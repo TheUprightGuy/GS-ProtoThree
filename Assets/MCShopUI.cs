@@ -121,6 +121,15 @@ public class MCShopUI : MonoBehaviour
                 }
                 break;
             }
+            case ItemType.Saddle:
+            {
+                if (ResourceDisplayScript.instance.SpendSupplies(2))
+                {
+                    CallbackHandler.instance.UnlockSaddle();
+                    Destroy(shopItem.gameObject);
+                }
+                break;
+            }
         }
     }
 }
