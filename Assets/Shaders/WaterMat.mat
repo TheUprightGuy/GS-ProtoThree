@@ -33,7 +33,7 @@ Material:
     - _Displacement: 0.015
     - _NormalStrength: 0.5
     - _Smoothness: 0.44
-    - _Strength: 0.33
+    - _Strength: 2
     m_Colors:
     - _DeepWaterColor: {r: 0, g: 0.26780528, b: 0.3490564, a: 0.5176471}
     - _ShallowWaterColor: {r: 0.37673545, g: 0.9622641, b: 0.8736645, a: 0.34117648}
