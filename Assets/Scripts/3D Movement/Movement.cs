@@ -38,6 +38,8 @@ public class Movement : MonoBehaviour
     public float distance;
     public bool orbiting;
 
+    public GameObject saddle;
+
     #region Local Variables
     WhaleInfo whaleInfo;
     [Header("Local Variables")]
@@ -60,14 +62,24 @@ public class Movement : MonoBehaviour
         desiredVec = body.transform.eulerAngles;
         temp.SetActive(false);
         whaleInfo = CallbackHandler.instance.whaleInfo;
+        saddle.SetActive(false);
 
         CallbackHandler.instance.pickUpMC += PickUpMC;
+        CallbackHandler.instance.unlockSaddle += UnlockSaddle;
     }
     private void OnDestroy()
     {
         CallbackHandler.instance.pickUpMC -= PickUpMC;
+        CallbackHandler.instance.unlockSaddle -= UnlockSaddle;
     }
     #endregion Setup
+
+    public void UnlockSaddle()
+    {
+        saddle.SetActive(true);
+        maxSpeed = 6.5f;
+        rider.transform.localPosition = rider.GetComponent<CharacterControllerScript>().newSaddlePos.localPosition;
+    }
 
     // Update is called once per frame
     void Update()

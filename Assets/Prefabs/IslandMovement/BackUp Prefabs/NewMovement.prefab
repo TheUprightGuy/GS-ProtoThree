@@ -711,6 +711,7 @@ MonoBehaviour:
   islandMod: 0
   distance: 0
   orbiting: 0
+  saddle: {fileID: 4449845786469183989}
   rotationSpeed: 0.2
   currentSpeed: 0
   myRoll: 0
@@ -720,7 +721,7 @@ MonoBehaviour:
   liftSpeed: 20
   rollSpeed: 20
   player: {fileID: 0}
-  rider: {fileID: 4449845787516348681}
+  rider: {fileID: 4449845787690019528}
   followCam: {fileID: 0}
   followCamera: {fileID: 8079969285163601176}
   front: {fileID: 4449845787632312478}
@@ -6527,7 +6528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4449845786469183986
 Transform:
   m_ObjectHideFlags: 0
@@ -7364,7 +7365,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4449845787032666795}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 197.261, y: 89.99999, z: 0}
 --- !u!1 &4449845786654136331
 GameObject:
@@ -13505,6 +13506,7 @@ Transform:
   - {fileID: 4449845788059585747}
   - {fileID: 4449845787232845642}
   - {fileID: 4449845787722417033}
+  - {fileID: 4124137510049735180}
   - {fileID: 4449845786644221806}
   m_Father: {fileID: 4449845787700331411}
   m_RootOrder: 0
@@ -24499,7 +24501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4449845787516348681}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.07075598, z: 0}
+  m_LocalPosition: {x: -0, y: 0.0375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4449845787690019529}
@@ -25262,7 +25264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4449845787690019528}
   m_LocalRotation: {x: 0.7192731, y: 0.00000005033393, z: -0.6947275, w: 0.00000002644708}
-  m_LocalPosition: {x: -0.4736, y: -0.6974, z: 0.0066}
+  m_LocalPosition: {x: -0.4736, y: -0.52, z: 0.0066}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 9054540771671027112}
@@ -25306,6 +25308,7 @@ MonoBehaviour:
   targetPos: {fileID: 0}
   campFirePos: {fileID: 4449845787232845642}
   saddlePos: {fileID: 4449845787722417033}
+  newSaddlePos: {fileID: 4124137510049735180}
   moveSpeed: 1
   tuskPos: {fileID: 4449845786637754528}
   handPos: {fileID: 4449845787066042839}
@@ -25420,7 +25423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4449845787722417033}
   m_Layer: 0
-  m_Name: SaddlePos
+  m_Name: NoSaddlePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25434,7 +25437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4449845787722417032}
   m_LocalRotation: {x: -0.7070679, y: 0.0074008782, z: 0.70706815, w: 0.0074011604}
-  m_LocalPosition: {x: -0.48789746, y: -0.71009994, z: 0.0042002867}
+  m_LocalPosition: {x: -0.741, y: -0.448, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4449845787032666795}
@@ -26783,6 +26786,36 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.6773269, y: -0.9659798, z: -0.6523286}
     m_Extent: {x: 0.03592539, y: 0.32170045, z: 0.034001052}
   m_DirtyAABB: 0
+--- !u!1 &8319074825900400388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4124137510049735180}
+  m_Layer: 0
+  m_Name: SaddlePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4124137510049735180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319074825900400388}
+  m_LocalRotation: {x: -0.7070679, y: 0.0074008782, z: 0.70706815, w: 0.0074011604}
+  m_LocalPosition: {x: -0.746, y: -0.698, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4449845787032666795}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8139671899031709978
 Animator:
   serializedVersion: 3
@@ -26891,15 +26924,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a30da3158d5cc7d4a9f9db8673922bde, type: 3}
---- !u!1 &3530944133915525365 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a30da3158d5cc7d4a9f9db8673922bde,
-    type: 3}
-  m_PrefabInstance: {fileID: 4449845785999572388}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4200660362577091151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a30da3158d5cc7d4a9f9db8673922bde,
+    type: 3}
+  m_PrefabInstance: {fileID: 4449845785999572388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3530944133915525365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a30da3158d5cc7d4a9f9db8673922bde,
     type: 3}
   m_PrefabInstance: {fileID: 4449845785999572388}
   m_PrefabAsset: {fileID: 0}
@@ -27529,9 +27562,9 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2b50120ef0497c845b68d7fb2474883e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b44bbf5be8c488046bd2960ed1c30de7, type: 3}
---- !u!4 &9061054006219901861 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b44bbf5be8c488046bd2960ed1c30de7,
+--- !u!1 &8571621336410902815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b44bbf5be8c488046bd2960ed1c30de7,
     type: 3}
   m_PrefabInstance: {fileID: 8806206197249305678}
   m_PrefabAsset: {fileID: 0}
@@ -27541,9 +27574,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8806206197249305678}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8571621336410902815 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b44bbf5be8c488046bd2960ed1c30de7,
+--- !u!4 &9061054006219901861 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b44bbf5be8c488046bd2960ed1c30de7,
     type: 3}
   m_PrefabInstance: {fileID: 8806206197249305678}
   m_PrefabAsset: {fileID: 0}
