@@ -68,6 +68,8 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: 40a6a40399e676e4795e8a72f8577a90
+    name: MasterVolume
   - guid: 9678b15320646b343938fa364cff11e1
     name: WhaleAmbientVolume
   - guid: 36a413d6642266544abdfc19e5b5248f

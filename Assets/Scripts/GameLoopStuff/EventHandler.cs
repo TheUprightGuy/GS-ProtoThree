@@ -46,8 +46,8 @@ public class EventHandler : MonoBehaviour
 
     private void OnAwake()
     {
-        gameState.inMenu = false;
-        gameState.gamePaused = false;
+        gameState.inMenu = true;
+        gameState.gamePaused = true;
         gameState.inCinematic = false;
         gameState.objectivesHighlighted = new List<int>();
     }
@@ -72,7 +72,7 @@ public class EventHandler : MonoBehaviour
         if (gameState.objectivesHighlighted.Contains(index)) yield break;
         Debug.Log("Highlighting shop");
         gameState.objectivesHighlighted.Add(index);
-        EstablishingCamController.instance.currentObjectiveIndex = index;
+        CinematicController.instance.currentObjectiveIndex = index;
         startEstablishingShot?.Invoke();
         gameState.gamePaused = true;
         StartCoroutine(WaitForEstablishingShot());
