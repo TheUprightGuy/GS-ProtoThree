@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameObject landingButton;
+    public GameObject dialogueUI;
     RectTransform scale;
     float scalar = 0.0f;
     float maxScalar = 0.2f;
@@ -14,29 +15,38 @@ public class UIManager : MonoBehaviour
     [HideInInspector] public bool hideMe = false;
     [HideInInspector] public bool ready = false;
 
+    public bool showing;
+
     // Start is called before the first frame update
     void Start()
     {
         CallbackHandler.instance.landingTooltip += LandingToggle;
+        CallbackHandler.instance.toggleText += ToggleText;
         scale = landingButton.GetComponent<RectTransform>();
+        ToggleText(false);
     }
 
     private void OnDestroy()
     {
         CallbackHandler.instance.landingTooltip -= LandingToggle;
+        CallbackHandler.instance.toggleText -= ToggleText;
     }
 
     public void LandingToggle(bool _toggle)
     {
-        if (_toggle)
+        if (showing != _toggle)
         {
-            showMe = true;
-            hideMe = false;
-        }
-        else
-        {
-            hideMe = true;
-            showMe = false;
+            if (_toggle)
+            {
+                showMe = true;
+                hideMe = false;
+            }
+            else
+            {
+                hideMe = true;
+                showMe = false;
+            }
+            showing = _toggle;
         }
     }
 
@@ -90,8 +100,8 @@ public class UIManager : MonoBehaviour
         scale.localScale = new Vector3(scalar, scalar, 1.0f);
     }
 
-    public void Orbit()
+    public void ToggleText(bool _toggle)
     {
-        CallbackHandler.instance.Orbit(true);
+        dialogueUI.SetActive(_toggle);
     }
 }

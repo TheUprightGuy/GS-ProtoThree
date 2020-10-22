@@ -170,6 +170,15 @@ public class Movement : MonoBehaviour
             }
         }
 
+        if (orbit.leashObject && CheckBelow() != Vector3.zero)
+        {
+            CallbackHandler.instance.LandingTooltip(true);
+        }
+        else
+        {
+            CallbackHandler.instance.LandingTooltip(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (CheckBelow() != Vector3.zero)
@@ -178,6 +187,7 @@ public class Movement : MonoBehaviour
                 orbit.leashObject.GetComponent<MeshCollider>().convex = false;
                 Fader.instance.FadeOut(this);
                 orbiting = true;
+                CallbackHandler.instance.LandingTooltip(false);
                 // Called by Animator
                 // MoveCharacter();
             }
@@ -245,7 +255,7 @@ public class Movement : MonoBehaviour
             if (orbit.leashObject)
             {
                 Vector3 closestPoint = orbit.leashObject.GetComponent<MeshCollider>().ClosestPoint(front.transform.position);
-                distance = Vector3.Distance(closestPoint,front.transform.position) - 10.0f;
+                distance = Vector3.Distance(closestPoint, front.transform.position);
 
                 Debug.DrawLine(front.transform.position, closestPoint, Color.red);
 

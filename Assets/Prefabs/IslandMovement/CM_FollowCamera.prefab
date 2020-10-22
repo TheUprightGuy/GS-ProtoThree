@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 1756623646424070259}
   - component: {fileID: 8578871048826525659}
   - component: {fileID: 6851562857614939303}
+  - component: {fileID: 1668495052987385654}
   m_Layer: 0
   m_Name: CM_FollowCamera
   m_TagString: Untagged
@@ -440,7 +441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4294967295
   m_IgnoreTag: Player
   m_TransparentLayers:
     serializedVersion: 2
@@ -453,8 +454,8 @@ MonoBehaviour:
   m_Strategy: 0
   m_MaximumEffort: 4
   m_SmoothingTime: 0
-  m_Damping: 3
-  m_DampingWhenOccluded: 0.25
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
 --- !u!114 &8578871048826525659
 MonoBehaviour:
@@ -487,6 +488,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df4bb116d491584bbc50dc217fb0504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1668495052987385654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5229293682156025215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6ce11e7c0a409478f6cf7d32e1ca93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HorizontalInput: Mouse X
+  VerticalInput: Mouse Y
 --- !u!1 &5347671816766784070
 GameObject:
   m_ObjectHideFlags: 0

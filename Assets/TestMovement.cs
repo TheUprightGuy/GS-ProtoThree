@@ -53,7 +53,7 @@ public class TestMovement : MonoBehaviour
         {
             rb.velocity = Vector3.up * jumpVelocity;
             jumping = true;
-            AudioManager.instance.PlaySound("jump");
+            //AudioManager.instance.PlaySound("jump");
         }
         // Falling - Apply Gravity Multiplier
         if (rb.velocity.y < 0)

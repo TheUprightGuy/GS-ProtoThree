@@ -20,22 +20,33 @@ public class MouseOverHighlight : MonoBehaviour
 
     public LayerMask layerMask;
     public PuzzleSwitch highlightedSwitch;
+    public ShopItem highlightedShopItem;
 
     // Update is called once per frame
     void Update()
     {
         highlightedSwitch = null;
+        highlightedShopItem = null;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, layerMask);
 
         foreach (RaycastHit n in hits)
         {
-            PuzzleSwitch temp = n.collider.gameObject.GetComponent<PuzzleSwitch>();
-
-            if (temp)
+            PuzzleSwitch tempSwitch = n.collider.gameObject.GetComponent<PuzzleSwitch>();
+            ShopItem tempItem = null;
+            if (CallbackHandler.instance.inShopRange)
             {
-                highlightedSwitch = temp;
+                tempItem = n.collider.gameObject.GetComponent<ShopItem>();
+            }
+
+            if (tempSwitch)
+            {
+                highlightedSwitch = tempSwitch;
+            }
+            if (tempItem)
+            {
+                highlightedShopItem = tempItem;
             }
         }
 
@@ -44,6 +55,10 @@ public class MouseOverHighlight : MonoBehaviour
             if (highlightedSwitch)
             {
                 highlightedSwitch.Use();
+            }
+            if (highlightedShopItem)
+            {
+                highlightedShopItem.ShowUI();
             }
         }
     }
