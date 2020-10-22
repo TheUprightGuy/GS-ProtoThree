@@ -302,15 +302,23 @@ public class Movement : MonoBehaviour
 
         if (Physics.Raycast(front.transform.position, Vector3.down, out hit, 100.0f))
         {
-            /*
-             * Get the location of the hit.
-             * This data can be modified and used to move your object.
-             */
-            //temp.SetActive(true);
-            //temp.transform.position = hit.point;
-            //Instantiate(temp, hit.point, Quaternion.identity);
-            Debug.Log("Hit");
-            return hit.point;
+            if (!hit.collider.isTrigger)
+            {
+
+                /*
+                 * Get the location of the hit.
+                 * This data can be modified and used to move your object.
+                 */
+                //temp.SetActive(true);
+                //temp.transform.position = hit.point;
+                //Instantiate(temp, hit.point, Quaternion.identity);
+                Debug.Log("Hit");
+                return hit.point;
+            }
+            else
+            {
+                return Vector3.zero;
+            }
         }
         else if (checkDistance < 12.0f && dir.y < 0)
         {

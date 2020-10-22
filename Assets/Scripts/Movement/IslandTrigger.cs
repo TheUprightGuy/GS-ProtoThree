@@ -75,7 +75,7 @@ public class IslandTrigger : MonoBehaviour
             player.maxDistance = GetComponent<SphereCollider>().bounds.extents.x;
             player.orbit.leashObject = this.gameObject;
 
-            CallbackHandler.instance.LandingTooltip(true);
+            //CallbackHandler.instance.LandingTooltip(true);
         }
     }
 

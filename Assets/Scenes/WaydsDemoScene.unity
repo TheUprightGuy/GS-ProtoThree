@@ -137,17 +137,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bc3833cd3d7f1274c9f09c8a250801f9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.45
+      value: -121.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc3833cd3d7f1274c9f09c8a250801f9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.58
+      value: 24.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc3833cd3d7f1274c9f09c8a250801f9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.1
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc3833cd3d7f1274c9f09c8a250801f9,
         type: 3}
@@ -408,12 +408,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5853718423797378351, guid: 001be0b7f45b898418c6b75c72d0e0fc,
     type: 3}
   m_PrefabInstance: {fileID: 1249082683908259563}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &843191657 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 352245064097499432, guid: 5bc8ff0b2c079774d9b26cced7c112fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 8584244845984590318}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1047128924 stripped
 Transform:
@@ -2808,17 +2802,17 @@ PrefabInstance:
     - target: {fileID: 4830019562150928824, guid: b572101777fe9554d9b9501e7d5912f0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.863543
+      value: -120.71355
       objectReference: {fileID: 0}
     - target: {fileID: 4830019562150928824, guid: b572101777fe9554d9b9501e7d5912f0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 31.063286
+      value: 30.783285
       objectReference: {fileID: 0}
     - target: {fileID: 4830019562150928824, guid: b572101777fe9554d9b9501e7d5912f0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -34.810074
+      value: 23.289925
       objectReference: {fileID: 0}
     - target: {fileID: 4830019562150928824, guid: b572101777fe9554d9b9501e7d5912f0,
         type: 3}
@@ -3381,11 +3375,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8584244845099066385, guid: 5bc8ff0b2c079774d9b26cced7c112fb,
-        type: 3}
-      propertyPath: dialogueUI
-      value: 
-      objectReference: {fileID: 843191657}
     - target: {fileID: 8584244845099066388, guid: 5bc8ff0b2c079774d9b26cced7c112fb,
         type: 3}
       propertyPath: m_Name
