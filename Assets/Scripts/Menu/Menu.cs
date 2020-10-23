@@ -35,6 +35,7 @@ namespace Menu
         static bool popupDone = false;
         public void OnPlayPressed()
         {
+            Debug.Log("PlayPressed");
             if(!popupDone)
             {
                 PopUpHandler.instance.BasePopups(8);
@@ -53,12 +54,14 @@ namespace Menu
 
         private void OnMenuOpened()
         {
+            Debug.Log("MenuOpened");
             menuCanvas.SetActive(true);
             CallbackHandler.instance.MoveToFire();
         }
 
         private void OnResumePressed()
         {
+            Debug.Log("ResumePressed");
             PlayUISound();
             EventHandler.instance.resumePressed?.Invoke();
             EventHandler.instance.gameState.gamePaused = false;

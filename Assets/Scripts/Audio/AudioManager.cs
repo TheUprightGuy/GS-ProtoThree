@@ -33,6 +33,7 @@ namespace Audio
         #endregion
         [Header("Main Settings")]
         public float masterVolume = 1.0f;
+        public float defaultVolume;
         public bool randomlyCycleMusic;
         public bool playAmbientSounds = true;
         public float ambientSoundTimerMin = 30f;
@@ -75,6 +76,9 @@ namespace Audio
                 var audioSource = layer.GetComponent<AudioSource>();
                 StartCoroutine(PlayRandomAmbientTracks(ambientLayer, audioSource));
             }
+            
+            audioMixer.GetFloat("MasterVolume", out defaultVolume);
+            defaultVolume = Mathf.Pow(10, defaultVolume / 20);
         }
         
         private void InitialisePrivateVariables()
@@ -157,9 +161,11 @@ namespace Audio
 
         public void OnVolumeAdjusted()
         {
-            masterVolume = _slider.value / 10f;
-            _musicSource.volume = _musicDefaultVolume * masterVolume;
+            masterVolume = _slider.value * 10;
+            if (Math.Abs(masterVolume - (-40f)) < .01f) masterVolume = -80f;
+            audioMixer.SetFloat("MasterVolume", masterVolume);
             PlaySound("crackle");
+            /*_musicSource.volume = _musicDefaultVolume * masterVolume;
             foreach (var layer in ambientLayers)
             {
                 layer.GetComponent<AmbientLayer>().soundInfo.Reset(masterVolume);
@@ -170,7 +176,7 @@ namespace Audio
                 var curSoundInfo = sound.Value;
                 var curAs = curSoundInfo.AudioSource;
                 if (curAs.isPlaying) curAs.volume = curSoundInfo.VolumeDefault * masterVolume;
-            }
+            }*/
         }
     
 

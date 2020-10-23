@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1530652267190345162
 Transform:
   m_ObjectHideFlags: 0
@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 7402176863228543118}
   - component: {fileID: 7402176863228543119}
   - component: {fileID: 8482194591138617094}
+  - component: {fileID: 377438003}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -267,7 +268,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7402176863228543112}
-  m_LocalRotation: {x: 0.16872074, y: 0, z: 0, w: 0.9856639}
+  m_LocalRotation: {x: 0.16872165, y: 0, z: 0, w: 0.9856638}
   m_LocalPosition: {x: -14.709441, y: 44.416145, z: -106.95944}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -275,7 +276,7 @@ Transform:
   - {fileID: 4336408771858838481}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 16.762001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 19.427, y: 0, z: 0}
 --- !u!20 &7402176863228543125
 Camera:
   m_ObjectHideFlags: 0
@@ -401,6 +402,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   highlightedSwitch: {fileID: 0}
   highlightedShopItem: {fileID: 0}
+  shopOwner: {fileID: 0}
 --- !u!114 &8482194591138617094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,6 +416,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
+--- !u!81 &377438003
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402176863228543112}
+  m_Enabled: 1
 --- !u!1001 &5018705349806302401
 PrefabInstance:
   m_ObjectHideFlags: 0

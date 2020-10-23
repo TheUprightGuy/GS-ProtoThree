@@ -26,7 +26,7 @@ public class MenuManager : MonoBehaviour
 
     public void OnPlayPressed()
     {
-        //EventHandler.instance.OnPlayPressed();
+        EventHandler.instance.OnPlayPressed();
         PlayUISound();
         foreach (Transform n in playButton.transform)
         {
@@ -42,7 +42,7 @@ public class MenuManager : MonoBehaviour
     private void OnMenuOpened()
     {
         menuCanvas.SetActive(true);
-        //CallbackHandler.instance.MoveToFire();
+        CallbackHandler.instance.MoveToFire();
     }
 
     private void OnResumePressed()
@@ -52,7 +52,7 @@ public class MenuManager : MonoBehaviour
         EventHandler.instance.gameState.gamePaused = false;
         EventHandler.instance.gameState.inMenu = false;
         menuCanvas.SetActive(false);
-        //CallbackHandler.instance.MoveToSaddle();
+        CallbackHandler.instance.MoveToSaddle();
     }
 
     public void OnQuitPressed()
