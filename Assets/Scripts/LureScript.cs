@@ -36,6 +36,7 @@ public class LureScript : MonoBehaviour
     [Header("Bird")]
     public Transform bird;
     public float lerpTimer;
+    public float vertLerpTimer;
 
     public Vector3 initPos;
     private void Start()
@@ -50,6 +51,7 @@ public class LureScript : MonoBehaviour
 
         speed = (currentForward + 2.0f) / 2.0f;
         lerpTimer -= Time.deltaTime;
+        vertLerpTimer -= Time.deltaTime;
 
         if (!Movement.instance.player.activeSelf)
         {
@@ -100,20 +102,33 @@ public class LureScript : MonoBehaviour
 
         transform.position += new Vector3(Mathf.PerlinNoise(Time.time, 0) * 2 - 1.0f, 0, 0) * Time.deltaTime;
 
-        if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
+        if (!(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
         {
             if (lerpTimer <= 0)
             {
-                transform.localPosition = Vector3.Lerp(transform.localPosition, initPos, Time.deltaTime / 2);
+                transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(initPos.x, transform.localPosition.y, initPos.z), Time.deltaTime / 2);
 
-                bird.localRotation = Quaternion.Slerp(bird.localRotation, Quaternion.identity, Time.deltaTime / 2);
-                currentForward = Mathf.Lerp(currentForward, 0, Time.deltaTime / 2);
+                bird.localRotation = Quaternion.Slerp(bird.localRotation, Quaternion.identity, Time.deltaTime / 4);
                 currentSide = Mathf.Lerp(currentSide, 0, Time.deltaTime / 2);
             }
         }
         else
         {
             lerpTimer = 0.5f;
+        }
+        if (!(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W)))
+        {
+            if (vertLerpTimer <= 0)
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, initPos.y, transform.localPosition.z), Time.deltaTime / 2);
+
+                bird.localRotation = Quaternion.Slerp(bird.localRotation, Quaternion.identity, Time.deltaTime / 4);
+                currentForward = Mathf.Lerp(currentForward, 0, Time.deltaTime / 2);
+            }
+        }
+        else
+        {
+            vertLerpTimer = 0.5f;
         }
     }
 }

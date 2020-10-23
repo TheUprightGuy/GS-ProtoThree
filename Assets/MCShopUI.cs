@@ -38,6 +38,7 @@ public class MCShopUI : MonoBehaviour
     #endregion Setup&Callbacks
 
     public Item item;
+    public ShopItem shopItem;
     public bool shopWindowOpen;
 
     public TMPro.TextMeshProUGUI cost;
@@ -47,9 +48,10 @@ public class MCShopUI : MonoBehaviour
 
     public TMPro.TextMeshProUGUI resourceCount;
 
-    public void ShowDetails(Item _item)
+    public void ShowDetails(Item _item, ShopItem _shopItem)
     {
         item = _item;
+        shopItem = _shopItem;
         animator.ResetTrigger("Show");
         if (shopWindowOpen)
         {
@@ -65,7 +67,7 @@ public class MCShopUI : MonoBehaviour
 
     public void UpdateItemDetails()
     {
-        cost.SetText(item.cost.ToString());
+        cost.SetText(item.cost.ToString() + "x");
         name.SetText(item.name);
         description.SetText(item.description);
         image.sprite = item.image;
@@ -96,5 +98,40 @@ public class MCShopUI : MonoBehaviour
     {
         shopWindowOpen = false;
         UpdateItemDetails();
+    }
+
+    public void BuyItem()
+    {
+        switch (item.type)
+        {
+            case ItemType.Lantern:
+            {
+                if (ResourceDisplayScript.instance.SpendSupplies(2))
+                {
+                    CallbackHandler.instance.ToggleLamp(true);
+                    Destroy(shopItem.gameObject);
+                }
+                break;
+            }
+            case ItemType.Provisions:
+            {
+                if (ResourceDisplayScript.instance.SpendSupplies(1))
+                {
+                    ResourceDisplayScript.instance.AddProvisions(1);
+                }
+                break;
+            }
+            case ItemType.Saddle:
+            {
+                if (ResourceDisplayScript.instance.SpendSupplies(2))
+                {
+                    CallbackHandler.instance.UnlockSaddle();
+                    Destroy(shopItem.gameObject);
+                }
+                break;
+            }
+        }
+
+        CallbackHandler.instance.BuyItem();
     }
 }

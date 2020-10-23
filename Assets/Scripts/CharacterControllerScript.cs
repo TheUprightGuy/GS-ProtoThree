@@ -8,6 +8,7 @@ public class CharacterControllerScript : MonoBehaviour
     public Transform targetPos;
     public Transform campFirePos;
     public Transform saddlePos;
+    public Transform newSaddlePos;
     public float moveSpeed;
 
     [Header("Rod Positions")]
@@ -34,15 +35,22 @@ public class CharacterControllerScript : MonoBehaviour
     {
         CallbackHandler.instance.moveToSaddle += MoveToSaddle;
         CallbackHandler.instance.moveToFire += MoveToFire;
+        CallbackHandler.instance.unlockSaddle += NewSaddlePos;
         SitDown();
     }
 
     private void OnDestroy()
     {
+        CallbackHandler.instance.unlockSaddle -= NewSaddlePos;
         CallbackHandler.instance.moveToSaddle -= MoveToSaddle;
         CallbackHandler.instance.moveToFire -= MoveToFire;
     }
     #endregion Callbacks
+
+    public void NewSaddlePos()
+    {
+        saddlePos = newSaddlePos;
+    }
 
     private void Update()
     {

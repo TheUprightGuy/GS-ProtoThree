@@ -38,6 +38,8 @@ public class Movement : MonoBehaviour
     public float distance;
     public bool orbiting;
 
+    public GameObject saddle;
+
     #region Local Variables
     WhaleInfo whaleInfo;
     [Header("Local Variables")]
@@ -60,14 +62,24 @@ public class Movement : MonoBehaviour
         desiredVec = body.transform.eulerAngles;
         temp.SetActive(false);
         whaleInfo = CallbackHandler.instance.whaleInfo;
+        saddle.SetActive(false);
 
         CallbackHandler.instance.pickUpMC += PickUpMC;
+        CallbackHandler.instance.unlockSaddle += UnlockSaddle;
     }
     private void OnDestroy()
     {
         CallbackHandler.instance.pickUpMC -= PickUpMC;
+        CallbackHandler.instance.unlockSaddle -= UnlockSaddle;
     }
     #endregion Setup
+
+    public void UnlockSaddle()
+    {
+        saddle.SetActive(true);
+        maxSpeed = 6.5f;
+        rider.transform.localPosition = rider.GetComponent<CharacterControllerScript>().newSaddlePos.localPosition;
+    }
 
     // Update is called once per frame
     void Update()
@@ -181,7 +193,7 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (CheckBelow() != Vector3.zero)
+            if (orbit.leashObject && CheckBelow() != Vector3.zero)
             {
                 //Orbit(true);
                 orbit.leashObject.GetComponent<MeshCollider>().convex = false;
@@ -195,8 +207,10 @@ public class Movement : MonoBehaviour
         desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
         body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
 
+        //float temp = Mathf.Lerp(transform.eulerAngles.z, 0, Time.deltaTime);
         desiredVec = new Vector3(myPitch, transform.eulerAngles.y + myTurn, transform.eulerAngles.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(desiredVec), Time.deltaTime * rotationSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0)), Time.deltaTime * 10.0f);
     }
 
     public GameObject player;
@@ -210,7 +224,7 @@ public class Movement : MonoBehaviour
         rider.SetActive(false);
         player.SetActive(true);
         player.transform.parent = null;
-        player.transform.position = CheckBelow();
+        player.transform.position = cachedPosition;// CheckBelow();
         followCamera.enabled = false;
         //player.GetComponent<Rigidbody>().useGravity = true;
     }
@@ -280,6 +294,8 @@ public class Movement : MonoBehaviour
 
     public GameObject temp;
     RaycastHit hit;
+    public Vector3 cachedPosition;
+    public LayerMask layerMask;
 
     public Vector3 CheckBelow()
     {
@@ -288,26 +304,35 @@ public class Movement : MonoBehaviour
 
         Vector3 dir = closestPoint - front.transform.position;
 
-        if (Physics.Raycast(front.transform.position, Vector3.down, out hit, 100.0f))
+        if (Physics.Raycast(front.transform.position, Vector3.down, out hit, 100.0f, ~layerMask))
         {
-            /*
-             * Get the location of the hit.
-             * This data can be modified and used to move your object.
-             */
-            //temp.SetActive(true);
-            //temp.transform.position = hit.point;
-            //Instantiate(temp, hit.point, Quaternion.identity);
-            Debug.Log("Hit");
-            return hit.point;
+            if (!hit.collider.isTrigger)
+            {
+
+                /*
+                 * Get the location of the hit.
+                 * This data can be modified and used to move your object.
+                 */
+                //temp.SetActive(true);
+                //temp.transform.position = hit.point;
+                //Instantiate(temp, hit.point, Quaternion.identity);
+                Debug.Log("Hit");
+                cachedPosition = hit.point;
+                return hit.point;
+            }
+            else
+            {
+                return Vector3.zero;
+            }
         }
-        else if (checkDistance < 12.0f && dir.y < 0)
+        /*else if (checkDistance < 12.0f && dir.y < 0)
         {
             //temp.SetActive(true);
             //temp.transform.position = hit.point;
             // Need to add a slight push inwards to the island
             Debug.Log("Side Hit");
             return closestPoint;
-        }
+        }*/
         else
         {
             Debug.Log("No Hit");

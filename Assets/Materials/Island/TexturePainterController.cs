@@ -43,9 +43,21 @@ public class TexturePainterController : MonoBehaviour
     public float BrushSize = 1.0f;
     public float BrushDensity = 1.0f;
     // Start is called before the first frame update
-    void Start()
+
+    [SerializeField]
+    private Mesh SavedMesh;
+
+    private void Awake()
     {
-        
+        if (SavedMesh != null && SavedMesh.colors.Length > 0)
+        {
+            GetComponent<MeshFilter>().sharedMesh = SavedMesh;
+        }
+        else
+        {
+            UnityEditor.EditorUtility.SetDirty(this);
+            UpdateDefaultColors();
+        }
     }
 
     // Update is called once per frame
@@ -67,6 +79,7 @@ public class TexturePainterController : MonoBehaviour
             return;
         }
 
+        UnityEditor.EditorUtility.SetDirty(gameObject.GetComponent<MeshRenderer>().material);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_DEFAULT", DefaultTexture);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_RED", RedTexture);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_GREEN", GreenTexture);
@@ -123,6 +136,7 @@ public class TexturePainterController : MonoBehaviour
         }
 
         GetComponent<MeshFilter>().sharedMesh.colors = colors;
+        SavedMesh = GetComponent<MeshFilter>().sharedMesh;
     }
 
     public void UpdateBrush()
@@ -159,6 +173,7 @@ public class TexturePainterController : MonoBehaviour
         }
 
         GetComponent<MeshFilter>().sharedMesh.colors = colors;
+        SavedMesh = GetComponent<MeshFilter>().sharedMesh;
     }
 
     private void OnDrawGizmos()

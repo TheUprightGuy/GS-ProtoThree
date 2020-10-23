@@ -64,4 +64,9 @@ public class DialogueScript : MonoBehaviour
             SetDialogue("Wayd","Go there homie");
         }
     }
+
+    private void OnMouseDown()
+    {
+        NextLine();
+    }
 }

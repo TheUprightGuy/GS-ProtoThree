@@ -37,14 +37,22 @@ public class TestMovement : MonoBehaviour
     public float walkSpeed = 2.0f;
 
     public Camera cam;
+    public GameObject lamp;
 
     // Start is called before the first frame update
     void Start()
     {
         distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
+        lamp.SetActive(false);
+        CallbackHandler.instance.toggleLamp += ToggleLamp;
     }
 
-  
+    private void OnDestroy()
+    {
+        CallbackHandler.instance.toggleLamp -= ToggleLamp;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -101,5 +109,10 @@ public class TestMovement : MonoBehaviour
             return false;
 
         return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+    }
+
+    public void ToggleLamp(bool _toggle)
+    {
+        lamp.SetActive(_toggle);
     }
 }

@@ -171,12 +171,12 @@ public class CallbackHandler : MonoBehaviour
 
     public bool inShopRange;
 
-    public event Action<Item> showDetails;
-    public void ShowDetails(Item _item)
+    public event Action<Item, ShopItem> showDetails;
+    public void ShowDetails(Item _item, ShopItem _shopItem)
     {
         if (showDetails != null)
         {
-            showDetails(_item);
+            showDetails(_item, _shopItem);
         }
     }
 
@@ -205,6 +205,33 @@ public class CallbackHandler : MonoBehaviour
         if (toggleText != null)
         {
             toggleText(_toggle);
+        }
+    }
+
+    public event Action<bool> toggleLamp;
+    public void ToggleLamp(bool _toggle)
+    {
+        if (toggleLamp != null)
+        {
+            toggleLamp(_toggle);
+        }
+    }
+
+    public event Action unlockSaddle;
+    public void UnlockSaddle()
+    {
+        if (unlockSaddle != null)
+        {
+            unlockSaddle();
+        }
+    }
+
+    public event Action buyItem;
+    public void BuyItem()
+    {
+        if (buyItem != null)
+        {
+            buyItem();
         }
     }
 }

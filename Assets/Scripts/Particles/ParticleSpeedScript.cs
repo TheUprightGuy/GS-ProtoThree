@@ -26,7 +26,7 @@ public class ParticleSpeedScript : MonoBehaviour
         }
         //Debug.Log(alpha);
         ps.startColor = new Color(ps.startColor.r, ps.startColor.g, ps.startColor.b, alpha);
-        ps.startLifetime = alpha * 200;
+        ps.startLifetime = alpha * 100;
 
     }
 }

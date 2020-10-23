@@ -10,6 +10,14 @@ public struct Item
     public string description;
     public int cost;
     public Sprite image;
+    public ItemType type;
+}
+
+public enum ItemType
+{
+    Provisions,
+    Lantern,
+    Saddle
 }
 
 
@@ -48,6 +56,6 @@ public class ShopItem : MonoBehaviour
 
     public void ShowUI()
     {
-        CallbackHandler.instance.ShowDetails(item);
+        CallbackHandler.instance.ShowDetails(item, this);
     }
 }
