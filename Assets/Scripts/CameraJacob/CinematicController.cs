@@ -71,7 +71,7 @@ public class CinematicController : MonoBehaviour
 
     private void OnGameStart()
     {
-        EventHandler.instance.menuOpened -= OnMenuOpened;
+        //EventHandler.instance.menuOpened -= OnMenuOpened;
         EventHandler.instance.menuClosed -= OnMenuClosed;
     }
 
