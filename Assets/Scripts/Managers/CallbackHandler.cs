@@ -225,4 +225,13 @@ public class CallbackHandler : MonoBehaviour
             unlockSaddle();
         }
     }
+
+    public event Action buyItem;
+    public void BuyItem()
+    {
+        if (buyItem != null)
+        {
+            buyItem();
+        }
+    }
 }
