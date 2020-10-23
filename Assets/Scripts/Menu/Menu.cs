@@ -24,7 +24,12 @@ namespace Menu
             //On start menu will always be open except for testing
             _gameState.inMenu = true;
             EventHandler.instance.menuOpened += OnMenuOpened;
-            Invoke("GoSit", 0.1f);
+            Invoke("GoSit", 0.5f);
+        }
+
+        private void OnDestroy()
+        {
+            EventHandler.instance.menuOpened -= OnMenuOpened;
         }
 
         public void GoSit()

@@ -24,6 +24,16 @@ public class MenuManager : MonoBehaviour
         Invoke("GoSit", 0.1f);
     }
 
+    private void OnDestroy()
+    {
+        EventHandler.instance.menuOpened -= OnMenuOpened;
+    }
+
+    public void GoSit()
+    {
+        CallbackHandler.instance.MoveToFire();
+    }
+
     public void OnPlayPressed()
     {
         EventHandler.instance.OnPlayPressed();
