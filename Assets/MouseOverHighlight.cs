@@ -23,6 +23,9 @@ public class MouseOverHighlight : MonoBehaviour
     public ShopItem highlightedShopItem;
     public ShopOwner shopOwner;
 
+
+    static bool tutMessage = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -39,7 +42,14 @@ public class MouseOverHighlight : MonoBehaviour
             ShopItem tempItem = null;
             if (CallbackHandler.instance.inShopRange)
             {
+                if (!tutMessage)
+                {
+                    PopUpHandler.instance.QueuePopUp("Use your mouse to select and click items", 7);
+                }
+                tutMessage = true;
+
                 tempItem = n.collider.gameObject.GetComponent<ShopItem>();
+
             }
 
             ShopOwner tempShop = n.collider.gameObject.GetComponent<ShopOwner>();

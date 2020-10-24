@@ -37,15 +37,11 @@ namespace Menu
             CallbackHandler.instance.MoveToFire();
         }
 
-        static bool popupDone = false;
+        
         public void OnPlayPressed()
         {
             Debug.Log("PlayPressed");
-            if(!popupDone)
-            {
-                PopUpHandler.instance.BasePopups(8);
-                popupDone = true;
-            }
+            
             EventHandler.instance.OnPlayPressed();
             PlayUISound();
             playButton.GetComponent<TextMeshProUGUI>().text = "RESUME";

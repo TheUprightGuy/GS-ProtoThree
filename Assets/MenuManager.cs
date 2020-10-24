@@ -34,6 +34,7 @@ public class MenuManager : MonoBehaviour
         CallbackHandler.instance.MoveToFire();
     }
 
+    static bool popupDone = false;
     public void OnPlayPressed()
     {
         EventHandler.instance.OnPlayPressed();
@@ -42,6 +43,13 @@ public class MenuManager : MonoBehaviour
         {
             n.GetComponent<TMPro.TextMeshProUGUI>().text = "RESUME";
         }
+
+        if (!popupDone)
+        {
+            PopUpHandler.instance.BasePopups(8);
+            popupDone = true;
+        }
+
         var butComp = playButton.GetComponent<Button>();
         butComp.onClick.RemoveListener(OnPlayPressed);
         playButton.GetComponent<Button>().onClick.AddListener(OnResumePressed);

@@ -38,6 +38,7 @@ public class PopUpHandler : MonoBehaviour
     {
         transitions = GetComponent<Animator>();
         textToChange = GetComponentInChildren<Text>();
+        //EventHandler.instance.endEstablishingShot += BasePopups;
     }
     // Update is called once per frame
     void Update()
@@ -103,7 +104,8 @@ public class PopUpHandler : MonoBehaviour
     private IEnumerator WaitForTime(float time)
     {
         yield return new WaitForSeconds(time);
-        PopUpHandler.instance.QueuePopUp("Use the <b>WASD</b> keys to steer the whale", KeyCode.A);
+        PopUpHandler.instance.QueuePopUp("Use the <b>WASD</b> keys to steer the whale \n Press <b>Space</b> to speed up", KeyCode.Space);
+
         PopUpHandler.instance.QueuePopUp("Hold <b>Left Click</b> to look around", KeyCode.Mouse0);
     }
 }

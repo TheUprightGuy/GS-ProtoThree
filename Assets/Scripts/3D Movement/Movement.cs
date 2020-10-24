@@ -200,6 +200,12 @@ public class Movement : MonoBehaviour
                 Fader.instance.FadeOut(this);
                 orbiting = true;
                 CallbackHandler.instance.LandingTooltip(false);
+                if (!tutMessage)
+                {
+                    PopUpHandler.instance.QueuePopUp("Use the <b>WASD</b> keys to move around \n Press <b>Shift</b> to run", KeyCode.LeftShift);
+                    PopUpHandler.instance.QueuePopUp("When you're ready, press <b>F</b> to leave the island", 7);
+                }
+                tutMessage = true;
                 // Called by Animator
                 // MoveCharacter();
             }
@@ -213,6 +219,7 @@ public class Movement : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0)), Time.deltaTime * 10.0f);
     }
 
+    static bool tutMessage = false;
     public GameObject player;
     public GameObject rider;
     public Cinemachine.CinemachineFreeLook followCam;

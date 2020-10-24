@@ -17,16 +17,25 @@ public class IslandSlowDown : MonoBehaviour
         GetComponent<MeshCollider>().convex = true;
     }
 
+    static bool tutMessage = false;
     private void OnTriggerEnter(Collider other)
     {
         Movement player = other.GetComponent<Movement>();
 
         if (player)
         {
+
+            if (!tutMessage)
+            {
+                PopUpHandler.instance.QueuePopUp("Press <b>E</b> to transfer to the island", KeyCode.E);
+            }
+
+
             playerInRange = true;
             player.inRange = true;
             player.maxDistance = GetComponent<SphereCollider>().bounds.extents.x;
             player.orbit.leashObject = this.gameObject;
+            tutMessage = true;
         }
     }
     private void OnTriggerExit(Collider other)
