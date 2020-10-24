@@ -24,7 +24,12 @@ namespace Menu
             //On start menu will always be open except for testing
             _gameState.inMenu = true;
             EventHandler.instance.menuOpened += OnMenuOpened;
-            Invoke("GoSit", 0.1f);
+            Invoke("GoSit", 0.5f);
+        }
+
+        private void OnDestroy()
+        {
+            EventHandler.instance.menuOpened -= OnMenuOpened;
         }
 
         public void GoSit()
@@ -35,6 +40,7 @@ namespace Menu
         static bool popupDone = false;
         public void OnPlayPressed()
         {
+            Debug.Log("PlayPressed");
             if(!popupDone)
             {
                 PopUpHandler.instance.BasePopups(8);
@@ -53,12 +59,14 @@ namespace Menu
 
         private void OnMenuOpened()
         {
+            Debug.Log("MenuOpened");
             menuCanvas.SetActive(true);
             CallbackHandler.instance.MoveToFire();
         }
 
         private void OnResumePressed()
         {
+            Debug.Log("ResumePressed");
             PlayUISound();
             EventHandler.instance.resumePressed?.Invoke();
             EventHandler.instance.gameState.gamePaused = false;

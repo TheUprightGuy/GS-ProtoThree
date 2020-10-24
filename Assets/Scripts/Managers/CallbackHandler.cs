@@ -216,4 +216,22 @@ public class CallbackHandler : MonoBehaviour
             toggleLamp(_toggle);
         }
     }
+
+    public event Action unlockSaddle;
+    public void UnlockSaddle()
+    {
+        if (unlockSaddle != null)
+        {
+            unlockSaddle();
+        }
+    }
+
+    public event Action buyItem;
+    public void BuyItem()
+    {
+        if (buyItem != null)
+        {
+            buyItem();
+        }
+    }
 }

@@ -42,6 +42,12 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Puzzle/PuzzleTileSO.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Puzzle/PuzzleTile.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Puzzle/PuzzleGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/CameraJacob/EstablishingCamController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Resources/ResourceCollector.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameLoopStuff/EventHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Menu/Menu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/CameraJacob/CinematicController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioManager.cs" />
       </list>
     </option>
   </component>
@@ -58,21 +64,29 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
       <method v="2" />
     </configuration>
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
       <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -86,11 +100,12 @@
       <workItem from="1600912841501" duration="185000" />
       <workItem from="1600913169198" duration="4289000" />
       <workItem from="1601506813852" duration="12304000" />
+      <workItem from="1603332460989" duration="5364000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
@@ -104,6 +119,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

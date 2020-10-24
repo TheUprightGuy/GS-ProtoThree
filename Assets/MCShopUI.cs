@@ -47,6 +47,8 @@ public class MCShopUI : MonoBehaviour
     public Image image;
 
     public TMPro.TextMeshProUGUI resourceCount;
+    public Button buyButton;
+
 
     public void ShowDetails(Item _item, ShopItem _shopItem)
     {
@@ -71,6 +73,8 @@ public class MCShopUI : MonoBehaviour
         name.SetText(item.name);
         description.SetText(item.description);
         image.sprite = item.image;
+
+        buyButton.image.color = (ResourceDisplayScript.instance.supplies < item.cost) ? Color.red : Color.white;
     }
 
     public void HideDetails()
@@ -121,6 +125,17 @@ public class MCShopUI : MonoBehaviour
                 }
                 break;
             }
+            case ItemType.Saddle:
+            {
+                if (ResourceDisplayScript.instance.SpendSupplies(2))
+                {
+                    CallbackHandler.instance.UnlockSaddle();
+                    Destroy(shopItem.gameObject);
+                }
+                break;
+            }
         }
+
+        CallbackHandler.instance.BuyItem();
     }
 }

@@ -73,7 +73,16 @@ public class ObjData
 
     private void Awake()
     {
-        PlaceObjMesh();
+        switch (RenderType)
+        {
+            case RenderingMode.BATCHED:
+                PlaceObjMesh();
+                break;
+            case RenderingMode.INDIVIDUAL:
+                break;
+            default:
+                break;
+        }
     }
 
 

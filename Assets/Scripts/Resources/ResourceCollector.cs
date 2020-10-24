@@ -7,7 +7,7 @@ public class ResourceCollector : MonoBehaviour
     WhaleInfo whaleInfo;
     ResourceDisplayScript rds;
     IslandTrigger trig;
-    private EstablishingCamController _establishingCamController;
+    private CinematicController _cinematicController;
     //public List<GameObject> supplyObjs;
     //public List<GameObject> provisionObjs;
     public GameObject SuppliesParent;
@@ -32,7 +32,7 @@ public class ResourceCollector : MonoBehaviour
         whaleInfo = CallbackHandler.instance.whaleInfo;
         rds = ResourceDisplayScript.instance;
         trig = GetComponent<IslandTrigger>();
-        _establishingCamController = EstablishingCamController.instance;
+        _cinematicController = CinematicController.instance;
 
         suppliesStart =  SuppliesParent.transform.localPosition;
         suppliesMaxCount = SupplyCount;

@@ -182,7 +182,7 @@ public class WhaleMovementScript : MonoBehaviour
             else
             {
                 CallbackHandler.instance.ToggleShop(false);
-                CallbackHandler.instance.LandingTooltip(true);
+                //CallbackHandler.instance.LandingTooltip(true);
                 orbit.leashObject.GetComponent<IslandTrigger>().ToggleLeashed(false);
             }
         }

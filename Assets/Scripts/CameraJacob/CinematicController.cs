@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
-public class EstablishingCamController : MonoBehaviour
+public class CinematicController : MonoBehaviour
 {
     #region Singleton
-    public static EstablishingCamController instance;
+    public static CinematicController instance;
     private void Awake()
     {
         if (instance != null)
         {
-            Debug.LogError("More than one EstablishingCamController exists!");
+            Debug.LogError("More than one CinematicController exists!");
             Destroy(gameObject);
         }
         else
@@ -22,10 +22,19 @@ public class EstablishingCamController : MonoBehaviour
         }
     }
     #endregion Singleton
-    public GameObject menuVCam;
-    public GameObject menuToGameViewBlendList;
-    public GameObject establishingShotBlendList;
+
+    [Header("Solo VCam's for cinematics")]
+    //First cam should always be menuCam
+    public List<CinemachineVirtualCamera> VCams;
+    [Header("Cinematic Blend List Cameras")]
+    public List<CinemachineBlendListCamera> BlendLists;
     public Transform whaleTransform;
+    //Objectives order (object of focus in cinematic):
+    //0 is Shop objective
+    //1 is island objective
+    //2 is final objective
+    //3 is switch puzzle objective
+    //4 is opened door
     public List<Transform> objectivesSorted;
     public int currentObjectiveIndex;
 
@@ -57,27 +66,24 @@ public class EstablishingCamController : MonoBehaviour
 
     private void OnMenuClosed()
     {
-        menuVCam.SetActive(false);
-        menuToGameViewBlendList.SetActive(true);
+        VCams[0].m_Priority = 0;
     }
 
     private void OnGameStart()
     {
-        menuToGameViewBlendList.SetActive(false);
-        EventHandler.instance.menuOpened -= OnMenuOpened;
+        //EventHandler.instance.menuOpened -= OnMenuOpened;
         EventHandler.instance.menuClosed -= OnMenuClosed;
     }
 
     private void OnResume()
     {
-        menuVCam.SetActive(false);
+        VCams[0].m_Priority = 0;
     }
     
     private void OnMenuOpened()
     {
-        menuToGameViewBlendList.SetActive(false);
-        establishingShotBlendList.SetActive(false);
-        menuVCam.SetActive(true);
+        BlendLists[0].gameObject.SetActive(false);
+        VCams[0].m_Priority = 11;
     }
     
     private void OnStartEstablishingShot()
@@ -86,22 +92,22 @@ public class EstablishingCamController : MonoBehaviour
         CallbackHandler.instance.SetQuestObjective(objectivesSorted[currentObjectiveIndex].gameObject);
         
         var lookAtObj = 
-            establishingShotBlendList.GetComponent<CinemachineBlendListCamera>().ChildCameras[1];
+            BlendLists[0].ChildCameras[1];
         lookAtObj.Follow = whaleTransform;
         lookAtObj.LookAt = objectivesSorted[currentObjectiveIndex];
         
         var moveToObj = 
-            establishingShotBlendList.GetComponent<CinemachineBlendListCamera>().ChildCameras[2];
+            BlendLists[0].GetComponent<CinemachineBlendListCamera>().ChildCameras[2];
         moveToObj.Follow = objectivesSorted[currentObjectiveIndex];
         moveToObj.LookAt = objectivesSorted[currentObjectiveIndex];
         
-        establishingShotBlendList.SetActive(true);
+        BlendLists[0].gameObject.SetActive(true);
         EventHandler.instance.gameState.inCinematic = true;
     }
     
     private void OnEndEstablishingShot()
     {
-        establishingShotBlendList.SetActive(false);
+        BlendLists[0].gameObject.SetActive(false);
         EventHandler.instance.gameState.inCinematic = false;
     }
 }
