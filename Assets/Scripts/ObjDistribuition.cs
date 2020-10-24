@@ -52,7 +52,7 @@ public class ObjData
 
     public LayerMask RayCastToHit;
 
-    public bool CastFortriggers = false;
+    public bool CastForTriggers = false;
     public GameObject prefabTemplate;
 
     public enum RenderingMode
@@ -277,45 +277,73 @@ public class ObjData
 
         //// Perform a single raycast using RaycastCommand and wait for it to complete
         //// Setup the command and result buffers
-        //var results = new NativeArray<RaycastHit>(posList.Count, Allocator.TempJob);
-        //var commands = new NativeArray<RaycastCommand>(posList.Count, Allocator.TempJob);
+        int maxHits = 4;
+        var results = new NativeArray<RaycastHit>(posList.Count * maxHits, Allocator.TempJob);
+        var commands = new NativeArray<RaycastCommand>(posList.Count, Allocator.TempJob);
 
 
+        Vector3 direction = Vector3.down;
 
-        //Vector3 direction = Vector3.down;
-
-        //for (int i = 0; i < posList.Count; i++)
-        //{            
-        //    commands[i] = new RaycastCommand(transform.position, Vector3.down, Mathf.Infinity, mask);
-        //}
+        for (int i = 0; i < posList.Count; i++)
+        {
+            commands[i] = new RaycastCommand(posList[i], Vector3.down,Mathf.Infinity , RayCastToHit.value);
+        }
 
         //Debug.Log("Scheduling Raycasts...");
         //// Schedule the batch of raycasts
-        //JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, commands.Length, default(JobHandle));
+        JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, maxHits, default(JobHandle));
 
         //// Wait for the batch processing job to complete
-        //handle.Complete();
+        handle.Complete();
         //Debug.Log("RayCasts Complete");
 
         List<Vector3> returnList = new List<Vector3>();
 
-        //// Copy the result. If batchedHit.collider is null there was no hit
-        //RaycastHit batchedHit = results[0];
-
-        Debug.Log("Scheduling Raycasts...");
-        for (int i = 0; i < posList.Count; i++)
+        
+        for (int i = 0; i < commands.Length; i++)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(posList[i], Vector3.down, out hit, Mathf.Infinity, RayCastToHit.value,
-                (CastFortriggers) ? (QueryTriggerInteraction.Collide) : (QueryTriggerInteraction.Ignore)))
+            for (int j = 0; j < maxHits; j++)
             {
-                if (hit.collider.gameObject.tag != GrassExclusionTag)
+                if (results[i + j].collider == null) //Any null in the group should break the loop cause the later nulls will not be null
                 {
-                    returnList.Add(hit.point);
+                    break;
                 }
+
+                if (CastForTriggers != results[i + j].collider.isTrigger) //If trigger just pass on through
+                {
+                    continue;
+                }
+
+
+                if (results[i + j].collider.tag == GrassExclusionTag)//Make sure not hitting exclusion zone
+                {
+                    break;
+                }
+
+
+                returnList.Add(results[i + j].point);
+                break; //Break from group so doesn't double add
+
             }
         }
-        Debug.Log("RayCasts Complete");
+
+        //Debug.Log("Scheduling Raycasts...");
+        //for (int i = 0; i < posList.Count; i++)
+        //{
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(posList[i], Vector3.down, out hit, Mathf.Infinity, RayCastToHit.value,
+        //        (CastFortriggers) ? (QueryTriggerInteraction.Collide) : (QueryTriggerInteraction.Ignore)))
+        //    {
+        //        if (hit.collider.gameObject.tag != GrassExclusionTag)
+        //        {
+        //            returnList.Add(hit.point);
+        //        }
+        //    }
+        //}
+        //Debug.Log("RayCasts Complete");
+
+        results.Dispose();
+        commands.Dispose();
 
         return returnList;
     }

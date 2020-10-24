@@ -55,7 +55,7 @@ public class TexturePainterController : MonoBehaviour
         }
         else
         {
-            UnityEditor.EditorUtility.SetDirty(this);
+            //UnityEditor.EditorUtility.SetDirty(this);
             UpdateDefaultColors();
         }
     }
@@ -79,7 +79,7 @@ public class TexturePainterController : MonoBehaviour
             return;
         }
 
-        UnityEditor.EditorUtility.SetDirty(gameObject.GetComponent<MeshRenderer>().material);
+        //UnityEditor.EditorUtility.SetDirty(gameObject.GetComponent<MeshRenderer>().material);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_DEFAULT", DefaultTexture);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_RED", RedTexture);
         GetComponent<MeshRenderer>().material.SetTexture("Texture2D_GREEN", GreenTexture);

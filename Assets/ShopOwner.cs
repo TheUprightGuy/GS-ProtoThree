@@ -43,18 +43,18 @@ public class ShopOwner : MonoBehaviour
 
     public void BuyItem()
     {
-        animator.SetTrigger("Interact");
+        //animator.SetTrigger("Interact");
     }
 
     public void Talk()
     {
         CallbackHandler.instance.SetDialogue(speaker, dialogue[dialogueIndex]);
-        animator.SetTrigger("Talking");
+        //animator.SetTrigger("Talking");
     }
 
     void UpdateAnimationState()
     {
-        animator.SetBool("Waving", waving);
+        //animator.SetBool("Waving", waving);
     }
 
     private void OnTriggerEnter(Collider other)
