@@ -439,12 +439,14 @@ MonoBehaviour:
     cost: 0
     image: {fileID: 0}
     type: 0
+  shopItem: {fileID: 0}
   shopWindowOpen: 0
   cost: {fileID: 9115428321665741445}
   name: {fileID: 9115428322390863430}
   description: {fileID: 9115428322105095360}
   image: {fileID: 9115428321486228752}
   resourceCount: {fileID: 9115428320974287304}
+  buyButton: {fileID: 4997980005869259778}
 --- !u!95 &9115428320542690514
 Animator:
   serializedVersion: 3

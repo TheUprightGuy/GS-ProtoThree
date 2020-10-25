@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
         CallbackHandler.instance.landingTooltip += LandingToggle;
         CallbackHandler.instance.toggleText += ToggleText;
         scale = landingButton.GetComponent<RectTransform>();
-        ToggleText(false);
+        ToggleText();
     }
 
     private void OnDestroy()
@@ -100,8 +100,8 @@ public class UIManager : MonoBehaviour
         scale.localScale = new Vector3(scalar, scalar, 1.0f);
     }
 
-    public void ToggleText(bool _toggle)
+    public void ToggleText()
     {
-        dialogueUI.SetActive(_toggle);
+        dialogueUI.SetActive(!dialogueUI.activeSelf);
     }
 }

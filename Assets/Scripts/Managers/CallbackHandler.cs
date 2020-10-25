@@ -194,17 +194,17 @@ public class CallbackHandler : MonoBehaviour
     {
         if (setDialogue != null)
         {
-            ToggleText(true);
+            ToggleText();
             setDialogue(_speaker, _dialogue);
         }
     }
 
-    public event Action<bool> toggleText;
-    public void ToggleText(bool _toggle)
+    public event Action toggleText;
+    public void ToggleText()
     {
         if (toggleText != null)
         {
-            toggleText(_toggle);
+            toggleText();
         }
     }
 

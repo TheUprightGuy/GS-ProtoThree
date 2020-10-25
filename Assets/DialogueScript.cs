@@ -31,7 +31,11 @@ public class DialogueScript : MonoBehaviour
         speaker.SetText(_speaker);
         dialogue.SetText("");
 
-        StartCoroutine(WriteDialogue());
+        // Weird that this is a thing
+        if (this.gameObject.activeSelf)
+        {
+            StartCoroutine(WriteDialogue());
+        }
     }
 
     IEnumerator WriteDialogue()
@@ -49,7 +53,7 @@ public class DialogueScript : MonoBehaviour
     {
         // move to next line in dialogueList
         // if not close 
-        CallbackHandler.instance.ToggleText(false);
+        CallbackHandler.instance.ToggleText();
     }
 
     public void Update()

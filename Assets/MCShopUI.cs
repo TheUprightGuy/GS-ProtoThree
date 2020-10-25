@@ -74,7 +74,7 @@ public class MCShopUI : MonoBehaviour
         description.SetText(item.description);
         image.sprite = item.image;
 
-        buyButton.image.color = (ResourceDisplayScript.instance.supplies < item.cost) ? Color.red : Color.white;
+        buyButton.GetComponent<Image>().color = (ResourceDisplayScript.instance.supplies < item.cost) ? Color.red : Color.white;
     }
 
     public void HideDetails()

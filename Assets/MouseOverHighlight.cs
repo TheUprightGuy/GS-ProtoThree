@@ -51,11 +51,9 @@ public class MouseOverHighlight : MonoBehaviour
                 tempItem = n.collider.gameObject.GetComponent<ShopItem>();
 
             }
-
-            ShopOwner tempShop = n.collider.gameObject.GetComponent<ShopOwner>();
-            if (tempShop)
+            if (!n.collider.isTrigger && n.collider.gameObject.GetComponent<ShopOwner>())
             {
-                shopOwner = tempShop;
+                shopOwner = n.collider.gameObject.GetComponent<ShopOwner>();
             }
             if (tempSwitch)
             {
