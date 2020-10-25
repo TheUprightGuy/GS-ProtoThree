@@ -373,8 +373,8 @@ ModelImporter:
       name: MCStandingTalkLoop
       takeName: Take 001
       internalID: 0
-      firstFrame: 426
-      lastFrame: 480
+      firstFrame: 502
+      lastFrame: 570
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -402,8 +402,8 @@ ModelImporter:
       name: MCStandingTalkExit
       takeName: Take 001
       internalID: 0
-      firstFrame: 480
-      lastFrame: 490
+      firstFrame: 570
+      lastFrame: 580
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -593,7 +593,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.01
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
