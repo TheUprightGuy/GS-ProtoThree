@@ -6,6 +6,7 @@ public class IslandSlowDown : MonoBehaviour
 {
     [Header("Setup Fields")]
     [HideInInspector] public bool playerInRange = false;
+    public float colliderHeight;
 
     private void Start()
     {

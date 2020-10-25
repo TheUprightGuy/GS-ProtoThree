@@ -662,7 +662,6 @@ GameObject:
   - component: {fileID: 4449845786690686804}
   - component: {fileID: 5336882114560493439}
   - component: {fileID: 8958144099402893936}
-  - component: {fileID: 4449845787867862069}
   m_Layer: 10
   m_Name: NewMovement
   m_TagString: Untagged
@@ -809,21 +808,6 @@ MonoBehaviour:
   - {fileID: 4449845786030511077}
   - {fileID: 4449845787225913371}
 --- !u!114 &8958144099402893936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4449845786162991591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f649a9ab99d6245bf7657c94cb9bef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  dist: 0
-  pickupHeight: 10
---- !u!114 &4449845787867862069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

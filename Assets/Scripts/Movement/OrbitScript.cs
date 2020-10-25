@@ -50,6 +50,7 @@ public class OrbitScript : MonoBehaviour
 
         if (leashObject.GetComponent<IslandTrigger>())
         leashObject.GetComponent<IslandTrigger>().ToggleLeashed(true);
+        gameObject.GetComponent<HomingScript>().pickupHeight = leashObject.GetComponent<IslandSlowDown>().colliderHeight;
     }
 
     public void ShiftWhale()

@@ -61,6 +61,7 @@ public class TestMovement : MonoBehaviour
         {
             rb.velocity = Vector3.up * jumpVelocity;
             jumping = true;
+            animator.SetTrigger("Jump");
             //AudioManager.instance.PlaySound("jump");
         }
         // Falling - Apply Gravity Multiplier
@@ -83,7 +84,7 @@ public class TestMovement : MonoBehaviour
             float targetRot = Mathf.Atan2(moveVector.x, moveVector.y) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
             transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRot, ref turnSmoothVelocity, turnSmoothTime);
         }
-        animator.SetBool("Moving", moveVector != Vector2.zero);
+        animator.SetFloat("MovementSpeed", currentSpeed / runSpeed);
 
         bool running = Input.GetKey(KeyCode.LeftShift);
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * moveVector.magnitude;
