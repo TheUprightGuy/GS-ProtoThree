@@ -16,6 +16,7 @@ public class TestMovement : MonoBehaviour
     public float moveSpeed;
     bool jumping;
     float distToGround;
+    public bool freezeMe;
 
     public Animator animator;
 
@@ -56,6 +57,9 @@ public class TestMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (freezeMe)
+            return;
+
         // Grounded - Allow Jump
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
@@ -92,7 +96,7 @@ public class TestMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            CallbackHandler.instance.StartHoming(transform);
+            PlayFlute();
         }
     }
 
@@ -115,5 +119,12 @@ public class TestMovement : MonoBehaviour
     public void ToggleLamp(bool _toggle)
     {
         lamp.SetActive(_toggle);
+    }
+
+    public void PlayFlute()
+    {
+        animator.SetBool("Flute", true);
+        CallbackHandler.instance.StartHoming(transform);
+        freezeMe = true;
     }
 }

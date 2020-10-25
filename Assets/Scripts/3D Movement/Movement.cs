@@ -233,13 +233,19 @@ public class Movement : MonoBehaviour
         player.transform.parent = null;
         player.transform.position = cachedPosition;// CheckBelow();
         followCamera.enabled = false;
+        TestMovement temp = player.GetComponent<TestMovement>();
+        temp.freezeMe = false;
         //player.GetComponent<Rigidbody>().useGravity = true;
     }
 
     public void PickUpMC()
     {
+        TestMovement temp = player.GetComponent<TestMovement>();
+
         followCam.gameObject.SetActive(false);
         rider.SetActive(true);
+        temp.animator.SetBool("Flute", false);
+        temp.freezeMe = false;
         player.SetActive(false);
         orbiting = false;
         homing = false;
@@ -247,6 +253,7 @@ public class Movement : MonoBehaviour
         exit = true;
         orbit.leashObject.GetComponent<MeshCollider>().convex = true;
         followCamera.enabled = true;
+        CallbackHandler.instance.MoveToSaddle();
     }
 
     [Header("Slowdown")]
