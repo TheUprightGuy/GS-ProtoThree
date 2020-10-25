@@ -55,6 +55,7 @@ public class MenuManager : MonoBehaviour
         playButton.GetComponent<Button>().onClick.AddListener(OnResumePressed);
         playButton.name = "RESUME";
         menuCanvas.SetActive(false);
+        CallbackHandler.instance.MoveToSaddle();
     }
 
     private void OnMenuOpened()

@@ -127,8 +127,8 @@ public class CharacterControllerScript : MonoBehaviour
     {
         if (!standing)
         {
-            animator.SetTrigger("StandUp");
             animator.ResetTrigger("SitDown");
+            animator.SetTrigger("StandUp");
         }
         standing = true;
         sitting = false;

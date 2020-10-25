@@ -74,7 +74,7 @@ namespace Puzzle
             Destroy(tile.transform.GetChild(0).gameObject);
             Instantiate(tileMeshes[_currentType], tile.transform);
             tile.name = tilePrefabs[_currentType].name;
-            Debug.Log("Col: " + tileSO.col + " Row: " + tileSO.row + " Type: " + tile.name);
+            //Debug.Log("Col: " + tileSO.col + " Row: " + tileSO.row + " Type: " + tile.name);
             _currentType += 1;
             _currentType %= tilePrefabs.Count;
         }
