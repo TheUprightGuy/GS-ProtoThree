@@ -234,4 +234,13 @@ public class CallbackHandler : MonoBehaviour
             buyItem();
         }
     }
+
+    public event Action interact;
+    public void Interact()
+    {
+        if (interact != null)
+        {
+            interact();
+        }
+    }
 }

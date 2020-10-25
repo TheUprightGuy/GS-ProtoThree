@@ -70,10 +70,12 @@ public class MouseOverHighlight : MonoBehaviour
             if (highlightedSwitch)
             {
                 highlightedSwitch.Use();
+                CallbackHandler.instance.Interact();
             }
             if (highlightedShopItem)
             {
                 highlightedShopItem.ShowUI();
+                CallbackHandler.instance.Interact();
             }
             if (shopOwner)
             {

@@ -46,19 +46,24 @@ public class TestMovement : MonoBehaviour
         distToGround = GetComponent<CapsuleCollider>().bounds.extents.y;
         lamp.SetActive(false);
         CallbackHandler.instance.toggleLamp += ToggleLamp;
+        CallbackHandler.instance.interact += Interact;
     }
 
     private void OnDestroy()
     {
         CallbackHandler.instance.toggleLamp -= ToggleLamp;
+        CallbackHandler.instance.interact -= Interact;
     }
-
 
     // Update is called once per frame
     void Update()
     {
         if (freezeMe)
+        {
+            rb.velocity = Vector3.zero;
+            currentSpeed = 0;
             return;
+        }
 
         // Grounded - Allow Jump
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
@@ -126,5 +131,11 @@ public class TestMovement : MonoBehaviour
         animator.SetBool("Flute", true);
         CallbackHandler.instance.StartHoming(transform);
         freezeMe = true;
+    }
+
+    public void Interact()
+    {
+        animator.ResetTrigger("Interact");
+        animator.SetTrigger("Interact");
     }
 }
