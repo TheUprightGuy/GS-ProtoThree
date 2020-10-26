@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class ParticleSpeedScript : MonoBehaviour
 {
-    public ParticleSystem ps;
+    #region Setup
+    ParticleSystem ps;
+    private void Awake()
+    {
+        ps = GetComponent<ParticleSystem>();
+    }
+    #endregion Setup
 
     // Start is called before the first frame update
     void Start()
     {
-        ps = GetComponent<ParticleSystem>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         float alpha;
-        if (WhaleMovementScript.instance)
+        if (Movement.instance)
         {
-            alpha = WhaleMovementScript.instance.currentSpeed / 200;
+            alpha = Movement.instance.currentSpeed / 200;
         }
         else
         {

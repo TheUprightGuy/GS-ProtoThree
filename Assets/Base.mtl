@@ -1,8 +1,0 @@
-newmtl TotemMat
-Kd 0.6105533 0.6132076 0.6103151
-d 1
-
-newmtl TotemHighlightMat
-Kd 1 1 1
-d 1
-

@@ -24266,6 +24266,7 @@ GameObject:
   - component: {fileID: 1223665690010169292}
   - component: {fileID: 4039513803780776842}
   - component: {fileID: 7018493948296865021}
+  - component: {fileID: 4829208445427530516}
   m_Layer: 0
   m_Name: Slide_Door
   m_TagString: Untagged
@@ -24335,6 +24336,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &4829208445427530516
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596284673268961417}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9451894, y: 2.5892763, z: 0.07441743}
+  m_Center: {x: -0.97259545, y: 0.26067728, z: 0.0000009575542}
 --- !u!1 &6596284673526619303
 GameObject:
   m_ObjectHideFlags: 0
@@ -24346,6 +24360,7 @@ GameObject:
   - component: {fileID: 1223665690289316834}
   - component: {fileID: 4039513801887281060}
   - component: {fileID: 7018493946428008659}
+  - component: {fileID: 4507973945211783402}
   m_Layer: 0
   m_Name: Slide_Door
   m_TagString: Untagged
@@ -24415,6 +24430,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &4507973945211783402
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596284673526619303}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8300029, y: 2.7221851, z: 0.07441743}
+  m_Center: {x: -0.9149995, y: 0.3271329, z: 0.0000009575542}
 --- !u!1 &6639535032703699433
 GameObject:
   m_ObjectHideFlags: 0
@@ -43864,7 +43892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door1: {fileID: 7850840630588727218}
   door2: {fileID: 7850840630867874716}
-  doorPFX: {fileID: 0}
+  doorPFX: {fileID: 3710526107299867101}
 --- !u!1 &9017817017382954298
 GameObject:
   m_ObjectHideFlags: 0
@@ -44142,6 +44170,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Asset_Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 237eca7b3c223e746b24bcaa03f353ed,
+        type: 3}
+      propertyPath: m_TagString
+      value: GEZone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237eca7b3c223e746b24bcaa03f353ed, type: 3}
