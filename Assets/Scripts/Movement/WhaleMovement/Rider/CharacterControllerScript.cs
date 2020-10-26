@@ -33,8 +33,8 @@ public class CharacterControllerScript : MonoBehaviour
     #region Callbacks
     private void Start()
     {
-        CallbackHandler.instance.moveToSaddle += MoveToSaddle;
-        CallbackHandler.instance.moveToFire += MoveToFire;
+        WhaleHandler.instance.moveToSaddle += MoveToSaddle;
+        WhaleHandler.instance.moveToFire += MoveToFire;
         CallbackHandler.instance.unlockSaddle += NewSaddlePos;
         SitDown();
     }
@@ -42,8 +42,8 @@ public class CharacterControllerScript : MonoBehaviour
     private void OnDestroy()
     {
         CallbackHandler.instance.unlockSaddle -= NewSaddlePos;
-        CallbackHandler.instance.moveToSaddle -= MoveToSaddle;
-        CallbackHandler.instance.moveToFire -= MoveToFire;
+        WhaleHandler.instance.moveToSaddle -= MoveToSaddle;
+        WhaleHandler.instance.moveToFire -= MoveToFire;
     }
     #endregion Callbacks
 

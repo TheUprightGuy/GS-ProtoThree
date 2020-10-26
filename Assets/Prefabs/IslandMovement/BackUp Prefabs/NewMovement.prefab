@@ -656,9 +656,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4449845786162991589}
-  - component: {fileID: 4449845786162991588}
   - component: {fileID: 4449845786162991586}
   - component: {fileID: 4449845786690686805}
+  - component: {fileID: 4449845786162991588}
   - component: {fileID: 4449845786690686804}
   - component: {fileID: 5336882114560493439}
   - component: {fileID: 8958144099402893936}
@@ -688,52 +688,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4449845786162991588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4449845786162991591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743c92d4909232f49acb44242aa6eda1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 4449845786850676657}
-  animator: {fileID: 4449845786850676671}
-  moveSpeed: 1
-  accelSpeed: 1
-  maxSpeed: 5
-  orbit: {fileID: 4449845786690686804}
-  inRange: 0
-  maxDistance: 0
-  angle: 0
-  islandMod: 0
-  distance: 0
-  orbiting: 0
-  saddle: {fileID: 4449845786469183989}
-  rotationSpeed: 0.2
-  currentSpeed: 0
-  myRoll: 0
-  myTurn: 0
-  myPitch: 0
-  turnSpeed: 20
-  liftSpeed: 20
-  rollSpeed: 20
-  player: {fileID: 0}
-  rider: {fileID: 4449845787690019528}
-  followCam: {fileID: 0}
-  followCamera: {fileID: 8079969285163601176}
-  front: {fileID: 4449845787632312478}
-  dotProduct: 0
-  homing: 0
-  exit: 0
-  temp: {fileID: 0}
-  cachedPosition: {x: 0, y: 0, z: 0}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!54 &4449845786162991586
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -764,6 +718,41 @@ CapsuleCollider:
   m_Height: 14.12778
   m_Direction: 2
   m_Center: {x: 0, y: 1.172081, z: 0.62612295}
+--- !u!114 &4449845786162991588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4449845786162991591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743c92d4909232f49acb44242aa6eda1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 4449845786850676657}
+  animator: {fileID: 4449845786850676671}
+  currentSpeed: 0
+  moveSpeed: 1
+  accelSpeed: 1
+  maxSpeed: 5
+  saddle: {fileID: 4449845786469183989}
+  orbit: {fileID: 4449845786690686804}
+  inRange: 0
+  orbiting: 0
+  player: {fileID: 0}
+  rider: {fileID: 4449845787690019574}
+  followCam: {fileID: 0}
+  followCamera: {fileID: 8079969285163601176}
+  front: {fileID: 4449845787632312478}
+  dotProduct: 0
+  homing: 0
+  exit: 0
+  temp: {fileID: 0}
+  cachedPosition: {x: 0, y: 0, z: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &4449845786690686804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6221,7 +6210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce8685788a122944b3190d34d4fda00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ps: {fileID: 0}
 --- !u!1 &4449845786416822407
 GameObject:
   m_ObjectHideFlags: 0
@@ -8150,7 +8138,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f1c6e3b60b5383e448b82c5b6db0dc2d, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13138,7 +13126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce8685788a122944b3190d34d4fda00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ps: {fileID: 0}
 --- !u!1 &4449845786955533001
 GameObject:
   m_ObjectHideFlags: 0
@@ -18652,7 +18639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce8685788a122944b3190d34d4fda00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ps: {fileID: 0}
 --- !u!1 &4449845787103708668
 GameObject:
   m_ObjectHideFlags: 0
@@ -23495,7 +23481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce8685788a122944b3190d34d4fda00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ps: {fileID: 0}
 --- !u!1 &4449845787185481096
 GameObject:
   m_ObjectHideFlags: 0
@@ -26594,7 +26579,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2b2682130d2364b479ddd075ae0fbb8c, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26942,7 +26927,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d20337793c2ef80409b050e6b6e4d5ba, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a30da3158d5cc7d4a9f9db8673922bde,
         type: 3}
       propertyPath: m_Name

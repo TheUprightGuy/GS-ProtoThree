@@ -34,7 +34,6 @@ public class IslandSlowDown : MonoBehaviour
 
             playerInRange = true;
             player.inRange = true;
-            player.maxDistance = GetComponent<SphereCollider>().bounds.extents.x;
             player.orbit.leashObject = this.gameObject;
             tutMessage = true;
         }

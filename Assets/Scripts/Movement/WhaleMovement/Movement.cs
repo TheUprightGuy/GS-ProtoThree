@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-
     #region Singleton
     public static Movement instance;
     private void Awake()
@@ -19,43 +18,49 @@ public class Movement : MonoBehaviour
             instance = this;
         }
         rb = GetComponent<Rigidbody>();
+        orbit = GetComponent<OrbitScript>();
     }
     #endregion Singleton 
+
     [Header("Setup Fields")]
     public GameObject body;
     private Rigidbody rb;
     public Animator animator;
-    [Header("Upgrade Fields")]
+    public TestMovement player;
+    public CharacterControllerScript rider;
+    public Cinemachine.CinemachineFreeLook followCam;
+    public FollowCamera followCamera;
+    public GameObject front;
+    [Header("Movement")]
+    public float currentSpeed = 0.0f;
     public float moveSpeed = 1;
     public float accelSpeed = 1;
     public float maxSpeed = 5.0f;
-    [Header("Tracking")]
-    public OrbitScript orbit;
-    public bool inRange;
-    public float maxDistance;
-    public float angle;
-    public float islandMod = 0.0f;
-    public float distance;
-    public bool orbiting;
-
+    [Header("Upgrade Objects")]
     public GameObject saddle;
 
     #region Local Variables
     WhaleInfo whaleInfo;
-    [Header("Local Variables")]
-    public float rotationSpeed = 0.2f;
-    // Cache Variables
-    //[HideInInspector]
-    public float currentSpeed = 0.0f;
+    static bool tutMessage = false;
+    [HideInInspector] public OrbitScript orbit;
+    [HideInInspector] public bool inRange;
+    [HideInInspector] public bool orbiting;
+    float islandMod = 0.0f;
+    float distance;
+    float rotationSpeed = 0.2f;
     Vector3 desiredVec;
     Vector3 desiredRoll;
-    [HideInInspector] public float myRoll = 0.0f;
-    [HideInInspector] public float myTurn = 0.0f;
-    [HideInInspector] public float myPitch = 0.0f;
-    [HideInInspector] public float turnSpeed = 40;
-    [HideInInspector] public float liftSpeed = 20;
-    [HideInInspector] public float rollSpeed = 20;
+    float myRoll = 0.0f;
+    float myTurn = 0.0f;
+    float myPitch = 0.0f;
+    float turnSpeed = 40;
+    float liftSpeed = 20;
+    float rollSpeed = 20;
+    float dotProduct;
+    [HideInInspector] public bool homing;
+    [HideInInspector] public bool exit;
     #endregion Local Variables
+
     #region Setup
     private void Start()
     {
@@ -64,23 +69,50 @@ public class Movement : MonoBehaviour
         whaleInfo = CallbackHandler.instance.whaleInfo;
         saddle.SetActive(false);
 
-        CallbackHandler.instance.pickUpMC += PickUpMC;
+        WhaleHandler.instance.pickUpMC += PickUpMC;
         CallbackHandler.instance.unlockSaddle += UnlockSaddle;
     }
     private void OnDestroy()
     {
-        CallbackHandler.instance.pickUpMC -= PickUpMC;
+        WhaleHandler.instance.pickUpMC -= PickUpMC;
         CallbackHandler.instance.unlockSaddle -= UnlockSaddle;
     }
     #endregion Setup
-
+    #region Upgrades
     public void UnlockSaddle()
     {
         saddle.SetActive(true);
         maxSpeed = 6.5f;
-        rider.transform.localPosition = rider.GetComponent<CharacterControllerScript>().newSaddlePos.localPosition;
+        rider.transform.localPosition = rider.newSaddlePos.localPosition;
     }
-
+    #endregion Upgrades
+    #region PickUp&DropOff
+    public void MoveCharacter()
+    {
+        followCam.gameObject.SetActive(true);
+        rider.gameObject.SetActive(false);
+        player.gameObject.SetActive(true);
+        player.transform.parent = null;
+        player.transform.position = cachedPosition;
+        followCamera.enabled = false;
+        player.freezeMe = false;
+    }
+    public void PickUpMC()
+    {
+        followCam.gameObject.SetActive(false);
+        rider.gameObject.SetActive(true);
+        player.animator.SetBool("Flute", false);
+        player.freezeMe = false;
+        player.gameObject.SetActive(false);
+        orbiting = false;
+        homing = false;
+        whaleInfo.ToggleLeashed(false);
+        exit = true;
+        orbit.leashObject.GetComponent<MeshCollider>().convex = true;
+        followCamera.enabled = true;
+        WhaleHandler.instance.MoveToSaddle();
+    }
+    #endregion PickUp&DropOff
     // Update is called once per frame
     void Update()
     {
@@ -90,7 +122,6 @@ public class Movement : MonoBehaviour
             currentSpeed = Mathf.Lerp(currentSpeed, 1.0f, Time.deltaTime);
             return;
         }
-
         if (homing)
         {
             animator.SetFloat("Movement", currentSpeed * islandMod / 2);
@@ -99,16 +130,14 @@ public class Movement : MonoBehaviour
         }
 
         float movement = currentSpeed * islandMod / 2;
-
         float f = body.transform.rotation.eulerAngles.z;
         f = (f > 180) ? f - 360 : f;
         animator.SetFloat("Turning", f / 10.0f);
         animator.SetFloat("Movement", movement);
-
         currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * accelSpeed);   
-
         float slowSpeedTurnBonus = (maxSpeed / currentSpeed);
 
+        // Yaw
         if (Input.GetKey(KeyCode.D))
         {
 
@@ -139,7 +168,7 @@ public class Movement : MonoBehaviour
             myTurn = Mathf.Lerp(myTurn, 0, Time.deltaTime * turnSpeed);
             myRoll = Mathf.Lerp(myRoll, 0, Time.deltaTime * rollSpeed * 5);
         }
-
+        // Pitch
         if (Input.GetKey(KeyCode.W))
         {
             if (myPitch + Time.deltaTime * liftSpeed < 30)
@@ -158,8 +187,8 @@ public class Movement : MonoBehaviour
         {
             myPitch = Mathf.Lerp(myPitch, 0.0f, Time.deltaTime);
         }
-
-        if (Input.GetKey(KeyCode.Space))
+        // Move
+        if (Input.GetKey(InputHandler.instance.move))
         {
             if (moveSpeed < maxSpeed)
             {
@@ -182,86 +211,35 @@ public class Movement : MonoBehaviour
             }
         }
 
-        if (orbit.leashObject && CheckBelow() != Vector3.zero)
-        {
-            CallbackHandler.instance.LandingTooltip(true);
-        }
-        else
-        {
-            CallbackHandler.instance.LandingTooltip(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
+        // Landing Tooltip
+        WhaleHandler.instance.LandingTooltip(orbit.leashObject && CheckBelow() != Vector3.zero);
+        //DropOff
+        if (Input.GetKeyDown(InputHandler.instance.orbit))
         {
             if (orbit.leashObject && CheckBelow() != Vector3.zero)
             {
-                //Orbit(true);
                 orbit.leashObject.GetComponent<MeshCollider>().convex = false;
                 Fader.instance.FadeOut(this);
                 orbiting = true;
-                CallbackHandler.instance.LandingTooltip(false);
+                WhaleHandler.instance.LandingTooltip(false);
                 if (!tutMessage)
                 {
                     PopUpHandler.instance.QueuePopUp("Use the <b>WASD</b> keys to move around \n Press <b>Shift</b> to run", KeyCode.LeftShift);
                     PopUpHandler.instance.QueuePopUp("When you're ready, press <b>F</b> to leave the island", 7);
                 }
                 tutMessage = true;
-                // Called by Animator
-                // MoveCharacter();
             }
         }
+
+        // Roll
         desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
         body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
-
-        //float temp = Mathf.Lerp(transform.eulerAngles.z, 0, Time.deltaTime);
+        // Rot
         desiredVec = new Vector3(myPitch, transform.eulerAngles.y + myTurn, transform.eulerAngles.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(desiredVec), Time.deltaTime * rotationSpeed);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0)), Time.deltaTime * 10.0f);
     }
-
-    static bool tutMessage = false;
-    public GameObject player;
-    public GameObject rider;
-    public Cinemachine.CinemachineFreeLook followCam;
-    public FollowCamera followCamera;
-
-    public void MoveCharacter()
-    {
-        followCam.gameObject.SetActive(true);
-        rider.SetActive(false);
-        player.SetActive(true);
-        player.transform.parent = null;
-        player.transform.position = cachedPosition;// CheckBelow();
-        followCamera.enabled = false;
-        TestMovement temp = player.GetComponent<TestMovement>();
-        temp.freezeMe = false;
-        //player.GetComponent<Rigidbody>().useGravity = true;
-    }
-
-    public void PickUpMC()
-    {
-        TestMovement temp = player.GetComponent<TestMovement>();
-
-        followCam.gameObject.SetActive(false);
-        rider.SetActive(true);
-        temp.animator.SetBool("Flute", false);
-        temp.freezeMe = false;
-        player.SetActive(false);
-        orbiting = false;
-        homing = false;
-        whaleInfo.ToggleLeashed(false);
-        exit = true;
-        orbit.leashObject.GetComponent<MeshCollider>().convex = true;
-        followCamera.enabled = true;
-        CallbackHandler.instance.MoveToSaddle();
-    }
-
-    [Header("Slowdown")]
-    public GameObject front;
-    public float dotProduct;
-    public bool homing;
-    public bool exit;
-
+      
     private void FixedUpdate()
     {
         if (orbiting || homing)

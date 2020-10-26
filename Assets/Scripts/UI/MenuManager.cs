@@ -31,7 +31,7 @@ public class MenuManager : MonoBehaviour
 
     public void GoSit()
     {
-        CallbackHandler.instance.MoveToFire();
+        WhaleHandler.instance.MoveToFire();
     }
 
     static bool popupDone = false;
@@ -55,13 +55,13 @@ public class MenuManager : MonoBehaviour
         playButton.GetComponent<Button>().onClick.AddListener(OnResumePressed);
         playButton.name = "RESUME";
         menuCanvas.SetActive(false);
-        CallbackHandler.instance.MoveToSaddle();
+        WhaleHandler.instance.MoveToSaddle();
     }
 
     private void OnMenuOpened()
     {
         menuCanvas.SetActive(true);
-        CallbackHandler.instance.MoveToFire();
+        WhaleHandler.instance.MoveToFire();
     }
 
     private void OnResumePressed()
@@ -71,7 +71,7 @@ public class MenuManager : MonoBehaviour
         EventHandler.instance.gameState.gamePaused = false;
         EventHandler.instance.gameState.inMenu = false;
         menuCanvas.SetActive(false);
-        CallbackHandler.instance.MoveToSaddle();
+        WhaleHandler.instance.MoveToSaddle();
     }
 
     public void OnQuitPressed()

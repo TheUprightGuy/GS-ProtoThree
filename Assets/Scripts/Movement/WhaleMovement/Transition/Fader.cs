@@ -38,8 +38,8 @@ public class Fader : MonoBehaviour
 
     public void StartExit()
     {
-        CallbackHandler.instance.PickUpMC();
-        CallbackHandler.instance.StartExit();
+        WhaleHandler.instance.PickUpMC();
+        WhaleHandler.instance.StartExit();
         FadeIn();
     }
 
@@ -48,7 +48,7 @@ public class Fader : MonoBehaviour
         CallbackHandler.instance.CutCam();
         movement.Orbit(true);
         movement.MoveCharacter();
-        CallbackHandler.instance.ShiftWhale();
+        WhaleHandler.instance.ShiftWhale();
         FadeIn();
     }
 

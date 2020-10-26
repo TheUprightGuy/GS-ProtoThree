@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4779101717316257130}
   - component: {fileID: 477208955334405083}
   - component: {fileID: 7148212495004327493}
+  - component: {fileID: 7064052640463277588}
   m_Layer: 0
   m_Name: EventHandler
   m_TagString: Untagged
@@ -48,9 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: dd23a39c12561f34687d053dbc16841e, type: 2}
-  establishingShotDuration: 11
-  menuToEstablishingDuration: 2
   stageEndCanvas: {fileID: 0}
+  establishingShotDuration: 11
+  menuToGameViewDuration: 0
+  freeRoamDuration: 60
+  freeRoamAfterLampDuration: 15
 --- !u!114 &6357579219521267809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,13 +67,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: a09941b9be664de44a4be52fd4eca349, type: 2}
-  blend: 0
-  count: 0
   blendSpeed: 0.016
   color1: {r: 0, g: 0, b: 0, a: 0}
   color2: {r: 0, g: 0, b: 0, a: 0}
   color: {r: 0, g: 0, b: 0, a: 0}
-  light: {fileID: 0}
 --- !u!114 &4779101717316257130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   whaleInfo: {fileID: 11400000, guid: 10640c6c4ae509e4fa017b4504ae6780, type: 2}
+  inShopRange: 0
 --- !u!114 &477208955334405083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,3 +119,15 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+--- !u!114 &7064052640463277588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063209704370539710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dda11adafbc6340a93d9849c6d9a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -16,13 +16,13 @@ public class HomingScript : MonoBehaviour
     #region Callbacks
     private void Start()
     {
-        CallbackHandler.instance.startHoming += StartHoming;
-        CallbackHandler.instance.startExit += StartExit;
+        WhaleHandler.instance.startHoming += StartHoming;
+        WhaleHandler.instance.startExit += StartExit;
     }
     private void OnDestroy()
     {
-        CallbackHandler.instance.startHoming -= StartHoming;
-        CallbackHandler.instance.startExit -= StartExit;
+        WhaleHandler.instance.startHoming -= StartHoming;
+        WhaleHandler.instance.startExit -= StartExit;
     }
     #endregion Callbacks
 

@@ -129,7 +129,7 @@ public class TestMovement : MonoBehaviour
     public void PlayFlute()
     {
         animator.SetBool("Flute", true);
-        CallbackHandler.instance.StartHoming(transform);
+        WhaleHandler.instance.StartHoming(transform);
         freezeMe = true;
     }
 

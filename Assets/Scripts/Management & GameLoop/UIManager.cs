@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CallbackHandler.instance.landingTooltip += LandingToggle;
+        WhaleHandler.instance.landingTooltip += LandingToggle;
         CallbackHandler.instance.toggleText += ToggleText;
         scale = landingButton.GetComponent<RectTransform>();
         ToggleText();
@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        CallbackHandler.instance.landingTooltip -= LandingToggle;
+        WhaleHandler.instance.landingTooltip -= LandingToggle;
         CallbackHandler.instance.toggleText -= ToggleText;
     }
 

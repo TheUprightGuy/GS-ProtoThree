@@ -53,7 +53,7 @@ public class LureScript : MonoBehaviour
         lerpTimer -= Time.deltaTime;
         vertLerpTimer -= Time.deltaTime;
 
-        if (!Movement.instance.player.activeSelf)
+        if (!Movement.instance.player.gameObject.activeSelf)
         {
             if (Input.GetKey(KeyCode.A))
             {

@@ -21,36 +21,19 @@ public class CallbackHandler : MonoBehaviour
         }
     }
     #endregion Singleton
-
+    #region Setup
     public WhaleInfo whaleInfo;
-
     private void OnAwake()
     {
         whaleInfo.ResetOnPlay();
     }
+    #endregion Setup
 
     private void Update()
     {
         whaleInfo.UpdateHunger(Time.deltaTime / 2);
     }
 
-    public event Action<bool> landingTooltip;
-    public void LandingTooltip(bool _toggle)
-    {
-        if (landingTooltip != null)
-        {
-            landingTooltip(_toggle);
-        }
-    }
-
-    public event Action<bool> toggleShop;
-    public void ToggleShop(bool _toggle)
-    {
-        if (toggleShop != null)
-        {
-            toggleShop(_toggle);
-        }
-    }
 
     public event Action<GameObject> setQuestObjective;
     public void SetQuestObjective(GameObject _target)
@@ -58,51 +41,6 @@ public class CallbackHandler : MonoBehaviour
         if (setQuestObjective != null)
         {
             setQuestObjective(_target);
-        }
-    }
-
-    public event Action<bool> orbit;
-    public void Orbit(bool _toggle)
-    {
-        if (orbit != null)
-        {
-            orbit(_toggle);
-        }
-    }
-
-    public event Action turnOffOrbit;
-    public void TurnOffOrbit()
-    {
-        if (turnOffOrbit != null)
-        {
-            turnOffOrbit();
-        }
-    }
-
-    public event Action moveToSaddle;
-    public void MoveToSaddle()
-    {
-        if (moveToSaddle != null)
-        {
-            moveToSaddle();
-        }
-    }
-
-    public event Action moveToFire;
-    public void MoveToFire()
-    {
-        if (moveToFire != null)
-        {
-            moveToFire();
-        }
-    }
-
-    public event Action shiftWhale;
-    public void ShiftWhale()
-    {
-        if (shiftWhale != null)
-        {
-            shiftWhale();
         }
     }
 
@@ -115,6 +53,17 @@ public class CallbackHandler : MonoBehaviour
         }
     }
 
+    #region Puzzles
+    public event Action openDoors;
+    public void OpenDoors()
+    {
+        if (openDoors != null)
+        {
+            openDoors();
+        }
+    }
+    #endregion Puzzles
+    #region ResourcePopups
     public event Action<string> supplyPopUp;
     public void SupplyPopUp(string _supplies)
     {
@@ -132,43 +81,8 @@ public class CallbackHandler : MonoBehaviour
             provisionPopUp(_provisions);
         }
     }
-
-    public event Action<Transform> startHoming;
-    public void StartHoming(Transform _player)
-    {
-        if (startHoming != null)
-        {
-            startHoming(_player);
-        }
-    }
-
-    public event Action pickUpMC;
-    public void PickUpMC()
-    {
-        if (pickUpMC != null)
-        {
-            pickUpMC();
-        }
-    }
-
-    public event Action startExit;
-    public void StartExit()
-    {
-        if (startExit != null)
-        {
-            startExit();
-        }
-    }
-
-    public event Action openDoors;
-    public void OpenDoors()
-    {
-        if (openDoors != null)
-        {
-            openDoors();
-        }
-    }
-
+    #endregion ResourcePopups
+    #region Shop
     public bool inShopRange;
 
     public event Action<Item, ShopItem> showDetails;
@@ -180,31 +94,21 @@ public class CallbackHandler : MonoBehaviour
         }
     }
 
+    public event Action<bool> toggleShop;
+    public void ToggleShop(bool _toggle)
+    {
+        if (toggleShop != null)
+        {
+            toggleShop(_toggle);
+        }
+    }
+
     public event Action hideDetails;
     public void HideDetails()
     {
         if (hideDetails != null)
         {
             hideDetails();
-        }
-    }
-
-    public event Action<string,string> setDialogue;
-    public void SetDialogue(string _speaker, string _dialogue)
-    {
-        if (setDialogue != null)
-        {
-            ToggleText();
-            setDialogue(_speaker, _dialogue);
-        }
-    }
-
-    public event Action toggleText;
-    public void ToggleText()
-    {
-        if (toggleText != null)
-        {
-            toggleText();
         }
     }
 
@@ -234,6 +138,26 @@ public class CallbackHandler : MonoBehaviour
             buyItem();
         }
     }
+    #endregion Shop
+    #region Interaction
+    public event Action<string, string> setDialogue;
+    public void SetDialogue(string _speaker, string _dialogue)
+    {
+        if (setDialogue != null)
+        {
+            ToggleText();
+            setDialogue(_speaker, _dialogue);
+        }
+    }
+
+    public event Action toggleText;
+    public void ToggleText()
+    {
+        if (toggleText != null)
+        {
+            toggleText();
+        }
+    }
 
     public event Action interact;
     public void Interact()
@@ -243,4 +167,5 @@ public class CallbackHandler : MonoBehaviour
             interact();
         }
     }
+    #endregion Interaction
 }
