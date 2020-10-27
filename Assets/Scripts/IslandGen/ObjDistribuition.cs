@@ -61,6 +61,14 @@ public class ObjData
     }
 
     public RenderingMode RenderType;
+
+    public enum RandomiserType
+    {
+        CELLED,
+        PURE
+    }
+
+    public RandomiserType Randomiser = RandomiserType.CELLED;
     
     [SerializeField]
     private List<List<ObjData>> batches;
@@ -128,10 +136,20 @@ public class ObjData
 
     public void PlaceObjMesh()
     {
-        
-
+        List<Vector3> PointList = new List<Vector3>();
         Debug.Log("Randomising Positions...");
-        List<Vector3> PointList = ReRoll();
+        switch (Randomiser)
+        {
+            case RandomiserType.CELLED:
+                PointList = ReRollCelled();
+                break;
+            case RandomiserType.PURE:
+                PointList = ReRollPure();
+                break;
+            default:
+                break;
+        }
+
         Debug.Log("Randomising Positions Done");
 
         PointList = RaycastPositions(PointList);
@@ -237,6 +255,60 @@ public class ObjData
             newMesh.CombineMeshes(item.ToArray());
             MeshCells.Add(newMesh);
         }
+    }
+
+    public List<Vector3> ReRollCelled()
+    {
+        List<Vector3> PointList = new List<Vector3>();
+
+        float stepSizeX = transform.localScale.x / density;
+        float stepSizeZ = transform.localScale.z / density;
+
+        Random.InitState(Seed);
+        for (float i = -(density / 2); i < density / 2; i++) //have inital position been in center, rather than up and left
+        {
+            for (float j = -(density / 2); j < density / 2; j++)
+            {
+                //Get random point in cell.
+                float randX = Random.Range(i * stepSizeX, (i + 1) * stepSizeX);
+                float randZ = Random.Range(j * stepSizeZ, (j + 1) * stepSizeZ);
+
+                Vector3 point = new Vector3(randX, transform.position.y, randZ);
+
+                //Apply local position
+                PointList.Add(transform.position + point);
+
+            }
+        }
+
+        return PointList;
+    }
+
+    public List<Vector3> ReRollPure()
+    {
+        List<Vector3> PointList = new List<Vector3>();
+
+        //float stepSizeX = transform.localScale.x / density;
+        //float stepSizeZ = transform.localScale.z / density;
+
+        Random.InitState(Seed);
+        for (float i = -(density / 2); i < density / 2; i++) //have inital position been in center, rather than up and left
+        {
+            for (float j = -(density / 2); j < density / 2; j++)
+            {
+                //Get random point in cell.
+                float randX = Random.Range(-(transform.localScale.x / 2), (transform.localScale.x / 2));
+                float randZ = Random.Range(-(transform.localScale.z / 2), (transform.localScale.z / 2));
+
+                Vector3 point = new Vector3(randX, 0, randZ);
+
+                //Apply local position
+                PointList.Add(transform.position + point);
+
+            }
+        }
+
+        return PointList;
     }
 
     public List<Vector3> ReRoll()
