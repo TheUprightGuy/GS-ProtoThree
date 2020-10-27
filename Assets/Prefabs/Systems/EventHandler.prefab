@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 477208955334405083}
   - component: {fileID: 7148212495004327493}
   - component: {fileID: 7064052640463277588}
+  - component: {fileID: 1763803339370181381}
   m_Layer: 0
   m_Name: EventHandler
   m_TagString: Untagged
@@ -131,3 +132,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dda11adafbc6340a93d9849c6d9a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1763803339370181381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063209704370539710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3322ffb6a07a2944b095111aa6c5f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  move: 32
+  orbit: 101
+  interact: 101
+  pickUp: 102
+  jump: 32
+  run: 304

@@ -46,7 +46,7 @@ public class MenuManager : MonoBehaviour
 
         if (!popupDone)
         {
-            PopUpHandler.instance.BasePopups(8);
+            //PopUpHandler.instance.BasePopups(8);
             popupDone = true;
         }
 

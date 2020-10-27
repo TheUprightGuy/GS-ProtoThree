@@ -44,7 +44,14 @@ public class MouseOverHighlight : MonoBehaviour
             {
                 if (!tutMessage)
                 {
-                    PopUpHandler.instance.QueuePopUp("Use your mouse to select and click items", 7);
+                    TutorialMessage shopTutorial = new TutorialMessage();
+                    shopTutorial.message = "Use your mouse to select and click items.";
+                    shopTutorial.timeout = 5.0f;
+                    shopTutorial.key = KeyCode.E;
+                    CallbackHandler.instance.AddMessage(shopTutorial);
+                    CallbackHandler.instance.NextMessage();
+
+                    //PopUpHandler.instance.QueuePopUp("Use your mouse to select and click items", 7);
                 }
                 tutMessage = true;
 

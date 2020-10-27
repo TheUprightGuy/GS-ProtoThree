@@ -168,4 +168,32 @@ public class CallbackHandler : MonoBehaviour
         }
     }
     #endregion Interaction
+
+    #region Tutorial
+    public event Action<TutorialMessage> setTutorialMessage;
+    public void SetTutorialMessage(TutorialMessage _msg)
+    {
+        if (setTutorialMessage != null)
+        {
+            ToggleText();
+            setTutorialMessage(_msg);
+        }
+    }
+    public event Action nextMessage;
+    public void NextMessage()
+    {
+        if (nextMessage != null)
+        {
+            nextMessage();
+        }
+    }
+    public event Action<TutorialMessage> addMessage;
+    public void AddMessage(TutorialMessage _msg)
+    {
+        if (addMessage != null)
+        {
+            addMessage(_msg);
+        }
+    }
+    #endregion Tutorial
 }

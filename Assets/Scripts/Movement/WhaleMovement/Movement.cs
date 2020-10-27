@@ -224,8 +224,21 @@ public class Movement : MonoBehaviour
                 WhaleHandler.instance.LandingTooltip(false);
                 if (!tutMessage)
                 {
-                    PopUpHandler.instance.QueuePopUp("Use the <b>WASD</b> keys to move around \n Press <b>Shift</b> to run", KeyCode.LeftShift);
-                    PopUpHandler.instance.QueuePopUp("When you're ready, press <b>F</b> to leave the island", 7);
+                    TutorialMessage movementTutorial = new TutorialMessage();
+                    movementTutorial.message = "Use the WASD keys to move around. \nPress Shift to run.";
+                    movementTutorial.timeout = 5.0f;
+                    movementTutorial.key = KeyCode.LeftShift;
+
+                    TutorialMessage leaveTutorial = new TutorialMessage();
+                    leaveTutorial.message = "When you're ready, press F to leave the island.";
+                    leaveTutorial.timeout = 5.0f;
+                    leaveTutorial.key = KeyCode.F;
+
+                    CallbackHandler.instance.AddMessage(movementTutorial);
+                    CallbackHandler.instance.AddMessage(leaveTutorial);
+                    CallbackHandler.instance.NextMessage();
+                    //PopUpHandler.instance.QueuePopUp("Use the <b>WASD</b> keys to move around \n Press <b>Shift</b> to run", KeyCode.LeftShift);
+                    //PopUpHandler.instance.QueuePopUp("When you're ready, press <b>F</b> to leave the island", 7);
                 }
                 tutMessage = true;
             }

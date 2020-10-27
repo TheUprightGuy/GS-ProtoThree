@@ -28,7 +28,14 @@ public class IslandSlowDown : MonoBehaviour
 
             if (!tutMessage)
             {
-                PopUpHandler.instance.QueuePopUp("Press <b>E</b> to transfer to the island", KeyCode.E);
+                TutorialMessage orbitTutorial = new TutorialMessage();
+                orbitTutorial.message = "When close enough, press E to transfer to the island.";
+                orbitTutorial.timeout = 5.0f;
+                orbitTutorial.key = KeyCode.E;
+                CallbackHandler.instance.AddMessage(orbitTutorial);
+                CallbackHandler.instance.NextMessage();
+
+                //PopUpHandler.instance.QueuePopUp("Press <b>E</b> to transfer to the island", KeyCode.E);
             }
 
 
