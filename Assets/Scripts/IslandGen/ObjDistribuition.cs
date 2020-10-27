@@ -17,7 +17,6 @@ public class ObjData
 
    
     public Matrix4x4 matrix
-
     {
         get
         {
@@ -256,7 +255,7 @@ public class ObjData
                 float randX = Random.Range(i * stepSizeX, (i + 1) * stepSizeX);
                 float randZ = Random.Range(j * stepSizeZ, (j + 1) * stepSizeZ);
 
-                Vector3 point = new Vector3(randX, transform.position.y, randZ);
+                Vector3 point = new Vector3(randX, 0, randZ);
                 
                 //Apply local position
                 PointList.Add(transform.position  + point);
