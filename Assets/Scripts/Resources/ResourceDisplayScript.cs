@@ -43,14 +43,6 @@ public class ResourceDisplayScript : MonoBehaviour
     private void Update()
     {
         // testing
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            AddSupplies(1);
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            AddProvisions(1);
-        }
     }
 
     public void DisplayResources()

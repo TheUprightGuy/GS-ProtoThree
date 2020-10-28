@@ -90,15 +90,6 @@ public class CharacterControllerScript : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            WalkTo(campFirePos);
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            WalkTo(saddlePos);
-        }
-
         UpdateAnimState();
     }
 

@@ -89,13 +89,6 @@ public class MCShopUI : MonoBehaviour
             animator.SetTrigger("Hide");
         }
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            HideDetails();
-        }
-    }
 
     public void Open()
     {

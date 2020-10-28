@@ -72,6 +72,15 @@ public class WhaleHandler : MonoBehaviour
             startExit();
         }
     }
+
+    public event Action moveWhale;
+    public void MoveWhale()
+    {
+        if (moveWhale != null)
+        {
+            moveWhale();
+        }
+    }
     #endregion Orbit
 
     /************RIDER**************/

@@ -71,12 +71,14 @@ public class Movement : MonoBehaviour
         saddle.SetActive(false);
 
         WhaleHandler.instance.pickUpMC += PickUpMC;
+        WhaleHandler.instance.moveWhale += ZeroOut;
         CallbackHandler.instance.unlockSaddle += UnlockSaddle;
         CallbackHandler.instance.addCollectableMan += UnlockNPC;
     }
     private void OnDestroy()
     {
         WhaleHandler.instance.pickUpMC -= PickUpMC;
+        WhaleHandler.instance.moveWhale -= ZeroOut;
         CallbackHandler.instance.unlockSaddle -= UnlockSaddle;
         CallbackHandler.instance.addCollectableMan -= UnlockNPC;
     }
@@ -237,7 +239,18 @@ public class Movement : MonoBehaviour
             }
         }
     }
-      
+    public void ZeroOut()
+    {
+        currentSpeed = 0.0f;
+        moveSpeed = 0.0f;
+        myTurn = 0.0f;
+        myRoll = 0.0f;
+        myPitch = 0.0f; 
+        rb.velocity = Vector3.zero;
+        desiredRoll = Vector3.zero;
+        desiredVec = new Vector3(myPitch, transform.eulerAngles.y + myTurn, transform.eulerAngles.z);
+    }
+
     public void Tutorials()
     {
         TutorialMessage movementTutorial = new TutorialMessage();
@@ -260,6 +273,7 @@ public class Movement : MonoBehaviour
         CallbackHandler.instance.AddMessage(leaveTutorial);
         CallbackHandler.instance.NextMessage();
     }
+
 
     private void FixedUpdate()
     {

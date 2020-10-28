@@ -41,6 +41,8 @@ public class TestMovement : MonoBehaviour
     public GameObject lamp;
 
     bool tutMsg;
+    float safetyTimer;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +62,21 @@ public class TestMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (freezeMe)
+        {
+            safetyTimer -= Time.deltaTime;
+            if (safetyTimer <= 0)
+            {
+                WhaleHandler.instance.MoveWhale();
+            }
+        }
+
+        // Falling
+        if (transform.position.y <= -55.0f)
+        {
+            Fader.instance.FadeOut();
+        }
+
         if (freezeMe)
         {
             rb.velocity = Vector3.zero;
@@ -104,6 +121,7 @@ public class TestMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             PlayFlute();
+            safetyTimer = 5.0f;
         }
     }
 

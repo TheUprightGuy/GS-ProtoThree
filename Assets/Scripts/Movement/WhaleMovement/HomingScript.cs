@@ -18,13 +18,20 @@ public class HomingScript : MonoBehaviour
     {
         WhaleHandler.instance.startHoming += StartHoming;
         WhaleHandler.instance.startExit += StartExit;
+        WhaleHandler.instance.moveWhale += MoveWhale;
     }
     private void OnDestroy()
     {
         WhaleHandler.instance.startHoming -= StartHoming;
         WhaleHandler.instance.startExit -= StartExit;
+        WhaleHandler.instance.moveWhale -= MoveWhale;
     }
     #endregion Callbacks
+
+    public void MoveWhale()
+    {
+        transform.position = homingPos;
+    }
 
     public void StartHoming(Transform _player)
     {
