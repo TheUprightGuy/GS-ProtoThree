@@ -38,6 +38,7 @@ public class Movement : MonoBehaviour
     public float maxSpeed = 5.0f;
     [Header("Upgrade Objects")]
     public GameObject saddle;
+    public GameObject npc;
 
     #region Local Variables
     WhaleInfo whaleInfo;
@@ -71,11 +72,13 @@ public class Movement : MonoBehaviour
 
         WhaleHandler.instance.pickUpMC += PickUpMC;
         CallbackHandler.instance.unlockSaddle += UnlockSaddle;
+        CallbackHandler.instance.addCollectableMan += UnlockNPC;
     }
     private void OnDestroy()
     {
         WhaleHandler.instance.pickUpMC -= PickUpMC;
         CallbackHandler.instance.unlockSaddle -= UnlockSaddle;
+        CallbackHandler.instance.addCollectableMan -= UnlockNPC;
     }
     #endregion Setup
     #region Upgrades
@@ -84,6 +87,10 @@ public class Movement : MonoBehaviour
         saddle.SetActive(true);
         maxSpeed = 6.5f;
         rider.transform.localPosition = rider.newSaddlePos.localPosition;
+    }
+    public void UnlockNPC()
+    {
+        npc.SetActive(true);
     }
     #endregion Upgrades
     #region PickUp&DropOff
@@ -224,27 +231,36 @@ public class Movement : MonoBehaviour
                 WhaleHandler.instance.LandingTooltip(false);
                 if (!tutMessage)
                 {
-                    TutorialMessage movementTutorial = new TutorialMessage();
-                    movementTutorial.message = "Use the WASD keys to move around. \nPress Shift to run.";
-                    movementTutorial.timeout = 5.0f;
-                    movementTutorial.key = KeyCode.LeftShift;
-
-                    TutorialMessage leaveTutorial = new TutorialMessage();
-                    leaveTutorial.message = "When you're ready, press F to leave the island.";
-                    leaveTutorial.timeout = 5.0f;
-                    leaveTutorial.key = KeyCode.F;
-
-                    CallbackHandler.instance.AddMessage(movementTutorial);
-                    CallbackHandler.instance.AddMessage(leaveTutorial);
-                    CallbackHandler.instance.NextMessage();
-                    //PopUpHandler.instance.QueuePopUp("Use the <b>WASD</b> keys to move around \n Press <b>Shift</b> to run", KeyCode.LeftShift);
-                    //PopUpHandler.instance.QueuePopUp("When you're ready, press <b>F</b> to leave the island", 7);
+                    Invoke("Tutorials", 2.0f);
+                    tutMessage = true;
                 }
-                tutMessage = true;
             }
         }
     }
       
+    public void Tutorials()
+    {
+        TutorialMessage movementTutorial = new TutorialMessage();
+        movementTutorial.message = "Use the WASD keys to move around. \nPress Shift to run.";
+        movementTutorial.timeout = 5.0f;
+        movementTutorial.key = KeyCode.LeftShift;
+
+        TutorialMessage resourceTutorial = new TutorialMessage();
+        resourceTutorial.message = "Make sure to collect resources while you're here!";
+        resourceTutorial.timeout = 5.0f;
+        resourceTutorial.key = KeyCode.E;
+
+        TutorialMessage leaveTutorial = new TutorialMessage();
+        leaveTutorial.message = "When you're ready, press F to leave the island.";
+        leaveTutorial.timeout = 5.0f;
+        leaveTutorial.key = KeyCode.F;
+
+        CallbackHandler.instance.AddMessage(movementTutorial);
+        CallbackHandler.instance.AddMessage(resourceTutorial);
+        CallbackHandler.instance.AddMessage(leaveTutorial);
+        CallbackHandler.instance.NextMessage();
+    }
+
     private void FixedUpdate()
     {
         desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);

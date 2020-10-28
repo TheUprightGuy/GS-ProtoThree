@@ -22,6 +22,7 @@ public class MouseOverHighlight : MonoBehaviour
     public PuzzleSwitch highlightedSwitch;
     public ShopItem highlightedShopItem;
     public ShopOwner shopOwner;
+    public CollectableMan collectableMan;
 
 
     static bool tutMessage = false;
@@ -32,6 +33,7 @@ public class MouseOverHighlight : MonoBehaviour
         highlightedSwitch = null;
         highlightedShopItem = null;
         shopOwner = null;
+        collectableMan = null;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity, layerMask);
@@ -62,6 +64,10 @@ public class MouseOverHighlight : MonoBehaviour
             {
                 shopOwner = n.collider.gameObject.GetComponent<ShopOwner>();
             }
+            if (!n.collider.isTrigger && n.collider.gameObject.GetComponent<CollectableMan>())
+            {
+                collectableMan = n.collider.gameObject.GetComponent<CollectableMan>();
+            }
             if (tempSwitch)
             {
                 highlightedSwitch = tempSwitch;
@@ -87,6 +93,10 @@ public class MouseOverHighlight : MonoBehaviour
             if (shopOwner)
             {
                 shopOwner.Talk();
+            }
+            if (collectableMan)
+            {
+                collectableMan.Talk();
             }
         }
     }

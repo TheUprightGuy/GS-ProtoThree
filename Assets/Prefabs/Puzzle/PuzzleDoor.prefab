@@ -43852,6 +43852,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9005994372800181138}
   - component: {fileID: 9005994372800181139}
+  - component: {fileID: 7359983580317207964}
+  - component: {fileID: 2858841105776828805}
   m_Layer: 0
   m_Name: PuzzleDoor
   m_TagString: Untagged
@@ -43893,6 +43895,31 @@ MonoBehaviour:
   door1: {fileID: 7850840630588727218}
   door2: {fileID: 7850840630867874716}
   doorPFX: {fileID: 3710526107299867101}
+--- !u!65 &7359983580317207964
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9005994372800181164}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.3787518, y: 3.2036455, z: 3.7264984}
+  m_Center: {x: -1.3426111, y: -0.054076865, z: -0.11598394}
+--- !u!114 &2858841105776828805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9005994372800181164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b862dde2fd2a84796b22b0ecb5a9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9017817017382954298
 GameObject:
   m_ObjectHideFlags: 0

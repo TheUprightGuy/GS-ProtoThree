@@ -42,7 +42,7 @@ public class ThoughtsScript : MonoBehaviour
     private void Update()
     {
         // Feed Whale
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        /*if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (ResourceDisplayScript.instance.SpendProvisions(1))
             {
@@ -74,7 +74,7 @@ public class ThoughtsScript : MonoBehaviour
         if (thoughtTimer <= 0)
         {
             SetThought(Thought.Music);
-        }
+        }*/
     }
 
     public void SetThought(Thought _thought)

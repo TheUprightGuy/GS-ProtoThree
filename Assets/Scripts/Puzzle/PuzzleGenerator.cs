@@ -33,6 +33,7 @@ namespace Puzzle
             disabled = false;
             GeneratePath();
             _currentType = 0;
+            RestartPos += transform.position;
         }
 
         private void GeneratePath()

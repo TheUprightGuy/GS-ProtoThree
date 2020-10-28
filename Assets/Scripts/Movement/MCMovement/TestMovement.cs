@@ -40,6 +40,8 @@ public class TestMovement : MonoBehaviour
     public Camera cam;
     public GameObject lamp;
 
+    bool tutMsg;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -131,6 +133,24 @@ public class TestMovement : MonoBehaviour
         animator.SetBool("Flute", true);
         WhaleHandler.instance.StartHoming(transform);
         freezeMe = true;
+
+        if (!tutMsg)
+        {
+            Invoke("LanternTutorial", 2.0f);
+            // Change Objective Here
+            tutMsg = true;
+        }
+    }
+
+    public void LanternTutorial()
+    {
+        TutorialMessage lanternTutorial = new TutorialMessage();
+        lanternTutorial.message = "Those clouds look pretty heavy, maybe something at the shop could help?";
+        lanternTutorial.timeout = 5.0f;
+        lanternTutorial.key = KeyCode.E;
+
+        CallbackHandler.instance.AddMessage(lanternTutorial);
+        CallbackHandler.instance.NextMessage();
     }
 
     public void Interact()

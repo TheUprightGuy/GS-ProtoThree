@@ -49,6 +49,10 @@ public class MCShopUI : MonoBehaviour
     public TMPro.TextMeshProUGUI resourceCount;
     public Button buyButton;
 
+    bool tutMsg;
+    Color valid = new Color(1.0f, 1.0f, 1.0f, 0.2f);
+    Color invalid = new Color(1.0f, 0.0f, 0.0f, 0.2f);
+
 
     public void ShowDetails(Item _item, ShopItem _shopItem)
     {
@@ -74,7 +78,7 @@ public class MCShopUI : MonoBehaviour
         description.SetText(item.description);
         image.sprite = item.image;
 
-        buyButton.GetComponent<Image>().color = (ResourceDisplayScript.instance.supplies < item.cost) ? Color.red : Color.white;
+        buyButton.GetComponent<Image>().color = (ResourceDisplayScript.instance.supplies < item.cost) ? invalid : valid;
     }
 
     public void HideDetails()
@@ -112,6 +116,19 @@ public class MCShopUI : MonoBehaviour
             {
                 if (ResourceDisplayScript.instance.SpendSupplies(2))
                 {
+                    if (!tutMsg)
+                    {
+                        TutorialMessage cloudTutorial = new TutorialMessage();
+                        cloudTutorial.message = "Hey, I've never noticed that island before.";
+                        cloudTutorial.timeout = 5.0f;
+                        cloudTutorial.key = KeyCode.E;
+                        // CHANGE OBJECTIVE HERE
+
+                        CallbackHandler.instance.AddMessage(cloudTutorial);
+                        CallbackHandler.instance.NextMessage();
+                        tutMsg = true;
+                    }
+
                     CallbackHandler.instance.ToggleLamp(true);
                     Destroy(shopItem.gameObject);
                 }

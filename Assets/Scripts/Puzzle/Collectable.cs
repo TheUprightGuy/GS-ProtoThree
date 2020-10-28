@@ -7,10 +7,6 @@ using UnityEngine;
 public class Collectable : MonoBehaviour
 {
     public PuzzleGenerator puzzleGenerator;
-    void Update()
-    {
-        transform.Rotate(0f, 1f, 0f, Space.World);
-    }
 
     private void OnTriggerEnter(Collider other)
     {

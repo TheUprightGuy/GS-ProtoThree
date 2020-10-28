@@ -170,6 +170,14 @@ public class CallbackHandler : MonoBehaviour
     #endregion Interaction
 
     #region Tutorial
+    public event Action startTutorial;
+    public void StartTutorial()
+    {
+        if (startTutorial != null)
+        {
+            startTutorial();
+        }
+    }
     public event Action<TutorialMessage> setTutorialMessage;
     public void SetTutorialMessage(TutorialMessage _msg)
     {
@@ -193,6 +201,14 @@ public class CallbackHandler : MonoBehaviour
         if (addMessage != null)
         {
             addMessage(_msg);
+        }
+    }
+    public event Action addCollectableMan;
+    public void AddCollectableMan()
+    {
+        if (addCollectableMan != null)
+        {
+            addCollectableMan();
         }
     }
     #endregion Tutorial
