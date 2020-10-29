@@ -15,6 +15,7 @@ public class CirclePuzzle : MonoBehaviour
     [HideInInspector] public float speed;
 
     public List<CircleSymbol> sharedObjects;
+    public RingPFX ringPFX;
 
     public void Rotate()
     {
@@ -29,6 +30,7 @@ public class CirclePuzzle : MonoBehaviour
             rotato = 0;
             rotating = true;
             parent.inUse = true;
+            ringPFX.StartPFX();
         }
     }
 
@@ -48,6 +50,7 @@ public class CirclePuzzle : MonoBehaviour
                 parent.inUse = false;
                 parent.CheckComplete();
                 transform.position -= Vector3.up * 0.01f;
+                ringPFX.StopPFX();
             }
         }
     }
