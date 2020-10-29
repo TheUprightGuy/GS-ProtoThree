@@ -46,8 +46,9 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Resources/ResourceCollector.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameLoopStuff/EventHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Menu/Menu.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/CameraJacob/CinematicController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/MenuManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/CameraJacob/CinematicController.cs" />
       </list>
     </option>
   </component>
@@ -101,6 +102,8 @@
       <workItem from="1600913169198" duration="4289000" />
       <workItem from="1601506813852" duration="12304000" />
       <workItem from="1603332460989" duration="5364000" />
+      <workItem from="1603426118556" duration="2000" />
+      <workItem from="1603426304011" duration="536000" />
     </task>
     <servers />
   </component>

@@ -9,6 +9,8 @@
       <e p="Assets" t="Include">
         <e p="CameraBrainScript.cs" t="Include" />
         <e p="CollectableResource.cs" t="Include" />
+        <e p="ColliderContainer.cs" t="Include" />
+        <e p="CompassRotation.cs" t="Include" />
         <e p="DialogueScript.cs" t="Include" />
         <e p="DoorPFX.cs" t="Include" />
         <e p="DoorRotationScript.cs" t="Include" />
@@ -196,6 +198,7 @@
           <e p="UnlitTransparent.shader" t="Include" />
         </e>
         <e p="ShopItem.cs" t="Include" />
+        <e p="ShopOwner.cs" t="Include" />
         <e p="ShopRadius.cs" t="Include" />
         <e p="SlidingDoorScript.cs" t="Include" />
         <e p="StartMenuHighlight.cs" t="Include" />

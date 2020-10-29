@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   masterVolume: 1
+  defaultVolume: 0
   randomlyCycleMusic: 1
   playAmbientSounds: 1
   ambientSoundTimerMin: 30
@@ -74,7 +75,8 @@ AudioSource:
   m_GameObject: {fileID: 178910286826226467}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: dbf9485d6ef14a342bb868c49599feec,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.3
@@ -494,7 +496,8 @@ AudioSource:
   m_GameObject: {fileID: 9047977919145640804}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: dbf9485d6ef14a342bb868c49599feec,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: b893158b7ad985248a2db0da0f55f88e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
