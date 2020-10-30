@@ -70,7 +70,7 @@ public class EventHandler : MonoBehaviour
         }
         //Don't check if it's already been highlighted
         if (gameState.objectivesHighlighted.Contains(index)) yield break;
-        Debug.Log("Highlighting shop");
+        Debug.Log("Highlighting objective at index: " + index);
         gameState.objectivesHighlighted.Add(index);
         CinematicController.instance.currentObjectiveIndex = index;
         startEstablishingShot?.Invoke();

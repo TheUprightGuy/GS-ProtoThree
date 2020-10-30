@@ -35,12 +35,19 @@ public class CinematicController : MonoBehaviour
     //2 is final objective
     //3 is switch puzzle objective
     //4 is opened door
-    public List<Transform> objectivesSorted;
+    public List<ObjectiveData> objectives;
     public int currentObjectiveIndex;
 
+    public struct ObjectiveData
+    {
+        public Transform lookAt;
+        public Transform moveTo;
+        public int index;
+    }
     public void OnAwake()
     {
         currentObjectiveIndex = 0;
+        objectives = new List<ObjectiveData>();
     }
 
     // Start is called before the first frame update
@@ -88,21 +95,29 @@ public class CinematicController : MonoBehaviour
     
     private void OnStartEstablishingShot()
     {
-        //Set quest objective
-        CallbackHandler.instance.SetQuestObjective(objectivesSorted[currentObjectiveIndex].gameObject);
+        //Find objective with current index
+        foreach (var objectiveData in objectives)
+        {
+            if (objectiveData.index == currentObjectiveIndex)
+            {
+                //Set quest objective
+                CallbackHandler.instance.SetQuestObjective(objectiveData.lookAt.gameObject);
+                
+                var lookAtObj = 
+                    BlendLists[0].ChildCameras[1];
+                lookAtObj.Follow = whaleTransform;
+                lookAtObj.LookAt = objectives[currentObjectiveIndex].lookAt;
         
-        var lookAtObj = 
-            BlendLists[0].ChildCameras[1];
-        lookAtObj.Follow = whaleTransform;
-        lookAtObj.LookAt = objectivesSorted[currentObjectiveIndex];
+                var moveToObj = 
+                    BlendLists[0].GetComponent<CinemachineBlendListCamera>().ChildCameras[2];
+                moveToObj.Follow = objectives[currentObjectiveIndex].moveTo;
+                moveToObj.LookAt = objectives[currentObjectiveIndex].lookAt;
         
-        var moveToObj = 
-            BlendLists[0].GetComponent<CinemachineBlendListCamera>().ChildCameras[2];
-        moveToObj.Follow = objectivesSorted[currentObjectiveIndex];
-        moveToObj.LookAt = objectivesSorted[currentObjectiveIndex];
-        
-        BlendLists[0].gameObject.SetActive(true);
-        EventHandler.instance.gameState.inCinematic = true;
+                BlendLists[0].gameObject.SetActive(true);
+                EventHandler.instance.gameState.inCinematic = true;
+                break;
+            }
+        }
     }
     
     private void OnEndEstablishingShot()
