@@ -53,6 +53,15 @@ public class CallbackHandler : MonoBehaviour
         }
     }
 
+    public event Action lerpCam;
+    public void LerpCam()
+    {
+        if (lerpCam != null)
+        {
+            lerpCam();
+        }
+    }
+
     #region Puzzles
     public event Action openDoors;
     public void OpenDoors()

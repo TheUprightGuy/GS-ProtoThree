@@ -57,12 +57,16 @@ public class MenuManager : MonoBehaviour
         playButton.name = "RESUME";
         menuCanvas.SetActive(false);
         WhaleHandler.instance.MoveToSaddle();
+
+        CompassRotation.instance.Show();
     }
 
     private void OnMenuOpened()
     {
         menuCanvas.SetActive(true);
         WhaleHandler.instance.MoveToFire();
+
+        CompassRotation.instance.Hide();
     }
 
     private void OnResumePressed()
@@ -73,6 +77,8 @@ public class MenuManager : MonoBehaviour
         EventHandler.instance.gameState.inMenu = false;
         menuCanvas.SetActive(false);
         WhaleHandler.instance.MoveToSaddle();
+
+        CompassRotation.instance.Show();
     }
 
     public void OnQuitPressed()

@@ -16,11 +16,14 @@ public class CompassRotation : MonoBehaviour
         else
         {
             instance = this;
+            animator = GetComponent<Animator>();
         }
     }
     #endregion Singleton
 
     Camera cam;
+    Animator animator;
+    public Animator arrowAnimator;
 
     public Transform whale;
     public Transform goal;
@@ -47,5 +50,28 @@ public class CompassRotation : MonoBehaviour
         angle = -Vector3.SignedAngle(forwardVec, dirToGoal, Vector3.up) - cam.transform.localRotation.eulerAngles.y;
         
         objective.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, angle));
+    }
+
+    public void Show()
+    {
+        ResetTriggers();
+
+        animator.SetTrigger("Show");
+        arrowAnimator.SetTrigger("Show");
+    }
+    public void Hide()
+    {
+        ResetTriggers();
+
+        animator.SetTrigger("Hide");
+        arrowAnimator.SetTrigger("Hide");
+    }
+
+    void ResetTriggers()
+    {
+        animator.ResetTrigger("Show");
+        animator.ResetTrigger("Hide");
+        arrowAnimator.ResetTrigger("Show");
+        arrowAnimator.ResetTrigger("Hide");
     }
 }

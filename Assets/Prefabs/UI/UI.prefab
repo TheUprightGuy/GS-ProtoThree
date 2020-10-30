@@ -1207,6 +1207,7 @@ GameObject:
   - component: {fileID: 7811446715571972880}
   - component: {fileID: 5432923105830083518}
   - component: {fileID: 397890802181787109}
+  - component: {fileID: 6932228147458645720}
   m_Layer: 5
   m_Name: MiniMapBG
   m_TagString: Untagged
@@ -1293,6 +1294,25 @@ MonoBehaviour:
   dirToGoal: {x: 0, y: 0, z: 0}
   pointDir: {x: 0, y: 0, z: 0}
   angle: 0
+--- !u!95 &6932228147458645720
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8008518733765447866}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ed6ca14ead79e8749a956d077a393e37, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8300195707409067817
 GameObject:
   m_ObjectHideFlags: 0

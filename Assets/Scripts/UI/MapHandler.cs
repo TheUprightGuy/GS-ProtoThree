@@ -109,6 +109,9 @@ public class MapHandler : MonoBehaviour
 
             ActiveObjectiveIndex = ObjectiveIndex;
 
+            Objectives[ActiveObjectiveIndex].ObjectiveMarkerOnMap.active = true;
+            Objectives[ActiveObjectiveIndex].ObjectivePointerOnRing.active = true;
+
             Transform GoalTransform = Objectives[ActiveObjectiveIndex].ObjectiveTransformInWorld;
             CompassRotation.instance.goal = GoalTransform;
             

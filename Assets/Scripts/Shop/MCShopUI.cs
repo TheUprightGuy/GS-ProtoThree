@@ -148,6 +148,7 @@ public class MCShopUI : MonoBehaviour
             }
         }
 
+        HideDetails();
         CallbackHandler.instance.BuyItem();
     }
 }

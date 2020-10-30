@@ -84,6 +84,8 @@ public class EventHandler : MonoBehaviour
         {
             yield return new WaitForSeconds(10f);    //Wait for the player to resume before highlighting the objective
         }
+
+        CallbackHandler.instance.LerpCam();
         CinematicController.instance.StartCinematicShot(target);
         gameState.gamePaused = true;
         StartCoroutine(WaitForEstablishingShot());

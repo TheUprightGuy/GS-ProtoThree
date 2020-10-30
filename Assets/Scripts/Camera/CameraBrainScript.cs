@@ -13,14 +13,21 @@ public class CameraBrainScript : MonoBehaviour
     void Start()
     {
         CallbackHandler.instance.cutCam += CutCam;
+        CallbackHandler.instance.lerpCam += LerpCam;
     }
     private void OnDestroy()
     {
         CallbackHandler.instance.cutCam -= CutCam;
+        CallbackHandler.instance.lerpCam -= LerpCam;
     }
 
     public void CutCam()
     {
         brain.m_DefaultBlend.m_Time = 0;
+    }
+
+    public void LerpCam()
+    {
+        brain.m_DefaultBlend.m_Time = 1.0f;
     }
 }
