@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3797329707699858710}
   - component: {fileID: 3797329707699858713}
   - component: {fileID: 3797329707699858712}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: White
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,9 +121,9 @@ GameObject:
   - component: {fileID: 3797329707854752406}
   - component: {fileID: 3797329707854752409}
   - component: {fileID: 3797329707854752408}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gray
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 3797329707861175947}
   - component: {fileID: 3797329707861175945}
   - component: {fileID: 3797329707861175944}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OuterRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4990,7 +4990,7 @@ GameObject:
   - component: {fileID: 3797329708023720282}
   - component: {fileID: 3797329708023720280}
   - component: {fileID: 3797329708023720283}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OuterRing (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9753,7 +9753,7 @@ GameObject:
   - component: {fileID: 3797329708058733058}
   - component: {fileID: 3797329708058733056}
   - component: {fileID: 3797329708058733059}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OuterRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14515,7 +14515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3797329708073592463}
   - component: {fileID: 3797329708073592460}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovementPFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14561,9 +14561,9 @@ GameObject:
   - component: {fileID: 3797329708121487324}
   - component: {fileID: 3797329708121487322}
   - component: {fileID: 3797329708121487325}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (10)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14642,9 +14642,9 @@ GameObject:
   - component: {fileID: 3797329708163120321}
   - component: {fileID: 3797329708163120320}
   - component: {fileID: 3797329708163120383}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: White
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14750,9 +14750,9 @@ GameObject:
   - component: {fileID: 3797329708169666837}
   - component: {fileID: 3797329708169666836}
   - component: {fileID: 3797329708169666839}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: White
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14858,9 +14858,9 @@ GameObject:
   - component: {fileID: 3797329708177596789}
   - component: {fileID: 3797329708177596788}
   - component: {fileID: 3797329708177596791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gray
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14963,7 +14963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3797329708193516360}
   - component: {fileID: 3797329708193516363}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovementPFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15009,9 +15009,9 @@ GameObject:
   - component: {fileID: 3797329708195361051}
   - component: {fileID: 3797329708195361049}
   - component: {fileID: 3797329708195361048}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (6)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15088,9 +15088,9 @@ GameObject:
   - component: {fileID: 3797329708250098458}
   - component: {fileID: 3797329708250098456}
   - component: {fileID: 3797329708250098459}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (4)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15169,9 +15169,9 @@ GameObject:
   - component: {fileID: 3797329708281499139}
   - component: {fileID: 3797329708281499138}
   - component: {fileID: 3797329708281499137}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Black
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15275,9 +15275,9 @@ GameObject:
   - component: {fileID: 3797329708312797059}
   - component: {fileID: 3797329708312797057}
   - component: {fileID: 3797329708312797056}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (5)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15358,9 +15358,9 @@ GameObject:
   - component: {fileID: 3797329708394644256}
   - component: {fileID: 3797329708394644260}
   - component: {fileID: 3797329708394644263}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: North
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15506,7 +15506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3797329708406283921}
   - component: {fileID: 3797329708406283918}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cross
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15588,9 +15588,9 @@ GameObject:
   - component: {fileID: 3797329708467302872}
   - component: {fileID: 3797329708467302870}
   - component: {fileID: 3797329708467302873}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (7)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15669,9 +15669,9 @@ GameObject:
   - component: {fileID: 3797329708477334532}
   - component: {fileID: 3797329708477334535}
   - component: {fileID: 3797329708477334534}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: White
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15777,9 +15777,9 @@ GameObject:
   - component: {fileID: 3797329708495445936}
   - component: {fileID: 3797329708495445939}
   - component: {fileID: 3797329708495445938}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gray
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15883,9 +15883,9 @@ GameObject:
   - component: {fileID: 3797329708496239316}
   - component: {fileID: 3797329708496239314}
   - component: {fileID: 3797329708496239317}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (9)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15962,7 +15962,7 @@ GameObject:
   - component: {fileID: 3797329708520260869}
   - component: {fileID: 3797329708520260867}
   - component: {fileID: 3797329708520260866}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OuterRing (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20727,9 +20727,9 @@ GameObject:
   - component: {fileID: 3797329708744407684}
   - component: {fileID: 3797329708744407687}
   - component: {fileID: 3797329708744407682}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Black
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20833,9 +20833,9 @@ GameObject:
   - component: {fileID: 3797329708794756298}
   - component: {fileID: 3797329708794756296}
   - component: {fileID: 3797329708794756299}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (8)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20914,9 +20914,9 @@ GameObject:
   - component: {fileID: 3797329708833527853}
   - component: {fileID: 3797329708833527852}
   - component: {fileID: 3797329708833527855}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Black
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21024,9 +21024,9 @@ GameObject:
   - component: {fileID: 3797329708862646855}
   - component: {fileID: 3797329708862646850}
   - component: {fileID: 3797329708862646853}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: West
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21171,9 +21171,9 @@ GameObject:
   - component: {fileID: 3797329708942418663}
   - component: {fileID: 3797329708942418661}
   - component: {fileID: 3797329708942418660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (2)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21249,7 +21249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3797329708981313022}
   - component: {fileID: 3797329708981313023}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: moon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21333,9 +21333,9 @@ GameObject:
   - component: {fileID: 3797329709007719076}
   - component: {fileID: 3797329709007719079}
   - component: {fileID: 3797329709007719074}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gray
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21438,7 +21438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3797329709009190612}
   - component: {fileID: 3797329709009190613}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21520,7 +21520,7 @@ GameObject:
   - component: {fileID: 3797329709026899012}
   - component: {fileID: 3797329709026899010}
   - component: {fileID: 3797329709026899013}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OuterRing (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26287,9 +26287,9 @@ GameObject:
   - component: {fileID: 3797329709113585223}
   - component: {fileID: 3797329709113585219}
   - component: {fileID: 3797329709113585222}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: South
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26436,7 +26436,7 @@ GameObject:
   - component: {fileID: 3797329709182985735}
   - component: {fileID: 3797329709182985733}
   - component: {fileID: 3797329709182985732}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OuterRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31199,9 +31199,9 @@ GameObject:
   - component: {fileID: 3797329709219377920}
   - component: {fileID: 3797329709219377982}
   - component: {fileID: 3797329709219377921}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (3)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31278,9 +31278,9 @@ GameObject:
   - component: {fileID: 3797329709239671233}
   - component: {fileID: 3797329709239671295}
   - component: {fileID: 3797329709239671294}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31356,7 +31356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3797329709383692759}
   - component: {fileID: 3797329709383692758}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovementPFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31404,9 +31404,9 @@ GameObject:
   - component: {fileID: 3797329709447243526}
   - component: {fileID: 3797329709447243529}
   - component: {fileID: 3797329709447243528}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Black
-  m_TagString: Circle
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31531,6 +31531,7 @@ Transform:
   - {fileID: 3797329709113585225}
   - {fileID: 3797329708862646852}
   - {fileID: 3797329709621962363}
+  - {fileID: 8745280975793463660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31564,9 +31565,9 @@ GameObject:
   - component: {fileID: 3797329709571790359}
   - component: {fileID: 3797329709571790357}
   - component: {fileID: 3797329709571790356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (11)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31643,7 +31644,7 @@ GameObject:
   - component: {fileID: 3797329709606682928}
   - component: {fileID: 3797329709606682926}
   - component: {fileID: 3797329709606682929}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OuterRing (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36410,9 +36411,9 @@ GameObject:
   - component: {fileID: 3797329709621962361}
   - component: {fileID: 3797329709621962362}
   - component: {fileID: 3797329709621962360}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: East
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36557,9 +36558,9 @@ GameObject:
   - component: {fileID: 3797329709685526912}
   - component: {fileID: 3797329709685526974}
   - component: {fileID: 3797329709685526913}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Q_circle (1)
-  m_TagString: Untagged
+  m_TagString: GEZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36635,7 +36636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3797329709727837133}
   - component: {fileID: 3797329709727837130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cross
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36706,6 +36707,99 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &3798502034502987592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8745280975793463660}
+  - component: {fileID: 322246809873873516}
+  - component: {fileID: 4184614818064193262}
+  - component: {fileID: 5366330063078674555}
+  m_Layer: 8
+  m_Name: Sphere
+  m_TagString: GEZone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8745280975793463660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798502034502987592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.022, y: 0, z: -0.025}
+  m_LocalScale: {x: 6.5560746, y: 0.99999964, z: 6.458405}
+  m_Children: []
+  m_Father: {fileID: 3797329709469696392}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &322246809873873516
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798502034502987592}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &4184614818064193262
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798502034502987592}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!135 &5366330063078674555
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3798502034502987592}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6105142596050562515
 GameObject:
   m_ObjectHideFlags: 0
@@ -36716,7 +36810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6114294107074420166}
   - component: {fileID: 6105142596050562512}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovementPFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36762,7 +36856,7 @@ GameObject:
   - component: {fileID: 5751194923550642088}
   - component: {fileID: 7903505848205993088}
   - component: {fileID: 7736870035426853403}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OuterRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
