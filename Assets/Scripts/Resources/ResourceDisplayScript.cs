@@ -31,6 +31,7 @@ public class ResourceDisplayScript : MonoBehaviour
     //public ResourceFeedBack rfb;
     public List<GameObject> supplyObjs;
     public List<GameObject> provisionObjs;
+    public bool tut;
 
     private void Start()
     {
@@ -94,6 +95,13 @@ public class ResourceDisplayScript : MonoBehaviour
 
     public void AddSupplies(int _supplies)
     {
+        if (!tut)
+        {
+            MapHandler.instance.SetActiveObjective(1);
+            // Update Objective Here
+            tut = true;
+        }
+
         supplies += _supplies;
         if (supplies > suppliesMax)
         {
@@ -111,6 +119,13 @@ public class ResourceDisplayScript : MonoBehaviour
 
     public void AddProvisions(int _provisions)
     {
+        if (!tut)
+        {
+            MapHandler.instance.SetActiveObjective(1);
+            // Update Objective Here
+            tut = true;
+        }
+
         provisions += _provisions;
         if (provisions > provisionsMax)
         {

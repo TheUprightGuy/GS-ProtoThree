@@ -15,6 +15,22 @@ public class ObjectiveTrackers
 }
 public class MapHandler : MonoBehaviour
 {
+    #region Singleton
+    public static MapHandler instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogError("More than one Map Handler Exists!");
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion Singleton
+
     [Header("World Corners")]
     public Vector2 WorldTopLeft = Vector3.zero;
     public Vector2 WorldBottomRight = Vector2.one;
@@ -92,6 +108,8 @@ public class MapHandler : MonoBehaviour
             Objectives[ActiveObjectiveIndex].ObjectivePointerOnRing.active = false;
 
             ActiveObjectiveIndex = ObjectiveIndex;
+
+            CompassRotation.instance.goal = Objectives[ActiveObjectiveIndex].ObjectiveTransformInWorld;
             return true;
         }
         return false;

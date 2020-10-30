@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class CompassRotation : MonoBehaviour
 {
+    #region Singleton
+    public static CompassRotation instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogError("More than one Compass Exists!");
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion Singleton
+
     Camera cam;
 
     public Transform whale;

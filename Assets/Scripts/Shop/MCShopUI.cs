@@ -115,7 +115,9 @@ public class MCShopUI : MonoBehaviour
                         cloudTutorial.message = "Hey, I've never noticed that island before.";
                         cloudTutorial.timeout = 5.0f;
                         cloudTutorial.key = KeyCode.E;
+
                         // CHANGE OBJECTIVE HERE
+                        MapHandler.instance.SetActiveObjective(2);
 
                         CallbackHandler.instance.AddMessage(cloudTutorial);
                         CallbackHandler.instance.NextMessage();
