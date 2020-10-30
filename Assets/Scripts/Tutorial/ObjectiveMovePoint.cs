@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ObjectiveMovePoint : MonoBehaviour
 {
+    public Transform moveToTransform;
     public Transform lookAtTransform;
     public int ObjectiveIndex;
+    public CinematicController.ObjectiveData objectiveData;
     void Start()
     {
-        var objectiveData = new CinematicController.ObjectiveData
+        objectiveData = new CinematicController.ObjectiveData
         {
-            moveTo = transform, lookAt = lookAtTransform, index = ObjectiveIndex
+            moveTo = moveToTransform, lookAt = lookAtTransform, index = ObjectiveIndex
         };
         CinematicController.instance.objectives.Add(objectiveData);
     }

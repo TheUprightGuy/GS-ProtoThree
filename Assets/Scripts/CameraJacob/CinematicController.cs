@@ -29,13 +29,14 @@ public class CinematicController : MonoBehaviour
     [Header("Cinematic Blend List Cameras")]
     public List<CinemachineBlendListCamera> BlendLists;
     public Transform whaleTransform;
+    public Transform playerTransform;
     //Objectives order (object of focus in cinematic):
     //0 is Shop objective
     //1 is island objective
     //2 is final objective
     //3 is switch puzzle objective
     //4 is opened door
-    public List<ObjectiveData> objectives;
+    public List<ObjectiveData> objectives;    //Old system, currently using map objectives
     public int currentObjectiveIndex;
 
     public struct ObjectiveData
@@ -120,9 +121,40 @@ public class CinematicController : MonoBehaviour
         }
     }
     
+    public void StartCinematicShot(GameObject target)
+    {
+        var objective = target.GetComponent<ObjectiveMovePoint>();
+        var objData = objective.objectiveData;
+                
+        var gameView =  
+            BlendLists[0].ChildCameras[0];
+        
+        var lookAtObj = 
+            BlendLists[0].ChildCameras[1];
+        if (EventHandler.instance.gameState.playerOnIsland)
+        {
+            gameView.Follow = playerTransform;
+            lookAtObj.Follow = playerTransform;
+        }
+        else
+        {
+            gameView.Follow = whaleTransform;
+            lookAtObj.Follow = whaleTransform;
+        }
+        lookAtObj.LookAt = objData.lookAt;
+        
+        var moveToObj = 
+            BlendLists[0].GetComponent<CinemachineBlendListCamera>().ChildCameras[2];
+        moveToObj.Follow = objData.moveTo;
+        moveToObj.LookAt = objData.lookAt;
+
+        BlendLists[0].Priority = 11;
+        EventHandler.instance.gameState.inCinematic = true;
+    }
+    
     private void OnEndEstablishingShot()
     {
-        BlendLists[0].gameObject.SetActive(false);
+        BlendLists[0].Priority = 0;
         EventHandler.instance.gameState.inCinematic = false;
     }
 }

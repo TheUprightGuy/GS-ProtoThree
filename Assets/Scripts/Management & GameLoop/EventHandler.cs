@@ -77,6 +77,17 @@ public class EventHandler : MonoBehaviour
         gameState.gamePaused = true;
         StartCoroutine(WaitForEstablishingShot());
     }
+    
+    public IEnumerator HighlightObjective(GameObject target)
+    {
+        while (gameState.gamePaused)
+        {
+            yield return new WaitForSeconds(10f);    //Wait for the player to resume before highlighting the objective
+        }
+        CinematicController.instance.StartCinematicShot(target);
+        gameState.gamePaused = true;
+        StartCoroutine(WaitForEstablishingShot());
+    }
 
     public void OnPlayPressed()
     {
@@ -104,8 +115,10 @@ public class EventHandler : MonoBehaviour
         yield return new WaitForSeconds(menuToGameViewDuration);
         gameState.gamePaused = false;
         gameStart?.Invoke();
+        /*
         yield return new WaitForSeconds(freeRoamDuration);
         StartCoroutine(HighlightObjective(0));    //Highlight shop objective
+        */
     }
 
     private IEnumerator WaitForEstablishingShot()

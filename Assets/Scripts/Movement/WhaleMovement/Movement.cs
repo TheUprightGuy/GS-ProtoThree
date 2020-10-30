@@ -105,6 +105,7 @@ public class Movement : MonoBehaviour
         player.transform.position = cachedPosition;
         followCamera.enabled = false;
         player.freezeMe = false;
+        EventHandler.instance.gameState.playerOnIsland = true;
     }
     public void PickUpMC()
     {
@@ -120,6 +121,7 @@ public class Movement : MonoBehaviour
         orbit.leashObject.GetComponent<MeshCollider>().convex = true;
         followCamera.enabled = true;
         WhaleHandler.instance.MoveToSaddle();
+        EventHandler.instance.gameState.playerOnIsland = false;
     }
     #endregion PickUp&DropOff
     // Update is called once per frame
