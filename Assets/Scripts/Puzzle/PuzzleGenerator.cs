@@ -167,11 +167,34 @@ namespace Puzzle
         public void FoundCollectable()
         {
             disabled = true;
+            cam.m_Priority = 0;
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.DrawSphere(RestartPos, 1.0f);
+        }
+
+        public Cinemachine.CinemachineVirtualCamera cam;
+        private void OnTriggerEnter(Collider other)
+        {
+            TestMovement player = other.GetComponent<TestMovement>();
+            if (player && !disabled)
+            {
+                CallbackHandler.instance.LerpCam();
+                cam.m_Priority = 20;
+                // switch to fixed cam;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            TestMovement player = other.GetComponent<TestMovement>();
+            if (player)
+            {
+                cam.m_Priority = 0;
+                // switch to normal cam;
+            }
         }
     }
 }

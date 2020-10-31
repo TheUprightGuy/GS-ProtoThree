@@ -23,7 +23,8 @@ public class SwitchPuzzleMaster : MonoBehaviour
     public Material off;
     public bool complete;
     public UnityEvent CompletionEvent;
-    
+    public Cinemachine.CinemachineVirtualCamera cam;
+
     private void Start()
     {
         foreach (Transform n in transform)
@@ -56,7 +57,29 @@ public class SwitchPuzzleMaster : MonoBehaviour
                 return false;
             }
         }
+        cam.m_Priority = 0;
         complete = true;
         return true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        TestMovement player = other.GetComponent<TestMovement>();
+        if (player && !complete)
+        {
+            CallbackHandler.instance.LerpCam();
+            cam.m_Priority = 20;
+            // switch to fixed cam;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        TestMovement player = other.GetComponent<TestMovement>();
+        if (player)
+        {
+            cam.m_Priority = 0;
+            // switch to normal cam;
+        }
     }
 }
