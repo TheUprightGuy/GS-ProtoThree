@@ -75,6 +75,7 @@ public class TestMovement : MonoBehaviour
         if (transform.position.y <= -55.0f)
         {
             Fader.instance.FadeOut();
+            WhaleHandler.instance.ZeroOut();
         }
 
         if (freezeMe)

@@ -71,14 +71,14 @@ public class Movement : MonoBehaviour
         saddle.SetActive(false);
 
         WhaleHandler.instance.pickUpMC += PickUpMC;
-        WhaleHandler.instance.moveWhale += ZeroOut;
+        WhaleHandler.instance.zeroOut += ZeroOut;
         CallbackHandler.instance.unlockSaddle += UnlockSaddle;
         CallbackHandler.instance.addCollectableMan += UnlockNPC;
     }
     private void OnDestroy()
     {
         WhaleHandler.instance.pickUpMC -= PickUpMC;
-        WhaleHandler.instance.moveWhale -= ZeroOut;
+        WhaleHandler.instance.zeroOut -= ZeroOut;
         CallbackHandler.instance.unlockSaddle -= UnlockSaddle;
         CallbackHandler.instance.addCollectableMan -= UnlockNPC;
     }
