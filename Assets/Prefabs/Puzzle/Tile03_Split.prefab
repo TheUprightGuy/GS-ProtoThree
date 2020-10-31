@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 793617132258105509}
   m_Layer: 0
-  m_Name: Tile02_Split
+  m_Name: Tile03_Split
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7033779770662107058}
   - component: {fileID: 2876652231029271035}
   - component: {fileID: 224494765037284793}
+  - component: {fileID: 3037576093708781811}
   m_Layer: 0
   m_Name: TileBase
   m_TagString: Untagged
@@ -111,6 +112,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3037576093708781811
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2520019172163103936}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.1643816, z: 1}
+  m_Center: {x: 0, y: 0.0821908, z: 0}
 --- !u!1 &3042490962486482862
 GameObject:
   m_ObjectHideFlags: 0

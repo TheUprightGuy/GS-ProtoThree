@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4781230793740625984}
   - component: {fileID: 300811585136408073}
   - component: {fileID: 2367426315567395403}
+  - component: {fileID: 6633764118453969645}
   m_Layer: 0
   m_Name: TileBase
   m_TagString: Untagged
@@ -79,6 +80,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &6633764118453969645
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89985584906482482}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.1643816, z: 1}
+  m_Center: {x: 0, y: 0.0821908, z: 0}
 --- !u!1 &720083451040155740
 GameObject:
   m_ObjectHideFlags: 0

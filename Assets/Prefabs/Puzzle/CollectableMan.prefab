@@ -2750,7 +2750,6 @@ GameObject:
   - component: {fileID: 8620493562026106106}
   - component: {fileID: 3199614249055796261}
   - component: {fileID: 2882808412804065980}
-  - component: {fileID: 4861521594442606717}
   - component: {fileID: 7769235876926357930}
   - component: {fileID: 8226441162381187441}
   m_Layer: 0
@@ -2810,23 +2809,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4861521594442606717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9000995347147507264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 244e1926a6745e54094e80e71bfb1139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distToPlayer: 0
-  speaker: ShopOwner
-  dialogue:
-  - '"Please have a look at my wares."'
-  dialogueIndex: 0
 --- !u!136 &7769235876926357930
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2853,6 +2835,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251d809b37c736c4cb2030de1d1bbaae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distToPlayer: 0
+  speaker: Scared Man
+  dialogue:
+  - Thank you! I've been stuck down here for days. I'll join your camp!
+  dialogueIndex: 0
 --- !u!1 &9004182812685823324
 GameObject:
   m_ObjectHideFlags: 0

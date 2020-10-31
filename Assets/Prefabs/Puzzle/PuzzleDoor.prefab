@@ -1540,21 +1540,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4830019562150928825, guid: b572101777fe9554d9b9501e7d5912f0,
         type: 3}
-      propertyPath: CompletionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4830019562150928825, guid: b572101777fe9554d9b9501e7d5912f0,
-        type: 3}
-      propertyPath: CompletionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4830019562150928825, guid: b572101777fe9554d9b9501e7d5912f0,
-        type: 3}
-      propertyPath: CompletionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4830019562150928825, guid: b572101777fe9554d9b9501e7d5912f0,
-        type: 3}
       propertyPath: CompletionEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 0
       objectReference: {fileID: 0}
