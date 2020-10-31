@@ -1288,6 +1288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d85dee8f31c73546b8e82ce1ffae045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrowAnimator: {fileID: 0}
   whale: {fileID: 0}
   goal: {fileID: 0}
   objective: {fileID: 8677694752078118115}
@@ -3618,7 +3619,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8584244845269235077}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8584244845099067374}
+        m_MethodName: OnQuitPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8584244846177949573
 MonoBehaviour:
   m_ObjectHideFlags: 0

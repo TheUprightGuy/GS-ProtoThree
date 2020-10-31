@@ -68,7 +68,8 @@ public class DialogueScript : MonoBehaviour
         _msg.message = _msg.message.Replace("\\n", "\n");
         text = _msg.message;
         speaker.SetText("Tutorial");
-        dialogue.SetText("");
+        dialogue.SetText(" ");
+        dialogue.text = "";
         timer = _msg.timeout;
         skipKey = _msg.key;
 
@@ -83,7 +84,8 @@ public class DialogueScript : MonoBehaviour
     IEnumerator WriteDialogue()
     {
         animator.SetTrigger("PopIn");
-        dialogue.SetText("");
+        dialogue.SetText(" ");
+        dialogue.text = "";
 
         foreach (char n in text)
         {
