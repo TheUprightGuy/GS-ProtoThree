@@ -127,6 +127,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (EventHandler.instance.gameState.inMenu) return;
         if (orbiting)
         {
             animator.SetFloat("Movement", currentSpeed * islandMod / 2);
@@ -279,6 +280,7 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (EventHandler.instance.gameState.inMenu) return;
         desiredRoll = new Vector3(body.transform.eulerAngles.x, body.transform.eulerAngles.y, myRoll);
         body.transform.rotation = Quaternion.Slerp(body.transform.rotation, Quaternion.Euler(desiredRoll), Time.deltaTime * rotationSpeed);
         // Rot

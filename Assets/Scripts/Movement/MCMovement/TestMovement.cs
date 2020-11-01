@@ -62,6 +62,7 @@ public class TestMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (EventHandler.instance.gameState.inMenu) return;
         if (freezeMe)
         {
             safetyTimer -= Time.deltaTime;
@@ -128,6 +129,7 @@ public class TestMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (EventHandler.instance.gameState.inMenu) return;
         // Move Character
         rb.MovePosition(rb.position + transform.forward * currentSpeed * Time.fixedDeltaTime);
     }

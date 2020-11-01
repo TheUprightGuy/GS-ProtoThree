@@ -49,6 +49,7 @@ public class EventHandler : MonoBehaviour
         gameState.inMenu = true;
         gameState.gamePaused = true;
         gameState.inCinematic = false;
+        gameState.playerOnIsland = false;
         gameState.objectivesHighlighted = new List<int>();
     }
 

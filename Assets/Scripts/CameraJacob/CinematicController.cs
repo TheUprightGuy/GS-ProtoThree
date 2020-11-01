@@ -90,6 +90,7 @@ public class CinematicController : MonoBehaviour
     
     private void OnMenuOpened()
     {
+        if (EventHandler.instance.gameState.playerOnIsland) return;
         BlendLists[0].gameObject.SetActive(false);
         VCams[0].m_Priority = 11;
     }
