@@ -36,23 +36,28 @@ public class ObjData
     public class ObjDistribuition : MonoBehaviour
     {
 
+    public GameObject prefabTemplate;
 
+    [Header("Randomiser")]
     public int Seed = 69;
     public float minScale = 1.0f;
     public float maxScale = 1.0f;
 
+    public enum RandomiserType
+    {
+        CELLED,
+        PURE
+    }
+
+    public RandomiserType Randomiser = RandomiserType.CELLED;
+
     //Defines size of radius
+    [Tooltip("The ammount of objects will be density squared")][Header("Distribuition Control")]
     public float density = 10;
-
+    [Tooltip("The size in world units of each mesh square in Batched Render Mode")]
     public float CellSize = 5.0f;
-
-    //public LayerMask GrassMask;
-    public string GrassExclusionTag;
-
-    public LayerMask RayCastToHit;
-
-    public bool CastForTriggers = false;
-    public GameObject prefabTemplate;
+    [Tooltip("The maximum angle possible from the Transform up to the hit.normal")]
+    public float MaxTerrainIncline = 20.0f;
 
     public enum RenderingMode
     {
@@ -62,13 +67,11 @@ public class ObjData
 
     public RenderingMode RenderType;
 
-    public enum RandomiserType
-    {
-        CELLED,
-        PURE
-    }
+    [Header("Raycast Options")]
+    public string ExclusionTag;
+    public bool CastForTriggers = false;
+    public LayerMask RayCastToHit;
 
-    public RandomiserType Randomiser = RandomiserType.CELLED;
     
     [SerializeField]
     private List<List<ObjData>> batches;
@@ -136,6 +139,14 @@ public class ObjData
 
     public void PlaceObjMesh()
     {
+
+        if (RenderType == RenderingMode.INDIVIDUAL) //Destroy before hand to avoid raycast issues
+        {
+            for (int i = transform.childCount; i > 0; --i)
+                DestroyImmediate(transform.GetChild(0).gameObject);
+
+        }
+
         List<Vector3> PointList = new List<Vector3>();
         Debug.Log("Randomising Positions...");
         switch (Randomiser)
@@ -168,14 +179,13 @@ public class ObjData
         }
     }
 
+
     public void IndividualMesh(List<Vector3> PointList)
     {
 
         Vector2 startPos = new Vector2(transform.position.x - (transform.localScale.x / 2), transform.position.z - (transform.localScale.z / 2));
 
-        for (int i = transform.childCount; i > 0; --i)
-            DestroyImmediate(transform.GetChild(0).gameObject);
-
+    
 
         for (int i = 0; i < PointList.Count; i++)
         {
@@ -386,11 +396,17 @@ public class ObjData
                 }
 
 
-                if (results[i + j].collider.tag == GrassExclusionTag)//Make sure not hitting exclusion zone
+                if (results[i + j].collider.tag == ExclusionTag)//Make sure not hitting exclusion zone
                 {
                     break;
                 }
 
+                float hitIncline = Vector3.Angle(results[i + j].collider.gameObject.transform.up, results[i + j].normal);
+
+                if (hitIncline > MaxTerrainIncline) //If this hit point is greater than the maximum possible incline set by user
+                {
+                    break;
+                }
 
                 returnList.Add(results[i + j].point);
                 break; //Break from group so doesn't double add
