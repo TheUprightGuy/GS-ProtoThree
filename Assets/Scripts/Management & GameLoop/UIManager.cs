@@ -23,7 +23,8 @@ public class UIManager : MonoBehaviour
         WhaleHandler.instance.landingTooltip += LandingToggle;
         CallbackHandler.instance.toggleText += ToggleText;
         scale = landingButton.GetComponent<RectTransform>();
-        ToggleText();
+        Invoke("ToggleText", 0.1f);
+        //ToggleText();
     }
 
     private void OnDestroy()
