@@ -220,5 +220,15 @@ public class CallbackHandler : MonoBehaviour
             addCollectableMan();
         }
     }
+
+    public event Action showEndScreen;
+    public void ShowEndScreen()
+    {
+        if (showEndScreen != null)
+        {
+            showEndScreen();
+        }
+    }
+
     #endregion Tutorial
 }

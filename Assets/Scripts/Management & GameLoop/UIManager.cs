@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject landingButton;
     public GameObject dialogueUI;
+    public EndScreen endScreen;
     RectTransform scale;
     float scalar = 0.0f;
     float maxScalar = 0.2f;
@@ -22,6 +23,7 @@ public class UIManager : MonoBehaviour
     {
         WhaleHandler.instance.landingTooltip += LandingToggle;
         CallbackHandler.instance.toggleText += ToggleText;
+        CallbackHandler.instance.showEndScreen += EndScreen;
         scale = landingButton.GetComponent<RectTransform>();
         Invoke("ToggleText", 0.1f);
         //ToggleText();
@@ -31,6 +33,7 @@ public class UIManager : MonoBehaviour
     {
         WhaleHandler.instance.landingTooltip -= LandingToggle;
         CallbackHandler.instance.toggleText -= ToggleText;
+        CallbackHandler.instance.showEndScreen -= EndScreen;
     }
 
     public void LandingToggle(bool _toggle)
@@ -104,5 +107,11 @@ public class UIManager : MonoBehaviour
     public void ToggleText()
     {
         dialogueUI.SetActive(!dialogueUI.activeSelf);
+    }
+
+    public void EndScreen()
+    {
+        endScreen.gameObject.SetActive(true);
+        endScreen.Show();
     }
 }

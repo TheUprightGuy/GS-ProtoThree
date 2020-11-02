@@ -39,6 +39,7 @@ public class Movement : MonoBehaviour
     [Header("Upgrade Objects")]
     public GameObject saddle;
     public GameObject npc;
+    bool endScreen;
 
     #region Local Variables
     WhaleInfo whaleInfo;
@@ -124,6 +125,12 @@ public class Movement : MonoBehaviour
         WhaleHandler.instance.MoveToSaddle();
         EventHandler.instance.gameState.playerOnIsland = false;
         CompassRotation.instance.whale = this.transform;
+
+        if (npc.active && !endScreen)
+        {
+            CallbackHandler.instance.ShowEndScreen();
+            endScreen = true;
+        }
     }
     #endregion PickUp&DropOff
     // Update is called once per frame
