@@ -106,6 +106,7 @@ public class Movement : MonoBehaviour
         followCamera.enabled = false;
         player.freezeMe = false;
         EventHandler.instance.gameState.playerOnIsland = true;
+        CompassRotation.instance.whale = player.transform;
     }
     public void PickUpMC()
     {
@@ -122,6 +123,7 @@ public class Movement : MonoBehaviour
         followCamera.enabled = true;
         WhaleHandler.instance.MoveToSaddle();
         EventHandler.instance.gameState.playerOnIsland = false;
+        CompassRotation.instance.whale = this.transform;
     }
     #endregion PickUp&DropOff
     // Update is called once per frame
@@ -223,21 +225,24 @@ public class Movement : MonoBehaviour
             }
         }
 
-        // Landing Tooltip
-        WhaleHandler.instance.LandingTooltip(orbit.leashObject && CheckBelow() != Vector3.zero);
-        //DropOff
-        if (Input.GetKeyDown(InputHandler.instance.orbit))
+        if (!EventHandler.instance.gameState.gamePaused)
         {
-            if (orbit.leashObject && CheckBelow() != Vector3.zero)
+            // Landing Tooltip
+            WhaleHandler.instance.LandingTooltip(orbit.leashObject && CheckBelow() != Vector3.zero);
+            //DropOff
+            if (Input.GetKeyDown(InputHandler.instance.orbit))
             {
-                orbit.leashObject.GetComponent<MeshCollider>().convex = false;
-                Fader.instance.FadeOut(this);
-                orbiting = true;
-                WhaleHandler.instance.LandingTooltip(false);
-                if (!tutMessage)
+                if (orbit.leashObject && CheckBelow() != Vector3.zero)
                 {
-                    Invoke("Tutorials", 2.0f);
-                    tutMessage = true;
+                    orbit.leashObject.GetComponent<MeshCollider>().convex = false;
+                    Fader.instance.FadeOut(this);
+                    orbiting = true;
+                    WhaleHandler.instance.LandingTooltip(false);
+                    if (!tutMessage)
+                    {
+                        Invoke("Tutorials", 2.0f);
+                        tutMessage = true;
+                    }
                 }
             }
         }

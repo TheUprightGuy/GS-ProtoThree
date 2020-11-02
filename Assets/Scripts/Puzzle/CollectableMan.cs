@@ -47,6 +47,7 @@ public class CollectableMan : MonoBehaviour
         if (player && !waving)
         {
             CallbackHandler.instance.SetDialogue(speaker, dialogue[dialogueIndex]);
+            CallbackHandler.instance.NextMessage();
             animator.SetTrigger("Talking");
             Invoke("FinishDialogue", 10.0f);
         }

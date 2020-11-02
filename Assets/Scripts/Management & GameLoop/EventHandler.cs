@@ -60,6 +60,7 @@ public class EventHandler : MonoBehaviour
             gameState.inMenu = true;
             gameState.gamePaused = true;
             menuOpened?.Invoke();
+            WhaleHandler.instance.LandingTooltip(false);
         }
     }
 
