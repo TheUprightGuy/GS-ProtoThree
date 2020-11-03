@@ -5,8 +5,10 @@ using UnityEngine;
 [ExecuteAlways]
 public class LineSetup : MonoBehaviour
 {
-    public Transform LampModel;
+    public Transform tracker;
+    public Transform fallBackTracker;
     public Transform target;
+
     LineRenderer lr;
     CapsuleCollider cc;
     Vector3[] positions = new Vector3[2];
@@ -50,7 +52,7 @@ public class LineSetup : MonoBehaviour
         while (elapsedTime < timeToLerp)
         {
             positions[0] = Vector3.Lerp(transform.position, targetPos, (elapsedTime / timeToLerp));
-            lr.startWidth = LineWidthOverTime.Evaluate(elapsedTime / timeToLerp);
+            //lr.startWidth = LineWidthOverTime.Evaluate(elapsedTime / timeToLerp);
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
@@ -58,7 +60,7 @@ public class LineSetup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = LampModel.position;
+        transform.position = (tracker.gameObject.activeSelf) ? (tracker.position) : (fallBackTracker.position);
         if (Application.isPlaying) 
         {
             //positions[0] = target.position;
