@@ -2,21 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+public enum InputState
+{
+    KEYDOWN,
+    KEYHELD,
+    KEYUP
+}
+
+[System.Serializable]
+public class InputEvent : UnityEvent<InputState> {}
+
 public class VirtualInputs : MonoBehaviour
 {
-    public enum InputState
-    {
-        KEYDOWN,
-        KEYHELD,
-        KEYUP
-    }
+    
+
+
     [System.Serializable]
     public struct InputListener
     {
         public string NameForInput;
         public KeyCode KeyToListen;
-        public InputState TypeToListen;
-        public UnityEvent MethodToCall;
+       /// <summary>
+       /// MethodToCall must have parameter of type InputState
+       /// </summary>
+        public InputEvent MethodToCall;
     }
 
     public List<InputListener> PlayerInputs = new List<InputListener>();
@@ -36,30 +46,19 @@ public class VirtualInputs : MonoBehaviour
                 continue;
             }
 
-            switch (IJ.TypeToListen)
+            if (Input.GetKeyDown(IJ.KeyToListen))
             {
-                case InputState.KEYDOWN:
-                    if (Input.GetKeyDown(IJ.KeyToListen))
-                    {
-                        IJ.MethodToCall.Invoke();
-                    }
-                    break;
-                case InputState.KEYHELD:
-                    if (Input.GetKey(IJ.KeyToListen))
-                    {
-                        IJ.MethodToCall.Invoke();
-                    }
-                    break;
-                case InputState.KEYUP:
-                    if (Input.GetKeyUp(IJ.KeyToListen))
-                    {
-                        IJ.MethodToCall.Invoke();
-                    }
-                    break;
-                default:
-                    Debug.LogWarning(IJ.NameForInput + " Has not been assigned an InputType.");
-                    break;
+                IJ.MethodToCall.Invoke(InputState.KEYDOWN);
             }
+            else if (Input.GetKey(IJ.KeyToListen))
+            {
+                IJ.MethodToCall.Invoke(InputState.KEYHELD);
+            }
+            else if (Input.GetKeyUp(IJ.KeyToListen))
+            {
+                IJ.MethodToCall.Invoke(InputState.KEYUP);
+            }
+
         }
     }
 

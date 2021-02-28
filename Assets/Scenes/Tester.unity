@@ -276,7 +276,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &245212873
 GameObject:
@@ -305,8 +305,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245212873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 0.5, y: 4, z: 0.5}
+  m_LocalPosition: {x: 0, y: 2.28, z: 0.17}
+  m_LocalScale: {x: 0.5, y: 3.66456, z: 0.5}
   m_Children: []
   m_Father: {fileID: 842438274}
   m_RootOrder: 0
@@ -727,7 +727,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &842438273
 GameObject:
@@ -2607,43 +2607,31 @@ MonoBehaviour:
   PlayerInputs:
   - NameForInput: Forward
     KeyToListen: 119
-    TypeToListen: 1
     MethodToCall:
       m_PersistentCalls:
         m_Calls: []
   - NameForInput: Back
     KeyToListen: 115
-    TypeToListen: 1
     MethodToCall:
       m_PersistentCalls:
         m_Calls: []
   - NameForInput: Left
     KeyToListen: 97
-    TypeToListen: 1
     MethodToCall:
       m_PersistentCalls:
         m_Calls: []
   - NameForInput: Right
     KeyToListen: 100
-    TypeToListen: 1
     MethodToCall:
       m_PersistentCalls:
         m_Calls: []
-  - NameForInput: RunDown
+  - NameForInput: Run
     KeyToListen: 304
-    TypeToListen: 0
-    MethodToCall:
-      m_PersistentCalls:
-        m_Calls: []
-  - NameForInput: RunUp
-    KeyToListen: 304
-    TypeToListen: 2
     MethodToCall:
       m_PersistentCalls:
         m_Calls: []
   - NameForInput: Jump
     KeyToListen: 32
-    TypeToListen: 0
     MethodToCall:
       m_PersistentCalls:
         m_Calls: []
@@ -2662,12 +2650,16 @@ MonoBehaviour:
   PlayerState: 0
   walkSpeed: 2
   runSpeed: 4
+  inAirSpeed: 0.1
   jumpForce: 3.8
+  stickForce: 0
   GroundLayers:
     serializedVersion: 2
     m_Bits: 16183
-  GroundCheckDistance: 0.38
+  GroundCheckDistance: 0.25
+  GroundCheckRadius: 0.1
   GroundCheckStartOffset: {x: 0, y: 0, z: 0}
+  ParentToGround: 1
 --- !u!4 &5853718423908297843
 Transform:
   m_ObjectHideFlags: 0
@@ -2675,13 +2667,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5853718423908297801}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.395, z: -10.46}
-  m_LocalScale: {x: 0.33, y: 0.33, z: 0.33}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 4.56, z: 0.09}
+  m_LocalScale: {x: 0.33000004, y: 0.33, z: 0.33000004}
   m_Children:
   - {fileID: 6248230569510185175}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &5853718423908297846
 CapsuleCollider:
@@ -2711,7 +2703,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!4 &5893573581664231258
 Transform:
