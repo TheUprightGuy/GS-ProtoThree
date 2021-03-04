@@ -19,13 +19,17 @@ public class VirtualInputs : MonoBehaviour
 
 
     [System.Serializable]
-    public struct InputListener
+    public class InputListener
     {
         public string NameForInput;
         public KeyCode KeyToListen;
-       /// <summary>
-       /// MethodToCall must have parameter of type InputState
-       /// </summary>
+        public bool CallOnKeyDown = true;
+        public bool CallOnKeyHeld = true;
+        public bool CallOnKeyUp = true;
+        /// <summary>
+        /// MethodToCall must have parameter of type InputState
+        /// </summary>
+        [HideInInspector]
         public InputEvent MethodToCall;
     }
 
@@ -46,15 +50,15 @@ public class VirtualInputs : MonoBehaviour
                 continue;
             }
 
-            if (Input.GetKeyDown(IJ.KeyToListen))
+            if (Input.GetKeyDown(IJ.KeyToListen) && IJ.CallOnKeyDown)
             {
                 IJ.MethodToCall.Invoke(InputState.KEYDOWN);
             }
-            else if (Input.GetKey(IJ.KeyToListen))
+            else if (Input.GetKey(IJ.KeyToListen) && IJ.CallOnKeyHeld)
             {
                 IJ.MethodToCall.Invoke(InputState.KEYHELD);
             }
-            else if (Input.GetKeyUp(IJ.KeyToListen))
+            else if (Input.GetKeyUp(IJ.KeyToListen) && IJ.CallOnKeyUp)
             {
                 IJ.MethodToCall.Invoke(InputState.KEYUP);
             }

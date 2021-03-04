@@ -23,14 +23,27 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Forces")]
     public float walkSpeed = 2.0f;
+    public float maxWalkAcceleration = 10f;
+    [Space(20.0f)]
+    
     public float runSpeed = 6.0f;
-    public float inAirSpeed = 1.0f;
-    private float setSpeed;
+    public float maxRunAcceleration = 20f;
 
-    public float jumpForce = 5.0f;
+    [Space(20.0f)]
+    private float setSpeed;
+    private float setAccel;
+
+    [Space(20.0f)]
+    public float inAirSpeed = 1.0f;
+    public float maxAirAcceleration = 10.0f;
+    [Space(20.0f)]
+
+    public float jumpHeight = 5.0f;
+    [Space(20.0f)]
     public float stickForce = 1.0f;
 
-    
+    float maxGroundAngle = 40f;
+
     [Header("GroundChecks")]
     public LayerMask GroundLayers;
     public float GroundCheckDistance = 1.0f;
@@ -39,10 +52,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Misc")]
     public bool ParentToGround = true;
-    // Start is called before the first frame update
+
+
+
     void Start()
     {
         setSpeed = walkSpeed;
+        setAccel = maxWalkAcceleration;
 
         PlayerState = PlayerStates.IDLE;
 
@@ -56,21 +72,29 @@ public class PlayerMovement : MonoBehaviour
         VInputs.GetInputListener("Right").MethodToCall.AddListener(Right);
         VInputs.GetInputListener("Run").MethodToCall.AddListener(Run);
         VInputs.GetInputListener("Jump").MethodToCall.AddListener(Jump);
+
+        OnValidate();
     }
 
     private void Update()
     {
+        
         SetAnimations();
-        SetCurrentPlayerState();
     }
 
+    int stepsSinceGrounded = 0;
     Vector3 inputAxis = Vector3.zero;
-    // Update is called once per frame
     void FixedUpdate()
     {
-        MovementHandling(inputAxis);
+        SetCurrentPlayerState();
+        HandleMovement();
     }
 
+    float minGroundDotProduct;
+    private void OnValidate()
+    {
+        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
+    }
 
     void SetCurrentPlayerState()
     {
@@ -84,27 +108,28 @@ public class PlayerMovement : MonoBehaviour
             PlayerState = PlayerStates.MOVING;
         }
 
-        if (JUMPINGCheck())
-        {
-            PlayerState = PlayerStates.JUMPING;
-        }
-
         if (FALLINGCheck())
         {
             PlayerState = PlayerStates.FALLING;
         }
 
+        if (JUMPINGCheck())
+        {
+            PlayerState = PlayerStates.JUMPING;
+        }
 
+        
         if (CLIMBINGCheck()) //Currently disabled
         {
             PlayerState = PlayerStates.CLIMBING;
         }
     }
 
+
     #region PlayerStateChecks
     bool IDLECheck()
     {
-        return RB.velocity.magnitude == 0;
+        return RB.velocity.magnitude <= 0.1f;
     }
 
     bool MOVINGCheck()
@@ -118,61 +143,78 @@ public class PlayerMovement : MonoBehaviour
     }
     bool JUMPINGCheck()
     {
-        return RB.velocity.y > 0.0f && !IsGrounded();
+        float currenty = Vector3.Dot(RB.velocity, transform.up);
+        return currenty > 0.0f && !IsGrounded();
     }
     bool FALLINGCheck()
     {
-        return RB.velocity.y < 0.0f && !IsGrounded();
+        float currenty = Vector3.Dot(RB.velocity, transform.up);
+        return currenty < 0.0f && !IsGrounded();
     }
     #endregion
 
 
-    /// <summary>
-    /// Takes a Vector3 with the direction inputs as axis on the +/- scale
-    /// </summary>
-    /// <param name="_inputAxis">Will read each axis as an input, e.g x = 1 as left, x = -1 as right, etc</param>
-    void MovementHandling(Vector3 _inputAxis)
+    void HandleMovement()
     {
-        RaycastHit rh;
-
-        Physics.SphereCast(transform.position + GroundCheckStartOffset, GroundCheckRadius,
-            Vector3.down, out rh,
-            GroundCheckDistance, GroundLayers.value);
-
-
-
         switch (PlayerState)
         {
             case PlayerStates.IDLE:
             case PlayerStates.MOVING:
-                if (rh.collider != null && ParentToGround)
+                MoveOnXZ(setSpeed, setAccel);
+                if (inputAxis.y > 0)
                 {
-                    transform.parent = rh.transform;
+                    Jump();
                 }
-
-                RB.velocity = new Vector3( /*X*/ RB.velocity.x + (_inputAxis.x * setSpeed),
-                                           /*Y*/ RB.velocity.y,
-                                           /*Z*/ RB.velocity.z + (_inputAxis.z * setSpeed));
-
-                RB.velocity = Vector3.ClampMagnitude(RB.velocity, setSpeed);
-                
-                RB.velocity = new Vector3(RB.velocity.x, (inputAxis.y * jumpForce) - 0.1f,
-                    RB.velocity.z);
-
                 break;
-            
+            case PlayerStates.CLIMBING:
+                break;
             case PlayerStates.JUMPING:
             case PlayerStates.FALLING:
-                RB.velocity = new Vector3( /*X*/ RB.velocity.x + (_inputAxis.x * inAirSpeed),
-                                           /*Y*/ RB.velocity.y,
-                                           /*Z*/ RB.velocity.z + (_inputAxis.z * inAirSpeed));
-                transform.parent = null; //maybe disable this later? experiment
-
+                MoveOnXZ(inAirSpeed, maxAirAcceleration);
                 break;
             default:
                 break;
         }
+        inputAxis = Vector3.zero;
+    }
+
+    void MoveOnXZ(float speed, float accel)
+    {
+        Vector3 xAxis = Vector3.ProjectOnPlane(transform.forward, groundContactNormal);
+        Vector3 zAxis = Vector3.ProjectOnPlane(-transform.right, groundContactNormal);
+
+        float currentX = Vector3.Dot(RB.velocity, xAxis);
+        float currentZ = Vector3.Dot(RB.velocity, zAxis);
+
+        float acceleration = accel;
+        float maxSpeedChange = acceleration * Time.deltaTime;
+
+        Vector3 desiredVel = inputAxis;
+        desiredVel.y = 0;
+        desiredVel *= speed;
+
         
+
+        float newX =
+            Mathf.MoveTowards(currentX, desiredVel.x, maxSpeedChange);
+        float newZ =
+            Mathf.MoveTowards(currentZ, desiredVel.z, maxSpeedChange);
+
+        RB.velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+
+        if (!IsGrounded())
+        {
+            //RB.velocity -= groundContactNormal.normalized * stickForce;
+        }
+
+    }
+    void Jump()
+    {
+        float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+        Vector3 jumpDirection = (groundContactNormal + Vector3.up).normalized;
+        float alignedSpeed = Vector3.Dot(RB.velocity, jumpDirection);
+
+        RB.velocity += jumpDirection * jumpSpeed;
     }
 
     void SetAnimations()
@@ -183,97 +225,35 @@ public class PlayerMovement : MonoBehaviour
         anims.SetFloat("MovementSpeed", flatRBV.magnitude / runSpeed);
 
     }
-    #region InputMethods
 
+    #region InputMethods
 
     void Forward(InputState type)
     {
-        switch (type)
-        {
-            case InputState.KEYDOWN:
-                inputAxis.z = 1;
-                break;
-            case InputState.KEYHELD:
-                break;
-            case InputState.KEYUP:
-                inputAxis.z = 0;
-                break;
-            default:
-                break;
-        }
-        //MovementHandling(new Vector3(0, 0, 1));
+        inputAxis.x = 1;
     }
     void Back(InputState type)
     {
-        switch (type)
-        {
-            case InputState.KEYDOWN:
-                inputAxis.z = -1;
-                break;
-            case InputState.KEYHELD:
-                break;
-            case InputState.KEYUP:
-                inputAxis.z = 0;
-                break;
-            default:
-                break;
-        }
-        //MovementHandling(new Vector3(0, 0, -1));
+        inputAxis.x = -1;
+
     }
     void Left(InputState type)
     {
-        switch (type)
-        {
-            case InputState.KEYDOWN:
-                inputAxis.x = -1;
-                break;
-            case InputState.KEYHELD:
-                break;
-            case InputState.KEYUP:
-                inputAxis.x = 0;
-                break;
-            default:
-                break;
-        }
+        inputAxis.z = 1;
+
     }
     void Right(InputState type)
     {
-        switch (type)
-        {
-            case InputState.KEYDOWN:
-                inputAxis.x = 1;
-                break;
-            case InputState.KEYHELD:
-                break;
-            case InputState.KEYUP:
-                inputAxis.x = 0;
-                break;
-            default:
-                break;
-        }
-        //MovementHandling(new Vector3(1, 0, 0));
+        inputAxis.z = -1;
     }
     void Jump(InputState type)
     {
-        switch (type)
+        if (PlayerState == PlayerStates.MOVING)
         {
-            case InputState.KEYDOWN:
-                if (PlayerState == PlayerStates.MOVING)
-                {
-                    anims.SetTrigger("Jump");
+            anims.SetTrigger("Jump");
 
-                }
-                inputAxis.y = 1;
-                break;
-            case InputState.KEYHELD:
-                break;
-            case InputState.KEYUP:
-                inputAxis.y = 0;
-                break;
-            default:
-                break;
         }
-      
+        inputAxis.y = 1;
     }
     void Run(InputState type)
     {
@@ -281,27 +261,49 @@ public class PlayerMovement : MonoBehaviour
         {
             case InputState.KEYDOWN:
                 setSpeed = runSpeed;
+                setAccel = maxRunAcceleration;
                 break;
             case InputState.KEYUP:
                 setSpeed = walkSpeed;
+                setAccel = maxWalkAcceleration;
                 break;
             default:
                 break;
         }
     }
 
-
-
     #endregion InputMethods
 
-    #region Utility
     public bool IsGrounded()
     {
         RaycastHit rh;
         return Physics.SphereCast(transform.position + GroundCheckStartOffset, GroundCheckRadius,
-            Vector3.down ,out rh ,
+            Vector3.down, out rh,
             GroundCheckDistance, GroundLayers.value);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        EvalCollision(collision);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        EvalCollision(collision);
+    }
+
+    bool onGround;
+    Vector3 groundContactNormal;
+    private void EvalCollision(Collision collision)
+    {
+        Vector3 normal = collision.GetContact(0).normal;
+        if (normal.y >= minGroundDotProduct)
+        {
+            groundContactNormal = normal;
+        }
+    }
+    #region Utility
+
     private void OnDrawGizmos()
     {
         Vector3 offsetPos = transform.position + GroundCheckStartOffset;
@@ -310,9 +312,15 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawSphere(offsetPos, 0.1f);
 
         Gizmos.DrawLine(offsetPos, offsetPos + (Vector3.down * GroundCheckDistance));
+
+        Vector3 dir = Vector3.ProjectOnPlane(transform.forward, groundContactNormal);
+        Vector3 origin = transform.position;
+        origin.y -= transform.localScale.y / 2;
+        Gizmos.DrawLine(origin, origin + dir);
     }
 
     #endregion
+
 
 
 }
