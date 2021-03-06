@@ -277,9 +277,16 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded()
     {
         RaycastHit rh;
-        return Physics.SphereCast(transform.position + GroundCheckStartOffset, GroundCheckRadius,
+        if (Physics.SphereCast(transform.position + GroundCheckStartOffset, GroundCheckRadius,
             Vector3.down, out rh,
-            GroundCheckDistance, GroundLayers.value);
+            GroundCheckDistance, GroundLayers.value))
+        {
+            if (rh.normal.y >= minGroundDotProduct)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void OnCollisionEnter(Collision collision)
