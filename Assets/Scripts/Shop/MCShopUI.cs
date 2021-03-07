@@ -42,7 +42,7 @@ public class MCShopUI : MonoBehaviour
     public bool shopWindowOpen;
 
     public TMPro.TextMeshProUGUI cost;
-    public TMPro.TextMeshProUGUI name;
+    new public TMPro.TextMeshProUGUI name;
     public TMPro.TextMeshProUGUI description;
     public Image image;
 

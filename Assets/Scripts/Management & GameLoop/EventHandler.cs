@@ -46,8 +46,8 @@ public class EventHandler : MonoBehaviour
 
     private void OnAwake()
     {
-        gameState.inMenu = true;
-        gameState.gamePaused = true;
+        //gameState.inMenu = true;
+        //gameState.gamePaused = true;
         gameState.inCinematic = false;
         gameState.playerOnIsland = false;
         gameState.objectivesHighlighted = new List<int>();

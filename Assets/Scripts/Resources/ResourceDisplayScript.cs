@@ -38,7 +38,7 @@ public class ResourceDisplayScript : MonoBehaviour
         suppliesMax = supplyObjs.Count;
         provisionsMax = provisionObjs.Count;
         DisplayResources();
-        MCShopUI.instance.resourceCount.SetText(supplies.ToString());
+        //MCShopUI.instance.resourceCount.SetText(supplies.ToString());
     }
 
     private void Update()

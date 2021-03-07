@@ -15,4 +15,5 @@ MonoBehaviour:
   inMenu: 0
   gamePaused: 0
   inCinematic: 0
+  playerOnIsland: 0
   objectivesHighlighted: 

@@ -67,7 +67,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         desiredVec = body.transform.eulerAngles;
-        temp.SetActive(false);
+        //temp.SetActive(false);
         whaleInfo = CallbackHandler.instance.whaleInfo;
         saddle.SetActive(false);
 
@@ -235,7 +235,7 @@ public class Movement : MonoBehaviour
         if (!EventHandler.instance.gameState.gamePaused)
         {
             // Landing Tooltip
-            WhaleHandler.instance.LandingTooltip(orbit.leashObject && CheckBelow() != Vector3.zero);
+            //WhaleHandler.instance.LandingTooltip(orbit.leashObject && CheckBelow() != Vector3.zero);
             //DropOff
             if (Input.GetKeyDown(InputHandler.instance.orbit))
             {
